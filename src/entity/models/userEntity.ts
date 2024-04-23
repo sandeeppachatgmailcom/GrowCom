@@ -38,8 +38,7 @@ export interface academic {
     mob: string;  
     email: string;
     web: string;
-    role?: "user" | "Trainer" | "admin";
-    status?: "active" | "dead";
+    role?:"user"|"trainer"|"admin"|"student";
     deleted: boolean;
     verified: boolean;
     profileImage: string;
@@ -48,6 +47,10 @@ export interface academic {
     lastRevokeDate: Date;
     password:string,
     otp:string,
+    admin:boolean;
+    user:boolean;
+    student:boolean;
+    trainer:boolean;
     otpVerified:boolean;
     address?: address[];
     academics?: academic[];
