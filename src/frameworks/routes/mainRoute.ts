@@ -8,6 +8,12 @@ import { adminRouter } from './adminRoute';
 import { JwtTokenHandler } from '../services/jwtTokenhandler';
 const token = new  JwtTokenHandler ()
 
+export const allRoutes = {
+    ...adminRouter,
+    ...authRouter
+  };
+  
+
 export function mainRoute(router:Route) {
     
     

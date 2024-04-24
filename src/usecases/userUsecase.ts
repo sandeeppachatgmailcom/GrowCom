@@ -77,12 +77,12 @@ export class UserSocket implements userSocket {
     password: string,
     googleAuth: boolean
   ): Promise<userEntity | void |userEntity| { status: boolean; message: string }> {
-    console.log("login");
+     
     const x = await this.repo.findUser({ email });
     if (x) {
       const hashedPassword = x.password as string;
       if(googleAuth){ 
-        console.log('hihihih',x)
+      
         return x}
       const hashedPasswords = await this.passwordManager.comparePassword(
         password,
@@ -90,16 +90,16 @@ export class UserSocket implements userSocket {
       );
       console.log("afrter comaparing", hashedPasswords);
       if (hashedPasswords) {
-        console.log("inside hashed", hashedPassword);
+        
         const result = await this.repo.login({
           email,
           password: hashedPassword,
           googleAuth,
         });
-        console.log("result", result);
+         
         return result;
       } else {
-        console.log("else case", hashedPasswords);
+        
         return {status:false,message:'Wrong credential'}
       }
     }

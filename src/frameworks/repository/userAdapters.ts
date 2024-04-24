@@ -102,6 +102,10 @@ class MongoDb_UserActivity implements UserAdapters {
         try {
 
             const {email} = data
+            if(data?.admin)data.role='admin'
+            else if(data?.trainer) data.role='trainer'
+            else if(data?.student) data.role = 'student'
+            else data.role ='user'
             const result = await userModel.updateOne({email},{$set:data})
             const user = await userModel.findOne({email})
             if(user) return user

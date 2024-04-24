@@ -7,7 +7,7 @@ export class MongoDb_AdminAdapter implements adminAdapter{
 
     }
     async pending_Approval_Staff(): Promise<void | userEntity[]> {
-        const pendingUsers = await userModel.find()
+        const pendingUsers = await userModel.find({deleted:false})
          
         if (pendingUsers) return pendingUsers     
         else return  

@@ -67,7 +67,8 @@ export class UserController {
         );
         
         console.log(result,'result at controller ')
-        if (result?.status ){ 
+        const data  = JSON.parse(JSON.stringify(result))
+        if (data?.active ){ 
          
           const data = JSON.parse(JSON.stringify(result))
           req?.body?.token? res.cookie('manGrow', req.body.token.token ):''
@@ -128,9 +129,9 @@ export class UserController {
   getUsers(req:Req,res:Res,next:Next){
 
   }
-  savebasicProfile(req:Req,res:Res,next:Next){
-    const user =  this.userSocket.updateUserBasics(req.body)
-    res.json(req.body)
+  async savebasicProfile(req:Req,res:Res,next:Next){
+    const user =await  this.userSocket.updateUserBasics(req.body)
+    res.json(user)
   }
   async forgotPassword(req:Req,res:Res,next:Next){
     const {name,email} = req.body
@@ -145,6 +146,6 @@ export class UserController {
     const reply = JSON.parse(JSON.stringify(result))
     reply.changePassword=true
     console.log(reply,'reply')
-    res.json(reply)
+    res.status(200).json(reply)
   }  
 }

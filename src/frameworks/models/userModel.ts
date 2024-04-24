@@ -10,7 +10,7 @@ const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
     minlength: 3,
   },
   isAdmin:{type:Boolean,default:false,required:true},
-  active:{type:Boolean, default:false,required:true},
+  active:{type:Boolean, default:true,required:true},
   lastName: { type: String },
   email: { type: String, required: true, minlength: 4 },
   dateOfBirth: { type: Date },
