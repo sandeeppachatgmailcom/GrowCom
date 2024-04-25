@@ -1,4 +1,4 @@
-export  interface StudentBatch {
+export  interface StudentBatch_Model {
    batchId :string;
    batchName:string;
    deleted:boolean;

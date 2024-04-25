@@ -1,6 +1,6 @@
 import { promises } from "dns";
 
-export  interface InterFacehashedPassword {
+export  interface EncryptPasswordServices {
     hashPassword(password:string):Promise<string>,
     comparePassword(password:string,hashedPassword:string):Promise<boolean>
 }

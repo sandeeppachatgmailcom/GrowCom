@@ -1,6 +1,6 @@
-import { InterfaceCreateOtp } from "../../entity/services/otpServices";  
+import { OtpServices } from "../../entity/Services/OtpServices";  
 
-export class Custom_OtpGenerator implements InterfaceCreateOtp{
+export class Custom_OtpAdapter implements OtpServices{
 async generateOTP():Promise<string>{
 const numericChars = "0123456789"
 let otp = ""

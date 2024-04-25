@@ -1,4 +1,4 @@
-export interface academic {
+export interface Academic {
     course: string;
     starDate: Date;
     endDate: Date;
@@ -6,14 +6,14 @@ export interface academic {
     institute: string;
   }
   
-  export interface jobHistory {
+  export interface JobHistory {
     jobId: string;
     organaisation: string;
     startYear: Date;
     endYear: Date;
     role: string;
   }
-  export interface address {
+  export interface Address {
     houseName: string;
     houseNUmber: string;
     streetName: string;
@@ -21,7 +21,7 @@ export interface academic {
     pincode: string;
   }
   
-  export interface userEntity {
+  export interface UserEntity_Model {
     humanid: string;
     firstName: string;
     lastName: string;
@@ -52,9 +52,9 @@ export interface academic {
     student:boolean;
     trainer:boolean;
     otpVerified:boolean;
-    address?: address[];
-    academics?: academic[];
-    jobHistory?: jobHistory[];
+    address?: Address[];
+    academics?: Academic[];
+    jobHistory?: JobHistory[];
     otpExpiresAt?:boolean;
   }
   

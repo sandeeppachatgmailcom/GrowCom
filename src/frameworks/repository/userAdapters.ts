@@ -1,12 +1,12 @@
 // Import necessary modules and types
-import { UserAdapters } from "../../entity/repository/userRepository";
-import { userEntity } from "../../entity/models/User";
+import { UserRepository } from "../../entity/Repository/UserRepository";
+import { UserEntity_Model } from "../../entity/Models/User";
 import userModel from "../models/userModel";
-import { createdUser } from "../../entity/returnTypes/createdUser";
-import { validatedUser } from "../../entity/returnTypes/validatedUsed";
+import { createdUser } from "../../entity/ReturnTypes/createdUser";
+import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
 
 // Define and export UserAdapters class
-class MongoDb_UserActivity implements UserAdapters {
+class MongoDb_UserActivity implements UserRepository {
     constructor() {
         console.log('reached repo');
     }
@@ -28,7 +28,7 @@ class MongoDb_UserActivity implements UserAdapters {
             throw new Error("Failed to create user");
         }
     }
-    async findUser(data: { email: string; pasword: string; }): Promise<userEntity|void  > {
+    async findUser(data: { email: string; pasword: string; }): Promise<UserEntity_Model|void  > {
         try {
             console.log('reached find user')
             const {email} = data;
@@ -98,7 +98,7 @@ class MongoDb_UserActivity implements UserAdapters {
         }
     }
 
-    async updateUserBasics(data:userEntity):Promise< userEntity| void> {
+    async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model| void> {
         try {
 
             const {email} = data
@@ -117,7 +117,7 @@ class MongoDb_UserActivity implements UserAdapters {
          
     }
 
-    async getUsers(): Promise<void | userEntity[]>{
+    async getUsers(): Promise<void | UserEntity_Model[]>{
         const users = await userModel.find({role:'Trainers',active:true})
         if (users) return users 
         else return
