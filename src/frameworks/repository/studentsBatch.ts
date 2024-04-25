@@ -1,3 +1,3 @@
-import { studentBatch } from "../../entity/models/studentBatch";
-import { studentBatchesRepo } from "../../entity/repository/studentBatchesRepo";
+import { studentBatch } from "../../entity/models/StudentBatch";
+import { studentBatchesRepo } from "../../entity/repository/StudentBatchRepository";
 

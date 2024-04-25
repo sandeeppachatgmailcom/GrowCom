@@ -1,4 +1,4 @@
-import { Route, Req, Res, Next } from '../../entity/types/serverTypes'
+import { Route, Req, Res, Next } from '../types/serverTypes'
 
 export interface interFaceToken {
         

@@ -55,7 +55,7 @@ export interface academic {
     address?: address[];
     academics?: academic[];
     jobHistory?: jobHistory[];
-    
+    otpExpiresAt?:boolean;
   }
   
   

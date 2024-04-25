@@ -1,4 +1,4 @@
-import { academic, userEntity } from "../models/userEntity";
+import { academic, userEntity } from "../models/User";
 import { createdUser } from "../returnTypes/createdUser";
 
 export interface UserAdapters {

@@ -1,4 +1,4 @@
-import { interFaceToken } from "../../entity/services/tokenHandling";
+import { interFaceToken } from "../../entity/services/tokenServises";
 import jwt from 'jsonwebtoken'
 import { Route, Req, Res, Next } from '../../entity/types/serverTypes'
 import dotenv from "dotenv";

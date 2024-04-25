@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { userEntity } from "../../entity/models/userEntity";
+import { userEntity } from "../../entity/models/User";
 
 // Define the schema
 const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
@@ -37,6 +37,7 @@ const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
   city: { type: String },
   pincode: { type: String },
   otpVerified:{type:Boolean,default:false,required:true},
+  otpExpiresAt: { type: Date }, // Field to store the expiration time of OTP
   address:[
     {
       houseName: { type: String },
@@ -66,7 +67,33 @@ const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
   ],
 });
 
-// Define the model
+
+ 
 const userModel: Model<userEntity & Document> = mongoose.model('User', userSchema);
+
+
+
+userSchema.post<userEntity & Document>("save", function (doc) {
+  setTimeout(async () => {
+    try {
+      // Fetch the document again to ensure we have the latest data
+      const updatedDoc = await userModel.findById(doc._id);
+
+      if (updatedDoc) {
+        // Update the OTP (Replace this with your OTP generation logic)
+        updatedDoc.otp = ''; // Example: Generate a new OTP
+        
+       // Save the updated document
+        await updatedDoc.save();
+      } else {
+        console.error("Document not found");
+      }
+    } catch (err) {
+      console.error(`Error updating OTP: ${err}`);
+    }
+  }, 3 * 60 * 1000); // 3 minutes in milliseconds
+});
+ 
+
 
 export default userModel;

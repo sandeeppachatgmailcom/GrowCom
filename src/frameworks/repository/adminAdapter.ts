@@ -1,4 +1,4 @@
-import { userEntity } from "../../entity/models/userEntity";
+import { userEntity } from "../../entity/models/User";
 import { adminAdapter } from "../../entity/repository/adminRepoUseCases";
 import userModel from "../models/userModel";
 
