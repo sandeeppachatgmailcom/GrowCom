@@ -1,4 +1,4 @@
-export interface SerialNumbers{
+export interface SerialNumbers_Model{
     collectionName:string,
     prefix:string,
     nextNum:number,

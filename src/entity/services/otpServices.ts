@@ -1,3 +1,3 @@
-export interface InterfaceCreateOtp{
+export interface OtpServices{
     generateOTP(): Promise<string>;
  }

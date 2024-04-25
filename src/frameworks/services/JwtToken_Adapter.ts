@@ -1,8 +1,8 @@
-import { interFaceToken } from "../../entity/services/tokenServises";
+import { TokenServises } from '../../entity/Services/TokenServises';
 import jwt from 'jsonwebtoken'
-import { Route, Req, Res, Next } from '../../entity/types/serverTypes'
+import { Route, Req, Res, Next } from '../../entity/Types/ServerTypes'
 import dotenv from "dotenv";
-export class JwtTokenHandler implements interFaceToken{
+export class JwtToken_Adapter implements TokenServises{
      
     constructor(){
         dotenv.config();

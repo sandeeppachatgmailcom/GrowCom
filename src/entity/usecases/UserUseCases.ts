@@ -1,17 +1,17 @@
-import { userEntity } from "../models/User";
-import { validatedUser } from "../returnTypes/validatedUsed";
-import { Next } from "../types/serverTypes";
-import { createdUser } from "../returnTypes/createdUser";
+import { UserEntity_Model } from "../Models/User";
+import { validatedUser } from "../ReturnTypes/validatedUsed";
+import { Next } from "../Types/ServerTypes";
+import { createdUser } from "../ReturnTypes/createdUser";
 
 
-export interface userSocket{
+export interface UserUseCases{
     createUser(name:string,email:string,password:string,googleAuth:boolean,next:Next):Promise<string>
-    findUser(email:string,next:Next):Promise<userEntity | void>
-    login(email:string,password:string, googleAuth:boolean,next:Next):Promise<userEntity | void | {status:boolean,message:string}>
+    findUser(email:string,next:Next):Promise<UserEntity_Model | void>
+    login(email:string,password:string, googleAuth:boolean,next:Next):Promise<UserEntity_Model | void | {status:boolean,message:string}>
     saveOtpToCollection(data:{email:string,otp:string}):Promise<{status:boolean,message:string}|void>
-    updateUserBasics(data:userEntity):Promise< userEntity|void>
-    getUsers(): Promise<void|userEntity[]>
+    updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>
+    getUsers(): Promise<void|UserEntity_Model[]>
     forgotOtp (email:string,name:string):Promise<{success:boolean}>
-    resetPassword(email:string,password:string):Promise<userEntity|{status:boolean}>
+    resetPassword(email:string,password:string):Promise<UserEntity_Model|{status:boolean}>
     
 }

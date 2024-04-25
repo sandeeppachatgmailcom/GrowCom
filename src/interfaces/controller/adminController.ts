@@ -1,5 +1,5 @@
-import { Route, Req, Res, Next } from "../../entity/types/serverTypes";
-import { adminSocket } from "../../entity/usecases/AdminUseCase";
+import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
+import { adminSocket } from "../../entity/Usecases/AdminUseCase";
 
 
 export class  AdminController {

@@ -1,9 +1,9 @@
 import { userController } from "../injection/injection";
-import { Route, Req, Res, Next } from "../../entity/types/serverTypes";
+import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import express, { Router } from "express";
-import { JwtTokenHandler } from "../services/jwtTokenhandler";
+import { JwtToken_Adapter } from "../services/JwtToken_Adapter";
 
-const token = new JwtTokenHandler();
+const token = new JwtToken_Adapter();
 
 export function authRouter(router: Router) {
   // @ts-ignore

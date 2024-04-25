@@ -1,20 +1,20 @@
 import { stringify } from "querystring";
-import { Next } from "../entity/types/serverTypes";
-import { userSocket } from "../entity/usecases/UserUseCases";
-import { UserAdapters } from "../entity/repository/userRepository";
-import { validatedUser } from "../entity/returnTypes/validatedUsed";
-import { userEntity } from "../entity/models/User";
-import { InterFacehashedPassword } from "../entity/services/encryptPasswordServices";
-import { interfaceGenerateEmail } from "../entity/services/emailServices";
-import { InterfaceCreateOtp } from "../entity/services/otpServices";
-import MongoDb_UserActivity from "../frameworks/repository/userAdapters";
+import { Next } from "../entity/Types/ServerTypes";
+import { UserUseCases } from "../entity/Usecases/UserUseCases";
+import { UserRepository } from "../entity/Repository/UserRepository";
+import { validatedUser } from "../entity/ReturnTypes/validatedUsed";
+import { UserEntity_Model } from "../entity/Models/User";
+import { EncryptPasswordServices } from "../entity/Services/EncryptPasswordServices";
+import { EmailServices } from "../entity/Services/EmailServices";
+import { OtpServices } from "../entity/Services/OtpServices";
 
-export class UserSocket implements userSocket {
+
+export class UserSocket implements UserUseCases {
   constructor(
-    private repo: UserAdapters,
-    private passwordManager: InterFacehashedPassword,
-    private emailer: interfaceGenerateEmail,
-    private otpGenerator: InterfaceCreateOtp
+    private repo: UserRepository,
+    private passwordManager: EncryptPasswordServices,
+    private emailer: EmailServices,
+    private otpGenerator: OtpServices
   ) {
     console.log("useCase Connect");
   }
@@ -41,7 +41,7 @@ export class UserSocket implements userSocket {
   async findUser(
     email: string,
     next: Next
-  ): Promise<userEntity | void> {
+  ): Promise<UserEntity_Model | void> {
     console.log("find User");
     const result = await this.repo.findUser({ email });
     if(result) {return result} else return  ;
@@ -76,7 +76,7 @@ export class UserSocket implements userSocket {
     email: string,
     password: string,
     googleAuth: boolean
-  ): Promise<userEntity | void |userEntity| { status: boolean; message: string }> {
+  ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }> {
      
     const x = await this.repo.findUser({ email });
     if (x) {
@@ -104,11 +104,11 @@ export class UserSocket implements userSocket {
       }
     }
   }
-  async updateUserBasics(data:userEntity):Promise< userEntity|void>{
+  async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>{
     const result = await this.repo.updateUserBasics(data)
     return result;  
   }
-  async getUsers(): Promise<void|userEntity[]>{
+  async getUsers(): Promise<void|UserEntity_Model[]>{
     const user =await this.repo.getUsers();
     if(user) return user 
     else return 
@@ -128,7 +128,7 @@ export class UserSocket implements userSocket {
     }
     
   }
-  async resetPassword(email:string,password:string):Promise<userEntity|{status:boolean}>{
+  async resetPassword(email:string,password:string):Promise<UserEntity_Model|{status:boolean}>{
     const hasedpassword = await this.passwordManager.hashPassword(password);
     const result = await this.repo.createUser({
       name:'',

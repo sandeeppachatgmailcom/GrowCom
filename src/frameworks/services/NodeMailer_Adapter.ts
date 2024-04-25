@@ -1,8 +1,8 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { interfaceGenerateEmail } from "../../entity/services/emailServices";
+import { EmailServices } from "../../entity/Services/EmailServices";
 
-export class NodeMailer implements interfaceGenerateEmail {
+export class NodeMailer_Adapter implements EmailServices {
   private transporter: nodemailer.Transporter;
 
   constructor() {

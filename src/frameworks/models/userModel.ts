@@ -1,8 +1,8 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { userEntity } from "../../entity/models/User";
+import { UserEntity_Model } from "../../entity/Models/User";
 
 // Define the schema
-const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
+const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({
   humanid: { type: String },
   firstName: {
     type: String,
@@ -69,11 +69,11 @@ const userSchema: Schema<userEntity & Document> = new mongoose.Schema({
 
 
  
-const userModel: Model<userEntity & Document> = mongoose.model('User', userSchema);
+const userModel: Model<UserEntity_Model & Document> = mongoose.model('User', userSchema);
 
 
 
-userSchema.post<userEntity & Document>("save", function (doc) {
+userSchema.post<UserEntity_Model & Document>("save", function (doc) {
   setTimeout(async () => {
     try {
       // Fetch the document again to ensure we have the latest data
