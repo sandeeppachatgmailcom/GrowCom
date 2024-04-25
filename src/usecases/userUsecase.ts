@@ -1,12 +1,12 @@
 import { stringify } from "querystring";
 import { Next } from "../entity/types/serverTypes";
-import { userSocket } from "../entity/usecases/userInterface";
-import { UserAdapters } from "../entity/repository/userUsecases";
+import { userSocket } from "../entity/usecases/UserUseCases";
+import { UserAdapters } from "../entity/repository/userRepository";
 import { validatedUser } from "../entity/returnTypes/validatedUsed";
-import { userEntity } from "../entity/models/userEntity";
-import { InterFacehashedPassword } from "../entity/services/hashedPassword";
-import { interfaceGenerateEmail } from "../entity/services/emailGenerator";
-import { InterfaceCreateOtp } from "../entity/services/otpGenerator";
+import { userEntity } from "../entity/models/User";
+import { InterFacehashedPassword } from "../entity/services/encryptPasswordServices";
+import { interfaceGenerateEmail } from "../entity/services/emailServices";
+import { InterfaceCreateOtp } from "../entity/services/otpServices";
 import MongoDb_UserActivity from "../frameworks/repository/userAdapters";
 
 export class UserSocket implements userSocket {

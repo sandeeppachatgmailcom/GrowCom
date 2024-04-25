@@ -1,8 +1,8 @@
 
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { studentBatch } from "../../entity/models/studentBatch";
+import { StudentBatch } from "../../entity/models/studentBatch";  
 
-const schemaStudentsBatch:Schema<studentBatch&Document> =new  mongoose.Schema({
+const schemaStudentsBatch:Schema<StudentBatch &Document> =new  mongoose.Schema({
 batchId :{type:String,required:true },
 batchName:{type:String,required:true },
 deleted:{type:Boolean,required:true,default:false},
@@ -18,5 +18,5 @@ BatchType:{type:String,required:true,default:'remote'},
 edited:{type:Boolean,required:true,default:false}
 })
 
-const studentBatchModel:Model<studentBatch & Document> = mongoose.model('studentBatch',schemaStudentsBatch)
+const studentBatchModel:Model<StudentBatch & Document> = mongoose.model('studentBatch',schemaStudentsBatch)
 export default studentBatchModel;

@@ -1,4 +1,4 @@
-import { InterfaceCreateOtp } from "../../entity/services/otpGenerator";  
+import { InterfaceCreateOtp } from "../../entity/services/otpServices";  
 
 export class Custom_OtpGenerator implements InterfaceCreateOtp{
 async generateOTP():Promise<string>{

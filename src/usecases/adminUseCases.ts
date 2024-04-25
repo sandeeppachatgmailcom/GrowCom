@@ -1,6 +1,6 @@
-import { userEntity } from "../entity/models/userEntity";
+import { userEntity } from "../entity/models/User";
 import { adminAdapter } from "../entity/repository/adminRepoUseCases";
-import { adminSocket } from "../entity/usecases/adminSocket";
+import { adminSocket } from "../entity/usecases/AdminUseCase";
 
 export class AdminSocket implements adminSocket{
      

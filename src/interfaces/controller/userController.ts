@@ -1,7 +1,7 @@
 import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/types/serverTypes";
-import { userSocket } from "../../entity/usecases/userInterface";
-import { userEntity } from "../../entity/models/userEntity";
+import { userSocket } from "../../entity/usecases/UserUseCases";
+import { userEntity } from "../../entity/models/User";
 
 export class UserController {
   private userSocket: userSocket;

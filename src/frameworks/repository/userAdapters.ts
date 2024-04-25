@@ -1,6 +1,6 @@
 // Import necessary modules and types
-import { UserAdapters } from "../../entity/repository/userUsecases";
-import { userEntity } from "../../entity/models/userEntity";
+import { UserAdapters } from "../../entity/repository/userRepository";
+import { userEntity } from "../../entity/models/User";
 import userModel from "../models/userModel";
 import { createdUser } from "../../entity/returnTypes/createdUser";
 import { validatedUser } from "../../entity/returnTypes/validatedUsed";

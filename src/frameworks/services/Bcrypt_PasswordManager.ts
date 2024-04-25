@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { InterFacehashedPassword } from '../../entity/services/hashedPassword'  
+import { InterFacehashedPassword } from '../../entity/services/encryptPasswordServices'  
 
 export class Bcrypt_PasswordManager implements InterFacehashedPassword {
 

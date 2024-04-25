@@ -7,7 +7,8 @@ import { Custom_OtpGenerator } from "../services/Custom_OtpGenerator";
 import { MongoDb_AdminAdapter } from "../repository/adminAdapter";
 import { AdminSocket } from "../../usecases/adminUseCases";
 import { AdminController } from "../../interfaces/controller/adminController";
-
+import NpmModule from "../webServer/nodeServer";
+import MongoDB from "../webServer/mongoDB"; 
 
 const otp_Adapter = new Custom_OtpGenerator()
 const email_Adapter = new NodeMailer()
@@ -23,4 +24,6 @@ const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,ot
 const adminController = new AdminController(adminSocket)
 const userController = new UserController(userSocket)
 
-export{userController,adminController };
+const Nodeserver = new NpmModule()
+const MongoServer = new MongoDB()
+export{userController,adminController,Nodeserver ,MongoServer};
