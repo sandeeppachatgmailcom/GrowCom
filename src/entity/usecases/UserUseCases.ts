@@ -12,6 +12,6 @@ export interface UserUseCases{
     updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>
     getUsers(): Promise<void|UserEntity_Model[]>
     forgotOtp (email:string,name:string):Promise<{success:boolean}>
-    resetPassword(email:string,password:string):Promise<UserEntity_Model|{status:boolean}>
+    resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}>
     
 }

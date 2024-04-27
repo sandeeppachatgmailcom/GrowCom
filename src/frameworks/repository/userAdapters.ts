@@ -11,15 +11,16 @@ class MongoDb_UserActivity implements UserRepository {
         console.log('reached repo');
     }
 
-    async createUser(data: { name: string; email: string; password: string; otp:string ,googleAuth:boolean }): Promise<createdUser | void> {
+    async createUser(data: { firstName: string; email: string; password: string; otp:string ,googleAuth:boolean }): Promise<createdUser | void> {
         try {
             console.log('reached repository');
-            const { name, email, password,otp,googleAuth } = data;
-            console.log('reached crate',password) 
-            const result = await userModel.updateOne({ email:email }, { $set: { firstName: name, email:email, password: password,otp:otp,otpVerified:googleAuth } }, { upsert: true });
+            const { firstName, email, password,otp,googleAuth } = data;
+            const name = firstName;
+            console.log('reached crate',data) 
+            const result = await userModel.updateOne({ email:email }, { $set: { firstName: firstName, email:email, password: password,otp:otp,otpVerified:googleAuth } }, { upsert: true });
             console.log(result, 'resulted');
             if (result.upsertedCount > 0) {
-                return {name,email,password,status:true};
+                return {name  ,email,password,status:true};
             } else {
                 return {name,email,password,status:false};
             }

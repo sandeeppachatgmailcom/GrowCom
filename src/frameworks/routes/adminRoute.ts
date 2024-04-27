@@ -139,5 +139,49 @@ export function adminRouter(router: Router){
         } catch (error) {}
       });   
 
+
+
+          /**
+ * @swagger
+ * /admin/createBatch:
+ *   post:
+ *     summary: create a new batch
+ *     description: creates a new batch , .
+ *     responses:
+ *       '200':
+ *         description: A list of pending staff members retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: The ID of the pending staff member.
+ *                   name:
+ *                     type: string
+ *                     description: The name of the pending staff member.
+ *                   email:
+ *                     type: string
+ *                     format: email
+ *                     description: The email address of the pending staff member.
+ *                   role:
+ *                     type: string
+ *                     description: The role of the pending staff member.
+ * 
+ * 
+ *       '404':
+ *         description: No pending staff members found.
+ *       '500':
+ *         description: Internal server error.
+ */
+    router.post(adminApis.createBatch,(req: Req, res: Res, next: Next) => {
+      try {
+          adminController.postCreateBatch(req, res, next);
+      } catch (error) {}
+    }); 
+
     return router
 }

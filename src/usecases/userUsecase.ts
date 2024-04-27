@@ -19,7 +19,7 @@ export class UserSocket implements UserUseCases {
     console.log("useCase Connect");
   }
   async createUser(
-    name: string,
+    firstName: string,
     email: string,
     password: string,
     googleAuth:boolean,
@@ -28,9 +28,9 @@ export class UserSocket implements UserUseCases {
     console.log("useCase Connect");
     const hasedpassword = await this.passwordManager.hashPassword(password);
     const userOtp = await this.otpGenerator.generateOTP();
-    const sentMail = await this.emailer.sendEmailVerification(name,email,userOtp)
+    const sentMail = await this.emailer.sendEmailVerification(firstName,email,userOtp)
     const result = await this.repo.createUser({
-      name,
+      firstName,
       email,
       password: hasedpassword,
       otp: userOtp,
@@ -75,14 +75,15 @@ export class UserSocket implements UserUseCases {
   async login(
     email: string,
     password: string,
-    googleAuth: boolean
+    googleAuth: boolean,
+    next:Next
   ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }> {
      
     const x = await this.repo.findUser({ email });
     if (x) {
       const hashedPassword = x.password as string;
       if(googleAuth){ 
-      
+      console.log(x,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
         return x}
       const hashedPasswords = await this.passwordManager.comparePassword(
         password,
@@ -102,6 +103,9 @@ export class UserSocket implements UserUseCases {
         
         return {status:false,message:'Wrong credential'}
       }
+    }
+    else{
+      return{status:false,message:'user not found'}
     }
   }
   async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>{
@@ -128,10 +132,10 @@ export class UserSocket implements UserUseCases {
     }
     
   }
-  async resetPassword(email:string,password:string):Promise<UserEntity_Model|{status:boolean}>{
+  async resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}>{
     const hasedpassword = await this.passwordManager.hashPassword(password);
     const result = await this.repo.createUser({
-      name:'',
+      firstName,
       email,
       password: hasedpassword,
       otp:'' ,

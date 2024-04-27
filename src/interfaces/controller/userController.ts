@@ -1,25 +1,25 @@
 import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
-import { userSocket } from "../../entity/Usecases/UserUseCases";
-import { userEntity } from "../../entity/Models/User";
+import { UserSocket } from "../../usecases/userUsecase";  
+import { UserEntity_Model } from "../../entity/Models/User";
 
 export class UserController {
-  private userSocket: userSocket;
+  private userSocket: UserSocket;
 
-  constructor(userSocket: userSocket) {
+  constructor(userSocket: UserSocket) {
       this.userSocket = userSocket;
   }
 
   async createUser(req: Req, res: Res, next: Next) {
     try {
-      const { name, email, password,googleAuth } = req.body;
+      const {firstName, email, password,googleAuth } = req.body;
       const exist = await this.userSocket.findUser(email, next);
 
       if (this.isValidEmail(email) && this.validatePassword(password)) {
         if (!exist?.email) {
           console.log(exist, "exist");
           const result = await this.userSocket.createUser(
-            name,
+            firstName,
             email,
             password,
             googleAuth,
@@ -142,7 +142,9 @@ export class UserController {
   }
   async resetPassword (req:Req,res:Res,next:Next){
     const {password ,email } = req.body
-    const result= await this.userSocket.resetPassword(email,password)
+    const user = await this.userSocket.findUser(email,next) 
+     const {firstName }= user as UserEntity_Model
+    const result= await this.userSocket.resetPassword(firstName,email,password)
     const reply = JSON.parse(JSON.stringify(result))
     reply.changePassword=true
     console.log(reply,'reply')

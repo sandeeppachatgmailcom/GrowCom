@@ -251,7 +251,7 @@ export function authRouter(router: Router) {
    *         description: Internal server error.
    */
 
-  router.get("/getlogin",token.createJwtToken,(req: Req, res: Res, next: Next) => {
+  router.get("/getlogin",token.verifyToken,(req: Req, res: Res, next: Next) => {
       try {
         token.verifyToken, userController.login(req, res, next);
       } catch (error) {}
