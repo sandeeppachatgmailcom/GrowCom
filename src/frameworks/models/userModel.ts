@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { UserEntity_Model } from "../../entity/Models/User";
+import { UserEntity_Model } from "../../entity/models/User";
 
 // Define the schema
 const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({

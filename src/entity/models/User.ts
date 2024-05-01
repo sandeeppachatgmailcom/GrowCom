@@ -45,7 +45,7 @@ export interface Academic {
     approvedBy: string;
     approvedDate: Date;
     lastRevokeDate: Date;
-    password:string,
+    password?:string,
     otp:string,
     admin:boolean;
     user:boolean;

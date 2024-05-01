@@ -1,4 +1,4 @@
-import { UserEntity_Model } from "../../entity/Models/User";
+import { UserEntity_Model } from "../../entity/models/User";
 import { AdminRepository } from "../../entity/Repository/AdminRepository";
 import userModel from "../models/userModel";
 

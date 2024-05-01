@@ -1,8 +1,8 @@
-import { StudentBatch_Model } from "../../entity/Models/StudentBatch";
-import { StudentBatchRepository } from "../../entity/Repository/StudentBatchRepository";
+import { StudentBatch_Model } from "../../entity/models/studentBatch";
+import { StudentBatchRepository } from "../../entity/repository/StudentBatchRepository";
 import mongoose from "mongoose";
 import studentBatchModel from "../models/studentsBatch";
-import { SerialNumbersRepository } from "../../entity/Repository/SerialNumberRepository";
+import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
 
 export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     constructor(
@@ -14,7 +14,7 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
         const {batchId} = data
         let tempbatchID =   {}
         !batchId.length? tempbatchID  = await this.indexRepo.getIndex({collectionName:'studentsBatch'}) :''
-        const batch =await studentBatchModel.findOneAndUpdate({tempbatchID},{$set:data},{upsert:true})   
+        const batch =await studentBatchModel.findOneAndUpdate({tempbatchID,deleted:false},{$set:data},{upsert:true})   
         console.log(batch)
     }
     async deleteStudentBatch(data: { batchid: string; }): Promise< void | StudentBatch_Model> {

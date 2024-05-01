@@ -10,41 +10,58 @@ import { adminApis } from '../../interfaces/apis/adminapi';
 
 
 export function adminRouter(router: Router){
-   /**
+     /**
+/**
  * @swagger
- *  /admin/listBatches:
- *   get:
- *     summary: Get List of Batches
- *     description: Retrieve a list of batches from the admin dashboard.
+ * /admin/createVenue:
+ *   post:
+ *     summary: Create a new venue
+ *     description: Creates a new venue with the provided name. If the venue already exists, a message will be generated along with the existing venue details and the status will be set to false.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               venueName:
+ *                 type: string
+ *                 description: The name of the venue to be created.
  *     responses:
  *       '200':
- *         description: A list of batches retrieved successfully.
+ *         description: Venue created successfully.
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                     description: The ID of the batch.
- *                   name:
- *                     type: string
- *                     description: The name of the batch.
- *                   startDate:
- *                     type: string
- *                     format: date
- *                     description: The start date of the batch.
- *                   endDate:
- *                     type: string
- *                     format: date
- *                     description: The end date of the batch.
- *       '404':
- *         description: No batches found.
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   description: Status of the operation.
+ *                 message:
+ *                   type: string
+ *                   description: Message indicating success or failure.
+ *                 venueDetails:
+ *                   type: object
+ *                   properties:
+ *                     venueName:
+ *                       type: string
+ *                       description: The name of the venue.
+ *                     details:
+ *                       type: string
+ *                       description: Details about the venue.
+ *       '400':
+ *         description: Bad request, invalid input.
  *       '500':
  *         description: Internal server error.
  */
+router.post('/createVenue',(req: Req, res: Res, next: Next) => {
+  try {
+    console.log('helooooo reached router')
+      adminController.postCreateVenue(req, res, next);
+  } catch (error) {}
+});   
+
     
     router.get('/listBatches',(req: Req, res: Res, next: Next) => {
         try {

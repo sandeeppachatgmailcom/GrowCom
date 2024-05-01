@@ -1,9 +1,10 @@
 // Import necessary modules and types
-import { UserRepository } from "../../entity/Repository/UserRepository";
-import { UserEntity_Model } from "../../entity/Models/User";
+import { UserRepository } from "../../entity/repository/userRepository";    
+import { UserEntity_Model } from "../../entity/models/User";
 import userModel from "../models/userModel";
 import { createdUser } from "../../entity/ReturnTypes/createdUser";
 import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
+import { ValidHumanReturnTypes } from "../../entity/ReturnTypes/validHuman";
 
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
@@ -33,7 +34,23 @@ class MongoDb_UserActivity implements UserRepository {
         try {
             console.log('reached find user')
             const {email} = data;
+            const user = await userModel.findOne({email},{password:0})
+            console.log(user,'find user')
+            if(user){
+                return user
+            } 
+            else return 
+            
+        } catch (err) {
+            console.log(err)
+        }   
+    }
+    async findUserWithPassword(data: { email: string; pasword: string; }): Promise<UserEntity_Model|void  > {
+        try {
+            console.log('reached find user')
+            const {email} = data;
             const user = await userModel.findOne({email})
+            console.log(user,'find user')
             if(user){
                 return user
             } 
@@ -48,7 +65,7 @@ class MongoDb_UserActivity implements UserRepository {
         try {
             const {email,password,googleAuth} = data
             if(googleAuth){
-                const user = await userModel.findOne({email})
+                const user = await userModel.findOne({email},{password:0})
                 if(user) user.verified=true
                 if (user?.active){
                     return user
@@ -108,7 +125,7 @@ class MongoDb_UserActivity implements UserRepository {
             else if(data?.student) data.role = 'student'
             else data.role ='user'
             const result = await userModel.updateOne({email},{$set:data})
-            const user = await userModel.findOne({email})
+            const user = await userModel.findOne({email},{password:0})
             if(user) return user
             else return
 
@@ -117,13 +134,20 @@ class MongoDb_UserActivity implements UserRepository {
         }  
          
     }
-
+    
     async getUsers(): Promise<void | UserEntity_Model[]>{
-        const users = await userModel.find({role:'Trainers',active:true})
+        const users = await userModel.find({active:true})
         if (users) return users 
         else return
     }
-
+    async getActiveTrainers(): Promise<void | ValidHumanReturnTypes[]> {
+        const result = await userModel.find({role:'Trainer',active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
+        const users = JSON.parse(JSON.stringify(result))
+        console.log(users,'users.................')
+        return users
+    }  
+        
+ 
 }
 
 // Export the UserAdapters class

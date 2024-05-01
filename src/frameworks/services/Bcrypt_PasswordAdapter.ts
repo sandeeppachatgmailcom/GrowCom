@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { EncryptPasswordServices } from '../../entity/Services/EncryptPasswordServices'  
+import { EncryptPasswordServices } from '../../entity/services/encryptPasswordServices'  
 
 export class Bcrypt_PasswordAdapter implements EncryptPasswordServices {
 

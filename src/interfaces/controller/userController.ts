@@ -1,7 +1,7 @@
 import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
-import { UserSocket } from "../../usecases/userUsecase";  
-import { UserEntity_Model } from "../../entity/Models/User";
+import { UserSocket } from "../../usecases/UserSocket";  
+import { UserEntity_Model } from "../../entity/models/User";
 
 export class UserController {
   private userSocket: UserSocket;
@@ -39,10 +39,12 @@ export class UserController {
       const { email, otp,resetPaaword } = req.body;
       const result = await this.userSocket.findUser(email, next);
       if (result) {
+        console.log(result,'result user')
         if (result?.otp == otp) {
           result.otpVerified  =  true;
           result.otp = '';
           const updateResult = await this.userSocket.updateUserBasics(result)
+          console.log(updateResult,'updated user')
           const reply = JSON.parse(JSON.stringify(updateResult))
           reply.resetPaaword =  resetPaaword
            
@@ -72,7 +74,7 @@ export class UserController {
          
           const data = JSON.parse(JSON.stringify(result))
           req?.body?.token? res.cookie('manGrow', req.body.token.token ):''
-          req?.body?.token? data.password =req.body.token.token as string :''    
+          
           res.status(200).json(data);
         }
 
