@@ -1,4 +1,4 @@
-import { TokenServises } from '../../entity/Services/TokenServises';
+import { TokenServises } from '../../entity/services/tokenServises';
 import jwt from 'jsonwebtoken'
 import { Route, Req, Res, Next } from '../../entity/Types/ServerTypes'
 import dotenv from "dotenv";
@@ -16,11 +16,9 @@ export class JwtToken_Adapter implements TokenServises{
         next()
     }
   
-    
-
     async verifyToken(req:Req,res:Res,next:Next):Promise<Next|void>{
         const token = req.cookies['manGrow']
-        console.log(token, process.env.JWT_VERIFICATION_KEY ,'token, process.env.JWT_VERIFICATION_KEY ')
+        console.log(req.body,'token, process.env.JWT_VERIFICATION_KEY ')
         if(token){
              const verified = await jwt.verify(token, process.env.JWT_VERIFICATION_KEY  as string);
              const temp = {
@@ -28,6 +26,7 @@ export class JwtToken_Adapter implements TokenServises{
                 ...JSON.parse(JSON.stringify(verified))
             };
             req.body= temp;
+            console.log(temp,'temptemptemptemptemp')
             next()
             }
             else{

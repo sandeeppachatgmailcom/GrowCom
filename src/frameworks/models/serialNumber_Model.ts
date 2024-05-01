@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema , Document, Mongoose } from "mongoose";
-import { SerialNumbers_Model } from "../../entity/Models/SerialNumbers";  
+import { SerialNumbers_Model } from "../../entity/models/SerialNumbers";  
 
 
 const SchemaSerialNumber:Schema<SerialNumbers_Model & Document>  =new  mongoose.Schema({

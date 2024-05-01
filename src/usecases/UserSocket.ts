@@ -1,13 +1,13 @@
 import { stringify } from "querystring";
 import { Next } from "../entity/Types/ServerTypes";
-import { UserUseCases } from "../entity/Usecases/UserUseCases";
-import { UserRepository } from "../entity/Repository/UserRepository";
-import { validatedUser } from "../entity/ReturnTypes/validatedUsed";
-import { UserEntity_Model } from "../entity/Models/User";
-import { EncryptPasswordServices } from "../entity/Services/EncryptPasswordServices";
-import { EmailServices } from "../entity/Services/EmailServices";
-import { OtpServices } from "../entity/Services/OtpServices";
-
+import { UserUseCases } from "../entity/usecases/UserUseCases";
+import { UserRepository } from "../entity/repository/userRepository";
+import { UserEntity_Model } from "../entity/models/User";
+import { EncryptPasswordServices } from "../entity/services/encryptPasswordServices";
+import { EmailServices } from "../entity/services/emailServices"; 
+import { OtpServices } from "../entity/services/otpServices";  
+import { userInput } from "../entity/ReturnTypes/validUser";
+import { FailedStatus_reply  } from "../entity/Types/failedStatus";
 
 export class UserSocket implements UserUseCases {
   constructor(
@@ -19,7 +19,7 @@ export class UserSocket implements UserUseCases {
     console.log("useCase Connect");
   }
   async createUser(
-    name: string,
+    firstName: string,
     email: string,
     password: string,
     googleAuth:boolean,
@@ -28,9 +28,9 @@ export class UserSocket implements UserUseCases {
     console.log("useCase Connect");
     const hasedpassword = await this.passwordManager.hashPassword(password);
     const userOtp = await this.otpGenerator.generateOTP();
-    const sentMail = await this.emailer.sendEmailVerification(name,email,userOtp)
+    const sentMail = await this.emailer.sendEmailVerification(firstName,email,userOtp)
     const result = await this.repo.createUser({
-      name,
+      firstName,
       email,
       password: hasedpassword,
       otp: userOtp,
@@ -46,8 +46,6 @@ export class UserSocket implements UserUseCases {
     const result = await this.repo.findUser({ email });
     if(result) {return result} else return  ;
   }
-
-
   async saveOtpToCollection(data: {
     email: string;
     otp: string;
@@ -70,20 +68,21 @@ export class UserSocket implements UserUseCases {
       } else return { status: false, message: "failed" };
     } catch (error) {}
   }
-
-
   async login(
     email: string,
     password: string,
-    googleAuth: boolean
+    googleAuth: boolean,
+    next:Next
   ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }> {
      
-    const x = await this.repo.findUser({ email });
-    if (x) {
-      const hashedPassword = x.password as string;
+    const user = await this.repo.findUserWithPassword({ email });
+    if (user) {
+      if(!user.active)   return {status:false,message:'user disabled by admin'}
+       
+      const hashedPassword = user.password as string;
       if(googleAuth){ 
       
-        return x}
+        return user}
       const hashedPasswords = await this.passwordManager.comparePassword(
         password,
         hashedPassword
@@ -103,10 +102,36 @@ export class UserSocket implements UserUseCases {
         return {status:false,message:'Wrong credential'}
       }
     }
+    else{
+      return{status:false,message:'user not found'}
+    }
   }
-  async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>{
-    const result = await this.repo.updateUserBasics(data)
-    return result;  
+  async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model |UserEntity_Model & FailedStatus_reply|void|FailedStatus_reply>{
+    const user = await this.repo.findUser({email:data.email})
+    console.log(user?.active && !user?.deleted,'user?.active && !user?.deleted')
+    if(user?.active){
+      const result = await this.repo.updateUserBasics(data)
+       
+      
+     const out =   {...JSON.parse(JSON.stringify(result)) , status:true, message:'Update Success'} as UserEntity_Model & FailedStatus_reply
+     console.log(out,'oooooooooooooooooooooo')
+     return  out
+    }
+    else if( !user?.active) {
+      const data:FailedStatus_reply = {
+        status:false,
+        message:'This profile is disable by admin'
+      }
+      return data
+    }
+    else if( !user?.active) {
+      const data:FailedStatus_reply = {
+        status:false,
+        message:'This profile hasbeen deleted, contact the admin'
+      }
+      return data
+    }
+    
   }
   async getUsers(): Promise<void|UserEntity_Model[]>{
     const user =await this.repo.getUsers();
@@ -128,10 +153,10 @@ export class UserSocket implements UserUseCases {
     }
     
   }
-  async resetPassword(email:string,password:string):Promise<UserEntity_Model|{status:boolean}>{
+  async resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}>{
     const hasedpassword = await this.passwordManager.hashPassword(password);
     const result = await this.repo.createUser({
-      name:'',
+      firstName,
       email,
       password: hasedpassword,
       otp:'' ,
