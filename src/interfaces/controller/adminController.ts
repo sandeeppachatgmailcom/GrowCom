@@ -23,8 +23,9 @@ export class AdminController {
   }
   async postCreateBatch(req: Req, res: Res, next: Next) {
     try {
+      console.log('reached controller ')
       const batch = await this.adminSocket.createBatch(req.body);
-      console.log(batch);
+      console.log(batch,'batch');
       res.status(200).json(batch);
     } catch (error) {}
   }
@@ -51,5 +52,26 @@ export class AdminController {
       const trainers = await this.utilsSocket.getActiveTrainers();
       res.json(trainers);
     } catch (error) {}
+  }
+
+  async postCreateEvents(req:Req,res:Res,next:Next){
+    try {
+        console.log('reached admin Controller')
+        const newEvent = await this.adminSocket.creatAndEditEvents(req.body)
+        console.log(newEvent,'newEventnewEventnewEvent')
+        res.json(newEvent)
+    } catch (error) {
+      
+    }
+  }
+  async postDeleteEvents(req:Req,res:Res,next:Next){
+    try {
+        console.log('reached admin controller ')
+        const deleteEvent = await this.adminSocket.deleteEvents(req.body);
+        console.log(deleteEvent,'deleteEventdeleteEvent')
+        res.json(deleteEvent)
+    } catch (error) {
+      
+    }
   }
 }
