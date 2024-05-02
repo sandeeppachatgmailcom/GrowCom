@@ -3,6 +3,7 @@ import { StudentBatchRepository } from "../../entity/repository/StudentBatchRepo
 import mongoose from "mongoose";
 import studentBatchModel from "../models/studentsBatch";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
+import { FailedStatus_reply } from "../../entity/Types/failedStatus";
 
 export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     constructor(
@@ -10,12 +11,33 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     ){
 
     }
-    async createStudentBatch(data: StudentBatch_Model): Promise<void | StudentBatch_Model> {
-        const {batchId} = data
+    async createStudentBatch(data: StudentBatch_Model): Promise<void | StudentBatch_Model & FailedStatus_reply> {
+        let {batchId,BatchType , batchName, location, maxCapacity,trainer} = data
+        console.log(batchId,'batchId',data,'datata')
         let tempbatchID =   {}
-        !batchId.length? tempbatchID  = await this.indexRepo.getIndex({collectionName:'studentsBatch'}) :''
-        const batch =await studentBatchModel.findOneAndUpdate({tempbatchID,deleted:false},{$set:data},{upsert:true})   
-        console.log(batch)
+        console.log(batchId,data.batchName,'batchIdbatchIdbatchId')
+        if(!batchId.length){
+            const existing = await studentBatchModel.findOne({batchName:data.batchName,deleted:false})
+            if(existing && existing.batchId!==batchId){
+                return {...JSON.parse(JSON.stringify(existing)),status:false,message:'record already exist in the same name'}
+            }  
+            else{
+                tempbatchID  = await this.indexRepo.getIndex({collectionName:'studentsBatch'})
+                tempbatchID?.active as boolean? batchId = JSON.parse(JSON.stringify(tempbatchID))?.serialNumber:''
+                data.batchId = batchId
+                const batch = await studentBatchModel.updateOne({batchId:batchId},{$set:data})   
+                const result = await studentBatchModel.findOne({batchId:batchId,deleted:false})   
+                return {...JSON.parse(JSON.stringify(result)),status:true,message:'batch creation success'}    
+            } 
+        }
+        else{
+            const existing = await studentBatchModel.find({batchName:data.batchName,batchId:{$ne:batchId},deleted:false})
+            console.log(existing ,'existing existing existing ')
+            if(existing.length ) return {...JSON.parse(JSON.stringify(existing)),status:false,message:'record already exist in the same name'}
+            const batch = await studentBatchModel.updateOne({batchId:batchId},{$set:data})   
+            const result = await studentBatchModel.findOne({batchId:batchId,deleted:false})   
+            return {...JSON.parse(JSON.stringify(result)),status:true,message:'batch update success'}
+        }
     }
     async deleteStudentBatch(data: { batchid: string; }): Promise< void | StudentBatch_Model> {
         const {batchid} = data
@@ -30,10 +52,14 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
         console.log(batch)  
         return batch
     }
-    async readAllStudentBatch(): Promise<void | StudentBatch_Model[]> {
-        const batch =await studentBatchModel.find({deleted:false})   
-        console.log(batch)  
-        return batch
+    async readActiveBatches():Promise<StudentBatch_Model[]|void>{
+        try {
+            const batch =await studentBatchModel.find({deleted:false})   
+            console.log(batch)  
+            return batch
+        } catch (error) {
+            
+        }
     }
      
 }

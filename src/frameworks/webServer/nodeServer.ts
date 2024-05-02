@@ -41,9 +41,10 @@ class NpmModule {
             definition: {
               openapi: "3.0.0",
               info: {
-                title: 'My API',
+                title: 'manGrow',
                 version: '1.0.0',
-                description: 'Documentation for my API',
+                description: 'manGrow is a communication analysis tool that empowers you to gain valuable insights from your communication activities.' 
+                ,
               },
               paths: allRoutes,
               servers: [{

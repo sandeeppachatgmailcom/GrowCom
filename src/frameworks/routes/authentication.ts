@@ -36,7 +36,9 @@ export function authRouter(router: Router) {
    *         description: Invalid request body or OTP
    *       '500':
    *         description: Internal server error
-   */
+ *     tags:
+ *       - User
+ */
   router.post("/validateOtp", (req: Req, res: Res, next: Next) => {
     try {
         userController.validateOtp(req, res, next);
@@ -70,7 +72,9 @@ export function authRouter(router: Router) {
    *         description: email not existing on the server
    *       '500':
    *         description: Internal server error
-   */
+ *     tags:
+ *       - User
+ */
 
   router.post("/resetPassword", (req: Req, res: Res, next: Next) => {
     try {
@@ -107,7 +111,9 @@ export function authRouter(router: Router) {
    *         description: email not existing on the server
    *       '500':
    *         description: Internal server error
-   */
+ *     tags:
+ *       - User
+ */
   router.post("/create", (req: Req, res: Res, next: Next) => {
     try {
         userController.createUser(req, res, next);
@@ -149,7 +155,9 @@ export function authRouter(router: Router) {
    *         description: Bad request - Invalid input or missing required fields.
    *       '404':
    *         description: User not found.
-   */
+ *     tags:
+ *       - User
+ */
 
   router.get("/delete", token.verifyToken, (req: Req, res: Res, next: Next) => {
     try {
@@ -199,7 +207,9 @@ export function authRouter(router: Router) {
    *         description: Unauthorized - Invalid email or password.
    *       '500':
    *         description: Internal server error.
-   */
+ *     tags:
+ *       - User
+ */
   router.post("/login",token.createJwtToken ,(req: Req, res: Res, next: Next) => {
     try {
         userController.login(req, res, next);
@@ -249,7 +259,9 @@ export function authRouter(router: Router) {
    *         description: Unauthorized - Invalid email or password.
    *       '500':
    *         description: Internal server error.
-   */
+ *     tags:
+ *       - User
+ */
 
   router.get("/getlogin",token.verifyToken,(req: Req, res: Res, next: Next) => {
       try {
@@ -292,7 +304,9 @@ export function authRouter(router: Router) {
    *         description: Unauthorized - Invalid or missing authentication token.
    *       '500':
    *         description: Internal server error.
-   */
+   *     tags:
+ *       - User
+ */
 
   router.post(
     "/saveBasicInfo",token.verifyToken,(req: Req, res: Res, next: Next) => {
@@ -326,7 +340,9 @@ export function authRouter(router: Router) {
    *         description: User not found or email address not registered.
    *       '500':
    *         description: Internal server error.
-   */
+  *     tags:
+ *       - User
+ */
   router.post("/forgotPassword",(req: Req, res: Res, next: Next) => {
     try {
         userController.forgotPassword(req, res, next);
