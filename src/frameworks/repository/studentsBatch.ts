@@ -25,7 +25,7 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
                 tempbatchID  = await this.indexRepo.getIndex({collectionName:'studentsBatch'})
                 tempbatchID?.active as boolean? batchId = JSON.parse(JSON.stringify(tempbatchID))?.serialNumber:''
                 data.batchId = batchId
-                const batch = await studentBatchModel.updateOne({batchId:batchId},{$set:data})   
+                const batch = await studentBatchModel.updateOne({batchId:batchId},{$set:data},{upsert:true})   
                 const result = await studentBatchModel.findOne({batchId:batchId,deleted:false})   
                 return {...JSON.parse(JSON.stringify(result)),status:true,message:'batch creation success'}    
             } 
