@@ -1,5 +1,5 @@
 import { Event_Model } from "../../entity/models/eventModel";
-import { EventTypes } from "../../entity/ReturnTypes/events";
+import { Event_Types } from "../../entity/ReturnTypes/events";
 import { EventsRepository } from "../../entity/repository/eventsRepository";
 import events_Model from "../models/eventModel";
 import { FailedStatus_reply } from "../../entity/Types/failedStatus";
@@ -48,7 +48,7 @@ export class Mongo_EventRepository implements EventsRepository{
 
        }  
     }
-    async deleteEvents(data: Event_Model): Promise<void | EventTypes & FailedStatus_reply> {
+    async deleteEvents(data: Event_Model): Promise<void | Event_Types & FailedStatus_reply> {
         try {
             const result =await events_Model.updateOne({eventId:data.eventId},{$set:{deleted:true}})
             const reply = await events_Model.findOne({eventId:data.eventId})
