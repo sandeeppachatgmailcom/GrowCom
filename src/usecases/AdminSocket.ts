@@ -8,7 +8,9 @@ import { AdminUseCase } from "../entity/usecases/AdminUseCase";
 import { VenueRepository } from "../entity/repository/venueRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";
 import { Event_Model } from "../entity/models/eventModel";
-import { EventTypes } from "../entity/ReturnTypes/events";
+import { Event_Types } from "../entity/ReturnTypes/events";
+import { UtilityServices } from "../entity/utils/utilityServices";
+
 
 export class AdminSocket implements AdminUseCase{
      
@@ -16,7 +18,8 @@ export class AdminSocket implements AdminUseCase{
         private repo:AdminRepository,
         private batchRepo:StudentBatchRepository,
         private venueRepo:VenueRepository,
-        private eventRepo:EventsRepository
+        private eventRepo:EventsRepository,
+        private genRepo :UtilityServices
         
     ){
 
@@ -39,13 +42,22 @@ export class AdminSocket implements AdminUseCase{
         console.log(result,'returned to socket')
         return result;
     }
-    async  creatAndEditEvents(data: Event_Model): Promise<void | (EventTypes & FailedStatus_reply)> {
+    async  creatAndEditEvents(data: Event_Model): Promise<void | (Event_Types & FailedStatus_reply)> {
         console.log('reached admin socket ')
+        if(data.active && data.startDate !== undefined){
+            const datetime = data.startDate
+            console.log(data.startDate,'data.startDate,data.startDate,data.startDate,')
+             const weekName = this.genRepo.getDayName(datetime)
+             data.dayName = weekName.dayName
+             data.monthDay = weekName.monthDay;
+             data.yearDay = weekName.day +'-'+weekName.monthDay 
+            console.log(weekName,'weekNameweekNameweekName') 
+        }
         const result = await this.eventRepo.creatAndEditEvents(data)
         console.log(result,'result of events')
         return result;
     }
-    async deleteEvents(data:Event_Model):Promise<EventTypes&FailedStatus_reply|void>{
+    async deleteEvents(data:Event_Model):Promise<Event_Types&FailedStatus_reply|void>{
         console.log('reached admin socket ')
         const result = await this.eventRepo.deleteEvents(data);
         console.log(result,'deleted result')

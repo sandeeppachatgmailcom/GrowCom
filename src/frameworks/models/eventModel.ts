@@ -7,16 +7,23 @@ const eventSchema :Schema <Event_Model& Document> =new mongoose.Schema({
     eventName:{type:String,required:true,unique:true},
     eventId:{type:String,required:true,unique:true},
     active:{type:Boolean,required:true,default:true},
-    deleted:{type:Boolean,required:true,default:false},
+    deleted:{type:Boolean,default:false},
     staffInCharge:{type:String},
     repeat:{type:String,enum:Object.keys(repeat),default:repeat.none},
     location:{type:String },
     timeFixed:{type:Boolean,default:false},
-    startDateTime:{type:Date},
-    endDateTime:{type:Date},
+    startDateTime:{type:String},
+    endDateTime:{type:String},
     taskID:{type:String},
     audienceType:{type:String,enum:Object.keys(audienceType),default:audienceType.inhouse},
-    prority:{type:String,enum:Object.keys(priority),default:priority.high}    
+    prority:{type:String,enum:Object.keys(priority),default:priority.high},  
+    description:{type:String},
+    startDate:{type:Date},
+    cancelled:{type:Boolean},
+    dayName:{type:String},
+    monthDay:{type:String},
+    yearDay:{type:String},
+
 })
 
 const events_Model :Model<Event_Model & Document> = mongoose.model('event',eventSchema)
