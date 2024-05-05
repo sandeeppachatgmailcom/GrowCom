@@ -6,6 +6,7 @@ import express, { Application } from 'express'; // Importing Application type fr
 import { Router } from 'express';
 import { adminRouter } from './adminRoute';
 import { utilRouter } from './utilityRoute';
+import { trainerRouter } from './trainerRoute';
 
 export const allRoutes = {
     ...adminRouter,
@@ -16,6 +17,7 @@ export function mainRoute(router:Route) {
     router.use('/auth', authRouter(express.Router()));
     router.use('/admin', adminRouter(express.Router()));
     router.use('/utils', utilRouter(express.Router()))
+    router.use('/trainer',trainerRouter(express.Router()))
     return router;
 }
  

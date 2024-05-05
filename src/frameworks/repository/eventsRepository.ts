@@ -14,24 +14,31 @@ export class Mongo_EventRepository implements EventsRepository{
     }
     async creatAndEditEvents(data: Event_Model):Promise<void | Event_Model & FailedStatus_reply > {
        try {
+        
             if(!data.eventId){
+                
                 const exist = await events_Model.findOne({eventName:data.eventName,deleted:false})
                 if(exist){
-                    return {status:true,message:'event creation success ',...JSON.parse(JSON.stringify(event))  }
+                    console.log(data,'data.eventId right')
+                    return {status:false,message:'already another event in this name ',...JSON.parse(JSON.stringify(exist))  }
                 }
                 else{
                     const eventIndex = await this.indexRepo.getIndex( {collectionName:'eventMaster'})
-                    
+                   
                     data.eventId = eventIndex.serialNumber
-                    console.log(eventIndex,eventIndex.serialNumber,data,'eventIndexeventIndex')
-                    const insert =await events_Model.updateOne({eventId:eventIndex.serialNumber},{$set:data},{upsert:true})
-                    console.log(insert,eventIndex.serialNumber,'insert')
+                    
+                    const insert = await events_Model.updateOne({eventId:data.eventId},{$set:data},{upsert:true})
+                     
+              
                     const event = await events_Model.findOne({eventId:data.eventId})
+                    console.clear()
+                    console.log(insert,eventIndex.serialNumber,'insert')
                     return {status:true,message:'event creation success ',...JSON.parse(JSON.stringify(event))   }
 
                 }
             }
             else{
+              
                 const newEvent =await events_Model.findOne({eventName:data.eventName,deleted:false,eventId:{$ne:data.eventId}})
                 if(newEvent){
                     return {status:false,message:'another event already in this same name',...JSON.parse(JSON.stringify(newEvent))   }
@@ -39,7 +46,7 @@ export class Mongo_EventRepository implements EventsRepository{
                 else{
                     await events_Model.updateOne({eventName:data.eventName,deleted:false,eventId:data.eventId},{$set:data})
                     const result = await events_Model.findOne({eventId:data.eventId})
-                    return {status:false,message:'event Creation success',...JSON.parse(JSON.stringify(result))}
+                    return {status:true,message:'event updation success',...JSON.parse(JSON.stringify(result))}
                 }
 
             }
@@ -63,5 +70,10 @@ export class Mongo_EventRepository implements EventsRepository{
         console.log(reply)
         if (reply) return reply;
         else return
+    }
+    async getTaskByTrainerEmail(data: { email: string; }): Promise<void | Event_Model[]> {
+        const activeEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
+        console.log(activeEvents,'activeEvents')
+        return activeEvents
     }
 }
