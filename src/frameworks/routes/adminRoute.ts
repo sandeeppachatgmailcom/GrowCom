@@ -155,56 +155,7 @@ router.post('/createVenue',(req: Req, res: Res, next: Next) => {
             userController.savebasicProfile(req, res, next);
         } catch (error) {}
       });   
-    /**
- * @swagger
- * admin/approveStaff:
- *   post:
- *     summary: Approve Staff
- *     description: Approve a staff member from the admin dashboard.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 description: The ID of the staff member to approve.
- *               name:
- *                 type: string
- *                 description: The name of the staff member to approve.
- *               email:
- *                 type: string
- *                 format: email
- *                 description: The email address of the staff member to approve.
- *               role:
- *                 type: string
- *                 description: The role of the staff member to approve.
- *     responses:
- *       '200':
- *         description: Staff member approved successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: A message indicating that the staff member was approved successfully.
- *       '400':
- *         description: Bad request - Invalid input or missing required fields.
- *       '500':
- *         description: Internal server error.
- *     tags:
- *       - Admin
- */
-    router.post(adminApis.approveStaff,  (req: Req, res: Res, next: Next) => {
-        try {
-            userController.savebasicProfile(req, res, next);
-        } catch (error) {}
-      });   
-
+  
 
 /**
  * @swagger
@@ -428,6 +379,73 @@ router.post('/deleteEvent',(req:Req,res:Res,next:Next)=>{
     
   }
 })
+  
+  /**
+ * Swagger documentation for the admin/createTask endpoint.
+ * This endpoint creates a new task in the system.
+ *
+ * @swagger
+ * /admin/createTask:
+ *   post:
+ *     summary: Create a new task
+ *     description: Create a new task in the system
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: Task object that needs to be created
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Task_model'
+ *     responses:
+ *       '200':
+ *         description: Task created successfully
+ *         schema:
+ *           $ref: '#/definitions/TaskResponse'
+ *
+ * definitions:
+ *   Task_model:
+ *     type: object
+ *     properties:
+ *       taskId:
+ *         type: string
+ *       taskName:
+ *         type: string
+ *       taskSub:
+ *         type: string
+ *       taskDescription:
+ *         type: string
+ *       taskLink:
+ *         type: string
+ *       taskType:
+ *         type: string
+ *         enum: [Activity_Types]
+ *       repeat:
+ *         type: boolean
+ *       deleted:
+ *         type: boolean
+ *       active:
+ *         type: boolean
+ *
+ *   TaskResponse:
+ *     type: object
+ *     properties:
+ *       status:
+ *         type: string
+ *       message:
+ *         type: string
+*     tags:
+ *       - Admin
+ */
+    router.post('/createTask',  (req:Req, res:Res, next:Next) => {
+      try {
+        console.log(req,'reqreqreq')
+          adminController.postCreateTask(req, res, next);
+      } catch (error) {}
+    });   
 
     return router
 }

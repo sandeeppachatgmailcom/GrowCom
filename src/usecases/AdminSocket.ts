@@ -10,6 +10,8 @@ import { EventsRepository } from "../entity/repository/eventsRepository";
 import { Event_Model } from "../entity/models/eventModel";
 import { Event_Types } from "../entity/ReturnTypes/events";
 import { UtilityServices } from "../entity/utils/utilityServices";
+import { Task_model } from "../entity/models/task";
+import { TaskRepository } from "../entity/repository/taskRepository";
 
 
 export class AdminSocket implements AdminUseCase{
@@ -19,7 +21,8 @@ export class AdminSocket implements AdminUseCase{
         private batchRepo:StudentBatchRepository,
         private venueRepo:VenueRepository,
         private eventRepo:EventsRepository,
-        private genRepo :UtilityServices
+        private genRepo :UtilityServices,
+        private taskRepo:TaskRepository
         
     ){
 
@@ -36,6 +39,7 @@ export class AdminSocket implements AdminUseCase{
         console.log(result,'create batch')
         return result;
     }
+
     async createVenue(data: { venueName: string; }): Promise<void | (VenueModels & FailedStatus_reply)> {
         console.log('reached socket')
         const result = await this.venueRepo.createVenue({venueName:data.venueName}) 
@@ -46,12 +50,10 @@ export class AdminSocket implements AdminUseCase{
         console.log('reached admin socket ')
         if(data.active && data.startDate !== undefined){
             const datetime = data.startDate
-            console.log(data.startDate,'data.startDate,data.startDate,data.startDate,')
              const weekName = this.genRepo.getDayName(datetime)
              data.dayName = weekName.dayName
              data.monthDay = weekName.monthDay;
              data.yearDay = weekName.day +'-'+weekName.monthDay 
-            console.log(weekName,'weekNameweekNameweekName') 
         }
         const result = await this.eventRepo.creatAndEditEvents(data)
         console.log(result,'result of events')
@@ -62,6 +64,12 @@ export class AdminSocket implements AdminUseCase{
         const result = await this.eventRepo.deleteEvents(data);
         console.log(result,'deleted result')
         return result
+    }
+    async createTask(data: Task_model): Promise<void | (FailedStatus_reply & Task_model)> {
+        console.log('reached admin socket')
+        const result =await this.taskRepo.crateTask(data)
+        console.log(result,'task result')
+        return result;
     }
 
 }

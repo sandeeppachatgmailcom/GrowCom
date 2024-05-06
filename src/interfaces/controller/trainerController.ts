@@ -12,6 +12,7 @@ export  class TrainerController{
         const data = req.body 
         console.log('trainertrainertrainertrainer')
         const pendings = await this.trainerSocket.getPending(data)
+        console.log(pendings,'pendings')
         res.status(200).json(pendings)
     }
     
