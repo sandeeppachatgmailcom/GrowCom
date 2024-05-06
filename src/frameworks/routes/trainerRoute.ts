@@ -21,9 +21,12 @@ export function trainerRouter(router: Router) {
  *               email:
  *                 type: string
  *                 description: email 
- *               date:
+ *               startDate:
  *                 type: Date
- *                 description: email .
+ *                 description: email
+ *               endtDate:
+ *                 type: Date
+ *                 description: email.
  *                  
  *     responses:
  *       '200':
@@ -55,7 +58,7 @@ export function trainerRouter(router: Router) {
 *     tags:
  *       - Trainer
  */
-   
+
     router.post('/postTrainerPendingEvents', async (req: Req, res: Res, next: Next) => {
   try {
     console.log('postTrainerPendingEvents')

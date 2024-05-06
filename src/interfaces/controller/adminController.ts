@@ -64,6 +64,18 @@ export class AdminController {
       
     }
   }
+
+async postCreateTask (req:Req,res:Res,next:Next){
+  try {
+    console.log('controller reached',req.body)
+    const newTask =await this.adminSocket.createTask(req.body)
+    console.log(newTask)
+    res.json(newTask)
+  } catch (error) {
+    
+  }
+}
+
   async postDeleteEvents(req:Req,res:Res,next:Next){
     try {
         console.log('reached admin controller ')

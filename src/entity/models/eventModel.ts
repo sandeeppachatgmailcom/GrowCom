@@ -15,7 +15,7 @@ export interface Event_Model{
     deleted?:boolean;
     audienceType?:audienceType,
     prority?:priority;
-    startDate?:Date;
+    startDate?:Date  ;
     description?:string;
     dayName?:string;
     monthDay?:string;
