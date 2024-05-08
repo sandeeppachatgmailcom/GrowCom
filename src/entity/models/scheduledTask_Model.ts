@@ -1,9 +1,9 @@
-import { audienceType, priority, repeat } from "../enum/enum";
 
-export interface Event_Model{
+export interface ScheduledTask_Model{
+    ScheduledTaskID:string,
     eventName?:string;
+    scheduledDate:Date;
     staffInCharge?:string;
-    repeat?:repeat ;
     location?:string;
     timeFixed?:boolean;
     startDateTime?:Date;
@@ -11,14 +11,31 @@ export interface Event_Model{
     taskID?:string;
     eventId?:string;
     cancelled?:boolean;
-    audience?:{};
     active?:boolean;
     deleted?:boolean;
-    audienceType?:audienceType,
-    prority?:priority;
+    audience?:{};
     startDate?:Date  ;
     description?:string;
     dayName?:string;
     monthDay?:string;
-    yearDay:string;
+    yearDay?:string;
+    Title?:string;
+    details?:string;
+    link?:string;
+    audienceType?:string;
+    prority?:string;
+    repeat?:string;
+    dayTitle?:string;
+    dayDiscription?:string;
 }
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+

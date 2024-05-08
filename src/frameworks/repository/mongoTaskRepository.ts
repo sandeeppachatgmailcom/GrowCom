@@ -29,6 +29,7 @@ export class MongoTaskRepository implements TaskRepository{
         else {
             console.log('b class',data)
             const insert = await task_db.updateOne({taskId:data.taskId},{$set:data},{upsert:true})
+            console.log(insert,'insert') 
             if(insert.modifiedCount) return {status:true,message:'Task updation success.. ',...JSON.parse(JSON.stringify(data))}
             else if(insert.upsertedCount)  return {status:true,message:'Task creation success.. ',...JSON.parse(JSON.stringify(data))}
 

@@ -73,7 +73,6 @@ export class Mongo_EventRepository implements EventsRepository{
     }
     async getTaskByTrainerEmail(data: { email: string; }): Promise<void | Event_Model[]> {
         const activeEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
-        console.log(activeEvents,'activeEvents')
         return activeEvents
     }
 }

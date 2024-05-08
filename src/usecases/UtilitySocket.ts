@@ -1,9 +1,11 @@
 import { ValidHumanReturnTypes } from "../entity/ReturnTypes/validHuman";
 import { Event_Model } from "../entity/models/eventModel";
 import { StudentBatch_Model } from "../entity/models/studentBatch";
+import { Task_model } from "../entity/models/task";
 import { VenueModels } from "../entity/models/venue_model";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";
+import { TaskRepository } from "../entity/repository/taskRepository";
 import { UserRepository } from "../entity/repository/userRepository";
 import { VenueRepository } from "../entity/repository/venueRepository";
 import { UtilUseCases } from "../entity/usecases/UtilUseCases";
@@ -13,7 +15,8 @@ export class UtilitySocket implements UtilUseCases{
         private venueRepo:VenueRepository,
         private userRepo:UserRepository,
         private batchRepo:StudentBatchRepository,
-        private eventsRepo:EventsRepository
+        private eventsRepo:EventsRepository,
+        private taskRepo:TaskRepository
     ){
         
     }
@@ -39,4 +42,9 @@ export class UtilitySocket implements UtilUseCases{
         console.log('socet result',result)
         return result;
     }
+    async getActiveTask(): Promise<void | Task_model[]> {
+        const tasks = await this.taskRepo.readAllTask()
+        console.log(tasks,'taskssss')
+        return tasks
+    }   
 }

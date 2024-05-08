@@ -15,6 +15,7 @@ const eventSchema :Schema <Event_Model& Document> =new mongoose.Schema({
     startDateTime:{type:String},
     endDateTime:{type:String},
     taskID:{type:String},
+    audience:{},
     audienceType:{type:String,enum:Object.keys(audienceType),default:audienceType.inhouse},
     prority:{type:String,enum:Object.keys(priority),default:priority.high},  
     description:{type:String},

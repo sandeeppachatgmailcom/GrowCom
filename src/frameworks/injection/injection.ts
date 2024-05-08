@@ -18,7 +18,8 @@ import { Mongo_EventRepository } from "../repository/eventsRepository";
 import { TrainerController } from "../../interfaces/controller/trainerController";
 import { TrainerSocket } from "../../usecases/trainerSocket";
 import { GeneralUtils } from "../../interfaces/utils/GeneralUtils";
-import { MongoTaskRepository, mongoTaskRepository } from "../repository/mongoTaskRepository";
+import { MongoTaskRepository } from "../repository/mongoTaskRepository";
+import { MongoScheduledTask } from "../repository/mongoScheduledTaskAdapter";
 
 // service adapters
 const otp_Adapter = new Custom_OtpAdapter()
@@ -33,12 +34,14 @@ const venueAdapter = new MongoVenueAdapter(serialNumberAdapter)
 const eventsAdapter = new Mongo_EventRepository(serialNumberAdapter)
 const generalAdapter = new GeneralUtils()
 const taskAdapter = new MongoTaskRepository(serialNumberAdapter)
+const scheduledTaskAdapter = new MongoScheduledTask()
+
 
 // sockets 
-const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter)
+const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter)
 const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter)
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
-const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter)
+const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter)
 
 //router controllers 
 const adminController = new AdminController(adminSocket,utilitySocket )
