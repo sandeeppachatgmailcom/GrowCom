@@ -55,7 +55,6 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     async readActiveBatches():Promise<StudentBatch_Model[]|void>{
         try {
             const batch =await studentBatchModel.find({deleted:false})   
-            console.log(batch)  
             return batch
         } catch (error) {
             

@@ -28,4 +28,13 @@ export class UtilityController {
             
         }
     }
+    async getActiveTask (req:Req,res:Res,next:Next){
+        try {
+            console.log('reached controller ')
+            const tasks =await  this.utility.getActiveTask()
+            res.json(tasks) 
+        } catch (error) {
+            
+        }
+    }
 }

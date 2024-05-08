@@ -387,62 +387,49 @@ router.post('/deleteEvent',(req:Req,res:Res,next:Next)=>{
  * @swagger
  * /admin/createTask:
  *   post:
- *     summary: Create a new task
- *     description: Create a new task in the system
- *     consumes:
- *       - application/json
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: body
- *         description: Task object that needs to be created
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Task_model'
+ *     summary: createTask
+ *     description: Deletes an existing event.
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Event_Model'
  *     responses:
- *       '200':
- *         description: Task created successfully
- *         schema:
- *           $ref: '#/definitions/TaskResponse'
+ *       200:
+ *         description: Event deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DeletedEventResponse'
+ *       400:
+ *         description: Bad request (e.g., invalid event data, event not found)
+ *       500:
+ *         description: Internal server error
+ *     security:
+ *       - bearerAuth: []  # Add your authentication scheme here (if applicable)
  *
- * definitions:
- *   Task_model:
- *     type: object
- *     properties:
- *       taskId:
- *         type: string
- *       taskName:
- *         type: string
- *       taskSub:
- *         type: string
- *       taskDescription:
- *         type: string
- *       taskLink:
- *         type: string
- *       taskType:
- *         type: string
- *         enum: [Activity_Types]
- *       repeat:
- *         type: boolean
- *       deleted:
- *         type: boolean
- *       active:
- *         type: boolean
- *
- *   TaskResponse:
- *     type: object
- *     properties:
- *       status:
- *         type: string
- *       message:
- *         type: string
-*     tags:
+ * components:
+ *   schemas:
+ *     Event_Model:
+ *       $ref: '#/components/schemas/Event_Model'  # Reference existing schema
+ *     DeletedEventResponse:
+ *       type: object
+ *       properties:
+ *         eventId:
+ *           type: string
+ *           description: The unique identifier of the deleted event.
+ *         message:
+ *           type: string
+ *           description: A message indicating the outcome of the deletion.
+ *     tags:
  *       - Admin
  */
-    router.post('/createTask',  (req:Req, res:Res, next:Next) => {
+    router.post('/createTask',(req:Req,res:Res,next:Next) => {
       try {
-        console.log(req,'reqreqreq')
+        console.log(req.body,'reqreqreq')
           adminController.postCreateTask(req, res, next);
       } catch (error) {}
     });   
