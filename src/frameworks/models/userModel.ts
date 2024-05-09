@@ -37,7 +37,9 @@ const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({
   city: { type: String },
   pincode: { type: String },
   otpVerified:{type:Boolean,default:false,required:true},
-  otpExpiresAt: { type: Date }, // Field to store the expiration time of OTP
+  otpExpiresAt: { type: Date }, // Field to store the expiration time of OTP,
+  batchId:{type:String},
+  week:{type:String} ,
   address:[
     {
       houseName: { type: String },

@@ -19,7 +19,7 @@ export class MongoTaskRepository implements TaskRepository{
             const serial = await this.serial.getIndex( {collectionName:'task'}) 
             temp.new = true;
             data.taskId = serial.serialNumber
-            console.log(data.taskId,'data.taskIddata.taskIddata.taskId')
+            
         }
         const exist = await  task_db.findOne({$or:[{taskId:data.taskId},{taskName:data.taskName}]})
         if(exist && temp.new){
@@ -27,9 +27,7 @@ export class MongoTaskRepository implements TaskRepository{
             return {status:false,message:'already record exist in the same name ',...JSON.parse(JSON.stringify(exist))}
         }
         else {
-            console.log('b class',data)
             const insert = await task_db.updateOne({taskId:data.taskId},{$set:data},{upsert:true})
-            console.log(insert,'insert') 
             if(insert.modifiedCount) return {status:true,message:'Task updation success.. ',...JSON.parse(JSON.stringify(data))}
             else if(insert.upsertedCount)  return {status:true,message:'Task creation success.. ',...JSON.parse(JSON.stringify(data))}
 

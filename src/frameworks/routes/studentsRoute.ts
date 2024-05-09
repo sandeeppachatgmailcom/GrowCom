@@ -1,0 +1,59 @@
+import { Router } from "express";
+import { Next, Req, Res } from "../../entity/Types/ServerTypes";
+import { studentsController } from "../injection/injection";
+
+export function studentsRouter(router: Router) {
+
+    /**
+     * @swagger
+     * /student/postStudentsTask:
+ *   post:
+ *     summary: Get scheduled tasks for a student within a date range
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email of the student to fetch tasks for
+ *               startDate:
+ *                 type: string
+ *                 format: date
+ *                 description: Start date of the range to fetch tasks for (YYYY-MM-DD)
+ *               endDate:
+ *                 type: string
+ *                 format: date
+ *                 description: End date of the range to fetch tasks for (YYYY-MM-DD)
+ *             required:
+ *               - email
+ *               - startDate
+ *               - endDate
+ *     responses:
+ *       '200':
+ *         description: Array of task list
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ScheduledTask'
+ *       '400':
+ *         description: Bad request. Invalid input parameters.
+ *       '404':
+ *         description: Student not found.
+ *       '500':
+ *         description: Internal server error. Failed to fetch tasks.
+     *     tags:
+     *       - Student
+     */
+
+    router.post('/postStudentsTask', (req: Req, res: Res, next: Next) => {
+        studentsController.postStudentsTask(req, res, next)
+    })
+
+    return router
+}

@@ -86,24 +86,26 @@ export class TrainerSocket implements TrainerUsecase {
 
             for (let i: any = curDate; i <= endDate; i.setDate(i.getDate() + 1)) {
                 const result = this.genRepo.getDayName(i);
+               
+               
                 if (event.repeat == "Weekly") {
                     if (result.dayName == event.dayName) {
                         const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                        pendingWork.push(scheduleProgram);
+                      if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
                 } else if (event.repeat == "daily") {
                     const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                    pendingWork.push(scheduleProgram);
+                    if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
                 } else if (event.repeat == "Monthly") {
                     if (result.day == event.monthDay) {
                         const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                        pendingWork.push(scheduleProgram);
+                        if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
                 } else {
                     const month = result.monthDay + "-" + result.day;
                     if (month == event.yearDay) {
                         const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                        pendingWork.push(scheduleProgram);
+                        if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
                     }
                 }
             }
@@ -111,14 +113,15 @@ export class TrainerSocket implements TrainerUsecase {
 
         
         pendingWork.sort((a: any, b: any) => a.scheduledDate - b.scheduledDate);
-
+         
         if (scheduledEvent) {
             const scheduledDates = new Set();
             scheduledEvent.forEach((event: any) => {
                 event.scheduledDate.setHours(0, 0, 0, 0);
                 scheduledDates.add(`${event.scheduledDate.getTime()}_${event.eventId}`);
+                
             });
-
+           
             pendingWork.forEach((work: any) => {
                 work.scheduledDate.setHours(0, 0, 0, 0);
                 if (scheduledDates.has(`${work.scheduledDate.getTime()}_${work.eventId}`)) {
@@ -130,15 +133,16 @@ export class TrainerSocket implements TrainerUsecase {
                         );
                     });
                     if (correspondingEvent) {
+                      console.log('am at here ')
                         // Update pendingWork with the corresponding event
                         Object.assign(work,JSON.parse(JSON.stringify( correspondingEvent)));
-                        console.log(work, 'Updated pendingWork item');
+                        // console.log(work, 'Updated pendingWork item');
                     }
                 }
             });
         }
 
-        console.log(pendingWork, 'Final pendingWork');
+        //console.log(pendingWork, 'Final pendingWork');
 
         return pendingWork;
     }
