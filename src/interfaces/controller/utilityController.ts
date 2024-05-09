@@ -1,5 +1,5 @@
 import { Next, Req, Res } from "../../entity/Types/ServerTypes"
-import { UtilitySocket } from "../../usecases/UtilitySocket"
+import { UtilitySocket } from "../../usecases/utilitySocket"
 
 export class UtilityController {
     constructor(
@@ -31,7 +31,7 @@ export class UtilityController {
     async getActiveTask (req:Req,res:Res,next:Next){
         try {
             console.log('reached controller ')
-            const tasks =await  this.utility.getActiveTask()
+            const tasks =await this.utility.getActiveTask()
             res.json(tasks) 
         } catch (error) {
             

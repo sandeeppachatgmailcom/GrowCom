@@ -43,7 +43,8 @@ export class UtilitySocket implements UtilUseCases{
         return result;
     }
     async getActiveTask(): Promise<void | Task_model[]> {
-        const tasks = await this.taskRepo.readAllTask()
+         const tasks = await this.taskRepo.readAllTask()
+        //const tasks = []
         console.log(tasks,'taskssss')
         return tasks
     }   
