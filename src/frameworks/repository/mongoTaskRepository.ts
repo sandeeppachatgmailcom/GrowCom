@@ -1,4 +1,4 @@
-import { Task_model } from "../../entity/models/task";
+import { Task_model } from "../../entity/models/taskModel";
 import { TaskRepository } from "../../entity/repository/taskRepository";
 import task_db from "../models/taskModel";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
@@ -16,15 +16,21 @@ export class MongoTaskRepository implements TaskRepository{
             new:false
         }
         if(!data.taskId) {
+            console.log(data,'datatatatat')
             const serial = await this.serial.getIndex( {collectionName:'task'}) 
             temp.new = true;
             data.taskId = serial.serialNumber
-            
-        }
-        const exist = await  task_db.findOne({$or:[{taskId:data.taskId},{taskName:data.taskName}]})
-        if(exist && temp.new){
-            console.log('a class')
-            return {status:false,message:'already record exist in the same name ',...JSON.parse(JSON.stringify(exist))}
+            const exist = await  task_db.findOne({taskName:data.taskName})    
+            if(exist && temp.new){
+                console.log('a class')
+                return {status:false,message:'already record exist in the same name',...JSON.parse(JSON.stringify(exist))}
+                
+            }
+            else{
+                const insert = await task_db.updateOne({taskId:data.taskId},{$set:data},{upsert:true})    
+                if(insert.modifiedCount) return {status:true,message:'Task updation success.. ',...JSON.parse(JSON.stringify(data))}
+                else if(insert.upsertedCount)  return {status:true,message:'Task creation success.. ',...JSON.parse(JSON.stringify(data))}
+            }
         }
         else {
             const insert = await task_db.updateOne({taskId:data.taskId},{$set:data},{upsert:true})
@@ -34,7 +40,7 @@ export class MongoTaskRepository implements TaskRepository{
         } 
     }
     async readAllTask(): Promise<void | Task_model[]> {
-        const allTask = await task_db.find({deleted:false,active:true})
+        const allTask = await task_db.find({deleted:false})
         if(allTask) return allTask 
         else return []      
     }

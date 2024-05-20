@@ -67,8 +67,8 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
                         {
                             $or: [
                                 { 'audience.role.student': true },
-                                { [`audience.batches.${data.batchId}`]: true },
-                                { [`audience.batches.${data.week}`]: true }
+                                { [`audience.btches.${data.batchId}`]: true },
+                                { [`audience.week.${data.week}`]: true }
                             ]
                         },
                         { scheduledDate: { $gte: new Date(data.startDate), $lte: new Date( data.endDate) } }
@@ -77,18 +77,26 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
             },
             {
                 $lookup: {
-                    from: 'task',
-                    localField: 'taskId',
+                    from: 'tasks',
+                    localField: 'taskID',
                     foreignField: 'taskId',
                     as: 'tasks'
                 }
-            },
-             
+            }
+            ,
+            {
+                $lookup:{
+                    from:'submissions',
+                    localField:'ScheduledTaskID',
+                    foreignField:'scheduledTaskId',
+                    as: 'submission'
+                }
+            }
            
             
         ]) 
         
-        
+        console.log(scheduledTasks,'please print here ')
          
         return scheduledTasks;
     }

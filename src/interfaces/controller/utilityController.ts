@@ -37,4 +37,13 @@ export class UtilityController {
             
         }
     }
+    async getActiveDesignation (req:Req,res:Res,next:Next){
+        try {
+            console.log('reached controller ')
+            const designation = await this.utility.getActiveDesignation()
+            res.json(designation)
+        } catch (error) {
+            
+        }
+    }
 }

@@ -376,8 +376,9 @@ router.post('/deleteEvent',(req:Req,res:Res,next:Next)=>{
   try {
     adminController.postDeleteEvents(req,res,next)
   } catch (error) {
-    
+     
   }
+   
 })
   
   /**

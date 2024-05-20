@@ -1,7 +1,7 @@
 import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import { UserSocket } from "../../usecases/userSocket";  
-import { UserEntity_Model } from "../../entity/models/User";
+import { UserEntity_Model } from "../../entity/models/UserModel";
 
 export class UserController {
   private userSocket: UserSocket;
@@ -132,6 +132,7 @@ export class UserController {
 
   }
   async savebasicProfile(req:Req,res:Res,next:Next){
+    console.log(req.body,'request received here ')
     const user =await  this.userSocket.updateUserBasics(req.body)
     res.json(user)
   }

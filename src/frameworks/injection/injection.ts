@@ -14,7 +14,7 @@ import { Mongo_Serial_Number } from "../repository/monGoSerialnumberAdapter";
 import { MongoVenueAdapter } from "../repository/MongoVenueAdapter";
 import { UtilitySocket } from "../../usecases/utilitySocket";
 import { UtilityController } from "../../interfaces/controller/utilityController";
-import { Mongo_EventRepository } from "../repository/eventsRepository";
+import { Mongo_EventRepository } from "../repository/mongo_EventRepository";
 import { TrainerController } from "../../interfaces/controller/trainerController";
 import { TrainerSocket } from "../../usecases/trainerSocket";
 import { GeneralUtils } from "../../interfaces/utils/GeneralUtils";
@@ -22,6 +22,21 @@ import { MongoTaskRepository } from "../repository/mongoTaskRepository";
 import { MongoScheduledTask } from "../repository/mongoScheduledTaskAdapter";
 import { StudentsController } from "../../interfaces/controller/studentsController";
 import { StudentSocket } from "../../usecases/studentSocket";
+
+
+//Models
+import submission_Db from "../models/submission_Model";
+import { MongoSubmissionAdapter } from "../repository/mongoSubmissionAdapter";
+import designationDb from "../models/designationModel";
+import { Mongo_DesignationRepository } from "../repository/Mongo_DesignationRepository";
+
+
+//Db Adapters
+const Designation = designationDb
+
+
+//Repo Adapters 
+
 
 // service adapters
 const otp_Adapter = new Custom_OtpAdapter()
@@ -37,16 +52,19 @@ const eventsAdapter = new Mongo_EventRepository(serialNumberAdapter)
 const generalAdapter = new GeneralUtils()
 const taskAdapter = new MongoTaskRepository(serialNumberAdapter)
 const scheduledTaskAdapter = new MongoScheduledTask()
+const submissionRepo = new MongoSubmissionAdapter(serialNumberAdapter)
+const DesignationAdapter = new Mongo_DesignationRepository()
+
 
 
 // sockets 
-const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter)
-const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter)
+const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter,DesignationAdapter)
+const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter )
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
 const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter)
-const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter)
+const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter,submissionRepo,serialNumberAdapter,studentBatchAdapter)
 //router controllers 
-const adminController = new AdminController(adminSocket,utilitySocket )
+const adminController = new AdminController(adminSocket,utilitySocket)
 const userController = new UserController(userSocket)
 const utilsController = new UtilityController(utilitySocket)
 const trainerController = new TrainerController(trainerSocket)

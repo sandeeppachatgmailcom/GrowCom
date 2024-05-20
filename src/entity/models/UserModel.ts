@@ -58,6 +58,20 @@ export interface Academic {
     otpExpiresAt?:boolean;
     batchId?:string;
     week:string;
+    designation?:string;
+    submission?:any;
+    
+  }
+
+  interface subMission {
+    taskId:string;
+    scheduledTaskId:string;
+    rating:[[],[],[],[],[]];
+    feebBack:string;
+    remark:string;
+    taskDate?:Date;
+    submissionDate?:Date
+    submittedDate?:Date
   }
   
   

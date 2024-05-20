@@ -1,7 +1,7 @@
 import { Event_Model } from "../models/eventModel";
-import { StudentBatch_Model } from "../models/studentBatch";
-import { Task_model } from "../models/task";
-import { UserEntity_Model  } from "../models/User";
+import { StudentBatch_Model } from "../models/studentBatchModel";
+import { Task_model } from "../models/taskModel";
+import { UserEntity_Model  } from "../models/UserModel";
 import { VenueModels } from "../models/venue_model";
 import { Event_Types } from "../ReturnTypes/events";
 import { FailedStatus_reply } from "../Types/failedStatus";

@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { UserEntity_Model } from "../../entity/models/User";
+import { UserEntity_Model } from "../../entity/models/UserModel";
 
 // Define the schema
 const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({
@@ -40,6 +40,8 @@ const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({
   otpExpiresAt: { type: Date }, // Field to store the expiration time of OTP,
   batchId:{type:String},
   week:{type:String} ,
+  designation:{type:String},
+  submission:{type:{}},
   address:[
     {
       houseName: { type: String },

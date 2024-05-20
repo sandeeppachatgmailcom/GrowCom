@@ -2,7 +2,7 @@ import { stringify } from "querystring";
 import { Next } from "../entity/Types/ServerTypes";
 import { UserUseCases } from "../entity/usecases/UserUseCases";
 import { UserRepository } from "../entity/repository/userRepository";
-import { UserEntity_Model } from "../entity/models/User";
+import { UserEntity_Model } from "../entity/models/UserModel";
 import { EncryptPasswordServices } from "../entity/services/encryptPasswordServices";
 import { EmailServices } from "../entity/services/emailServices"; 
 import { OtpServices } from "../entity/services/otpServices";  
@@ -78,10 +78,8 @@ export class UserSocket implements UserUseCases {
     const user = await this.repo.findUserWithPassword({ email });
     if (user) {
       if(!user.active)   return {status:false,message:'user disabled by admin'}
-       
       const hashedPassword = user.password as string;
       if(googleAuth){ 
-      
         return user}
       const hashedPasswords = await this.passwordManager.comparePassword(
         password,
@@ -89,16 +87,13 @@ export class UserSocket implements UserUseCases {
       );
       console.log("afrter comaparing", hashedPasswords);
       if (hashedPasswords) {
-        
         const result = await this.repo.login({
           email,
           password: hashedPassword,
           googleAuth,
         });
-         
         return result;
       } else {
-        
         return {status:false,message:'Wrong credential'}
       }
     }

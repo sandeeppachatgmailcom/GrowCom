@@ -6,8 +6,14 @@ export interface Task_model{
     taskSub?:string;
     taskDiscription?:string;
     taskLink?:string;
-    taskType?:Activity_Types
+    taskType?:string
     repeat?:boolean;
     deleted?:boolean;
     active?:boolean;
+    Validation?:boolean;
+    validateBy?:string;
+    series:boolean;
+    nextTaskId:string
+    possiblePostpone:number;
+    associatedPrograms:object;
     }

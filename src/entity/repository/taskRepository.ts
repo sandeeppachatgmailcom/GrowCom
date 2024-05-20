@@ -1,5 +1,5 @@
 import { FailedStatus_reply } from "../Types/failedStatus";
-import { Task_model } from "../models/task";
+import { Task_model } from "../models/taskModel";
 
 export interface TaskRepository{
     crateTask(data:Task_model):Promise<FailedStatus_reply  & Task_model|void>

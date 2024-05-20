@@ -1,4 +1,4 @@
-import { UserEntity_Model } from "../models/User";
+import { UserEntity_Model } from "../models/UserModel";
 import { validatedUser } from "../ReturnTypes/validatedUsed";
 import { Next } from "../Types/ServerTypes";
 import { createdUser } from "../ReturnTypes/createdUser";

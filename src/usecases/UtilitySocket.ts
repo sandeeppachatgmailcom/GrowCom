@@ -1,8 +1,10 @@
 import { ValidHumanReturnTypes } from "../entity/ReturnTypes/validHuman";
+import { DesignationModel } from "../entity/models/designationModel";
 import { Event_Model } from "../entity/models/eventModel";
-import { StudentBatch_Model } from "../entity/models/studentBatch";
-import { Task_model } from "../entity/models/task";
+import { StudentBatch_Model } from "../entity/models/studentBatchModel";
+import { Task_model } from "../entity/models/taskModel";
 import { VenueModels } from "../entity/models/venue_model";
+import { DesignationRepository } from "../entity/repository/DesignationRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";
 import { TaskRepository } from "../entity/repository/taskRepository";
@@ -16,7 +18,8 @@ export class UtilitySocket implements UtilUseCases{
         private userRepo:UserRepository,
         private batchRepo:StudentBatchRepository,
         private eventsRepo:EventsRepository,
-        private taskRepo:TaskRepository
+        private taskRepo:TaskRepository,
+        private Designation:DesignationRepository
     ){
         
     }
@@ -48,4 +51,9 @@ export class UtilitySocket implements UtilUseCases{
         console.log(tasks,'taskssss')
         return tasks
     }   
+    async getActiveDesignation(): Promise<void | DesignationModel[]> {
+        const designation = await this.Designation.realAllDesination()    
+        console.log(designation)
+        return designation
+    }
 }
