@@ -1,5 +1,5 @@
-import { StudentBatch_Model } from "../entity/models/studentBatch"; 
-import { UserEntity_Model } from "../entity/models/User";
+import { StudentBatch_Model } from "../entity/models/studentBatchModel"; 
+import { UserEntity_Model } from "../entity/models/UserModel";
 import { VenueModels } from "../entity/models/venue_model";
 import { AdminRepository } from "../entity/Repository/AdminRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository"; 
@@ -10,7 +10,7 @@ import { EventsRepository } from "../entity/repository/eventsRepository";
 import { Event_Model } from "../entity/models/eventModel";
 import { Event_Types } from "../entity/ReturnTypes/events";
 import { UtilityServices } from "../entity/utils/utilityServices";
-import { Task_model } from "../entity/models/task";
+import { Task_model } from "../entity/models/taskModel";
 import { TaskRepository } from "../entity/repository/taskRepository";
 
 

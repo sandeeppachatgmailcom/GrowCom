@@ -27,6 +27,9 @@ export interface ScheduledTask_Model{
     repeat?:string;
     dayTitle?:string;
     dayDiscription?:string;
+    matchedTasks?:object;
+    createdDate?:Date;
+    submissionDate?:Date;
 }
     
   

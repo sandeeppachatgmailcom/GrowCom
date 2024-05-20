@@ -1,4 +1,4 @@
-import { SerialNumbers_Model } from "../../entity/models/SerialNumbers";
+import { SerialNumbers_Model } from "../../entity/models/SerialNumbersModel";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
 import MongoSerialNumModel from "../models/serialNumber_Model";
 

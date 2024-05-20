@@ -5,4 +5,5 @@ export interface SerialNumbers_Model{
     deleted?:boolean,
     edited?:boolean,
     active:boolean
+    
 }

@@ -21,4 +21,5 @@ export interface Event_Model{
     dayName?:string;
     monthDay?:string;
     yearDay:string;
+    designation?:string
 }

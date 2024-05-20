@@ -1,4 +1,4 @@
-import { StudentBatch_Model } from "../models/studentBatch"  
+import { StudentBatch_Model } from "../models/studentBatchModel"  
 
 export interface StudentBatchRepository{
     createStudentBatch(data:StudentBatch_Model):Promise<StudentBatch_Model|void>

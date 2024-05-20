@@ -1,10 +1,11 @@
 // Import necessary modules and types
 import { UserRepository } from "../../entity/repository/userRepository";    
-import { UserEntity_Model } from "../../entity/models/User";
+import { UserEntity_Model } from "../../entity/models/UserModel";
 import userModel from "../models/userModel";
 import { createdUser } from "../../entity/ReturnTypes/createdUser";
 import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
 import { ValidHumanReturnTypes } from "../../entity/ReturnTypes/validHuman";
+import { studentSubmission } from "../../entity/ReturnTypes/StudentSubmission";
 
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
@@ -45,14 +46,15 @@ class MongoDb_UserActivity implements UserRepository {
             console.log(err)
         }   
     }
-    async findUserWithPassword(data: { email: string; pasword: string; }): Promise<UserEntity_Model|void  > {
+    async findUserWithPassword(data: { email: string; pasword: string; }): Promise<UserEntity_Model & {batch:object} |void  > {
         try {
             console.log('reached find user')
             const {email} = data;
             const user = await userModel.findOne({email})
+            
             console.log(user,'find user')
             if(user){
-                return user
+                return JSON.parse(JSON.stringify(user)) 
             } 
             else return 
             
@@ -72,11 +74,27 @@ class MongoDb_UserActivity implements UserRepository {
                 }
             }
             else{
-                const user = await userModel.findOne({email:email,password:password})
+                //const user = await userModel.findOne({email:email,password:password})
+                const user = await userModel.aggregate([
+                    {
+                        $match:{email}
+                    },
+                    {
+                        $lookup:{
+                            from:'studentbatches',
+                            localField:'batchId',
+                            foreignField:'batchId',
+                            as :'batch'
+                        }
+                    }
+                ])
                 console.log('reached authentication',password,user)
-                if(user) user.verified=true
-                if (user?.email){
-                    return user
+                const data = JSON.parse(JSON.stringify(user[0])) 
+                delete data.password;
+                if(user) data.verified=true
+                if (data?.email){
+                    
+                    return data
                 }
                 else return {status:false,message:'Wrong credential'}
             }
@@ -118,7 +136,7 @@ class MongoDb_UserActivity implements UserRepository {
 
     async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model| void> {
         try {
-
+            console.log(data,'yes final step is here ')
             const {email} = data
             if(data?.admin)data.role='admin'
             else if(data?.trainer) data.role='trainer'
@@ -141,11 +159,24 @@ class MongoDb_UserActivity implements UserRepository {
         else return
     }
     async getActiveTrainers(): Promise<void | ValidHumanReturnTypes[]> {
-        const result = await userModel.find({role:'Trainer',active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
+        const result = await userModel.find({role:'trainer',active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
         const users = JSON.parse(JSON.stringify(result))
         console.log(users,'users.................')
         return users
     }  
+    async getStudentSubmission(): Promise<void | studentSubmission[]> {
+        const result = await userModel.find({active:true, deleted:false,submission:{$ne:null}})
+        const out :studentSubmission[] = result.map((user:UserEntity_Model)=>{
+            return {
+                firstName: user.firstName,
+                email:user.email,
+                batchId:user.batchId,
+                submission :user.submission,
+            }
+        })    
+        return out 
+
+    }
         
  
 }

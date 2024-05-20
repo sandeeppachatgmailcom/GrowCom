@@ -308,8 +308,7 @@ export function authRouter(router: Router) {
  *       - User
  */
 
-  router.post(
-    "/saveBasicInfo",token.verifyToken,(req: Req, res: Res, next: Next) => {
+  router.post("/saveBasicInfo",token.verifyToken,(req: Req, res: Res, next: Next) => {
         try {
             userController.savebasicProfile(req, res, next);
         } catch (error) {}

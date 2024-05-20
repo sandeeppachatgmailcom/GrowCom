@@ -3,6 +3,7 @@ enum ActivityType {
     Listening = "Listening",
     Speaking = "Speaking",
     Writing = "Writing",
+    oneToOne= "OneToOne"
   }
 
 

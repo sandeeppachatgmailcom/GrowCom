@@ -1,6 +1,6 @@
 
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { StudentBatch_Model } from "../../entity/models/studentBatch"; 
+import { StudentBatch_Model } from "../../entity/models/studentBatchModel"; 
 
 const schemaStudentsBatch:Schema<StudentBatch_Model &Document> =new  mongoose.Schema({
 batchId :{type:String,required:true },

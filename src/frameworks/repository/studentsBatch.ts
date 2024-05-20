@@ -1,4 +1,4 @@
-import { StudentBatch_Model } from "../../entity/models/studentBatch";
+import { StudentBatch_Model } from "../../entity/models/studentBatchModel";
 import { StudentBatchRepository } from "../../entity/repository/StudentBatchRepository";
 import mongoose from "mongoose";
 import studentBatchModel from "../models/studentsBatch";

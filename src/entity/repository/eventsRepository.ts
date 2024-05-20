@@ -7,4 +7,5 @@ export interface EventsRepository{
     deleteEvents(data:Event_Model):Promise<EventTypes&FailedStatus_reply|void>
     readActiveEvents():Promise<Event_Model[]|void>
     getTaskByTrainerEmail(data:{email:string}):Promise<Event_Model[]|void>
+    getTaskByDesignation(data:{designation:string}):Promise<Event_Model[]|void>
 }

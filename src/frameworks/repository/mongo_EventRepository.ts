@@ -38,17 +38,21 @@ export class Mongo_EventRepository implements EventsRepository{
                 }
             }
             else{
-              
-                const newEvent =await events_Model.findOne({eventName:data.eventName,deleted:false,eventId:{$ne:data.eventId}})
-                if(newEvent){
-                    return {status:false,message:'another event already in this same name',...JSON.parse(JSON.stringify(newEvent))   }
-                }
-                else{
-                    await events_Model.updateOne({eventName:data.eventName,deleted:false,eventId:data.eventId},{$set:data})
+                    
+                    const updateResult:any = await events_Model.updateOne({deleted:false,eventId:data.eventId},{$set:data})
+                    console.log('hi hi hi hi ',updateResult)
                     const result = await events_Model.findOne({eventId:data.eventId})
-                    return {status:true,message:'event updation success',...JSON.parse(JSON.stringify(result))}
-                }
+                    if(updateResult.modifiedCount>0){
+                        
+                        return {status:true,message:'event updation success',...JSON.parse(JSON.stringify(result))}
+                    }
+                    else{
+                        return {status:false,message:'no Active events in this name ',...JSON.parse(JSON.stringify(result))}
+                    }
 
+
+
+                    
             }
             return
        } catch (error) {
@@ -72,7 +76,64 @@ export class Mongo_EventRepository implements EventsRepository{
         else return
     }
     async getTaskByTrainerEmail(data: { email: string; }): Promise<void | Event_Model[]> {
-        const activeEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
+        const localactiveEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
+        const activeEvents = await events_Model.aggregate(
+        [
+            {
+            $match:{staffInCharge:data.email,deleted:false,active:true}
+            },
+            {
+                $lookup: {
+                    from: 'tasks',
+                    let: { eventId: '$eventId' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: ['$$eventId', '$associatedPrograms']
+                                }
+                            }
+                        }
+                    ],
+                    as: 'matchedTasks'
+                }
+            },
+        
+        ])
+        console.log(activeEvents,'activeEventsactiveEventsactiveEventsaaaaa')
         return activeEvents
+    }
+    async getTaskByDesignation(data: { designation: string; }): Promise<void | Event_Model[]> {
+        
+        try {
+        const localactiveEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
+        const activeEvents = await events_Model.aggregate(
+        [
+            {
+            $match:{designation :data.designation,deleted:false,active:true}
+            },
+            {
+                $lookup: {
+                    from: 'tasks',
+                    let: { eventId: '$eventId' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: ['$$eventId', '$associatedPrograms']
+                                }
+                            }
+                        }
+                    ],
+                    as: 'matchedTasks'
+                }
+            },
+        
+        ])
+        console.log(activeEvents,'activeEventsactiveEventsactiveEventsaaaaa')
+        return activeEvents
+        } catch (error) {
+            
+        }
     }
 }

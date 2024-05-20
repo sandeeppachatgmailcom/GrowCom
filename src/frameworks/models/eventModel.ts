@@ -24,6 +24,7 @@ const eventSchema :Schema <Event_Model& Document> =new mongoose.Schema({
     dayName:{type:String},
     monthDay:{type:String},
     yearDay:{type:String},
+    designation:{type:String}
 
 })
 

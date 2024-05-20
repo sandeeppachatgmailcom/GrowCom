@@ -5,6 +5,7 @@ import { StudentBatchRepository } from "../entity/repository/StudentBatchReposit
 import { EventsRepository } from "../entity/repository/eventsRepository";
 import { ScheduledTask_Repository } from "../entity/repository/scheduledTaskRepository";
 import { SerialNumbersRepository } from "../entity/repository/serialNumberRepository";
+import { UserRepository } from "../entity/repository/userRepository";
 import { TrainerUsecase } from "../entity/usecases/trainerUseCase";
 import { GeneralUtils } from "../interfaces/utils/GeneralUtils";
 
@@ -14,7 +15,8 @@ export class TrainerSocket implements TrainerUsecase {
     private genRepo: GeneralUtils,
     private serialRepo: SerialNumbersRepository,
     private batchRepo: StudentBatchRepository,
-    private SchTask: ScheduledTask_Repository
+    private SchTask: ScheduledTask_Repository,
+    private userRepo: UserRepository
   ) {}
 
   async getAudianceGroup(audianceType: string) {
@@ -72,7 +74,7 @@ export class TrainerSocket implements TrainerUsecase {
 }): Promise<ScheduledTask_Model[] | void> {
     const events = await this.eventRepo.getTaskByTrainerEmail(data);
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
-
+   // const subMission = await this.userRepo.getStudentSubmission()
     let pendingWork: any[] = [];
 
     if (events) {
@@ -86,8 +88,6 @@ export class TrainerSocket implements TrainerUsecase {
 
             for (let i: any = curDate; i <= endDate; i.setDate(i.getDate() + 1)) {
                 const result = this.genRepo.getDayName(i);
-               
-               
                 if (event.repeat == "Weekly") {
                     if (result.dayName == event.dayName) {
                         const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
@@ -110,18 +110,13 @@ export class TrainerSocket implements TrainerUsecase {
                 }
             }
         }));
-
-        
         pendingWork.sort((a: any, b: any) => a.scheduledDate - b.scheduledDate);
-         
         if (scheduledEvent) {
             const scheduledDates = new Set();
             scheduledEvent.forEach((event: any) => {
                 event.scheduledDate.setHours(0, 0, 0, 0);
                 scheduledDates.add(`${event.scheduledDate.getTime()}_${event.eventId}`);
-                
             });
-           
             pendingWork.forEach((work: any) => {
                 work.scheduledDate.setHours(0, 0, 0, 0);
                 if (scheduledDates.has(`${work.scheduledDate.getTime()}_${work.eventId}`)) {
@@ -142,7 +137,7 @@ export class TrainerSocket implements TrainerUsecase {
             });
         }
 
-        //console.log(pendingWork, 'Final pendingWork');
+        console.log(pendingWork, 'Final pendingWork');
 
         return pendingWork;
     }
