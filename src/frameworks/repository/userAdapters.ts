@@ -6,6 +6,7 @@ import { createdUser } from "../../entity/ReturnTypes/createdUser";
 import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
 import { ValidHumanReturnTypes } from "../../entity/ReturnTypes/validHuman";
 import { studentSubmission } from "../../entity/ReturnTypes/StudentSubmission";
+import { ScheduledTask_Model } from "../../entity/models/scheduledTask_Model";
 
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
@@ -148,11 +149,8 @@ class MongoDb_UserActivity implements UserRepository {
             else return
 
         } catch (error) {
-            
         }  
-         
     }
-    
     async getUsers(): Promise<void | UserEntity_Model[]>{
         const users = await userModel.find({active:true})
         if (users) return users 
@@ -164,23 +162,30 @@ class MongoDb_UserActivity implements UserRepository {
         console.log(users,'users.................')
         return users
     }  
-    async getStudentSubmission(): Promise<void | studentSubmission[]> {
-        const result = await userModel.find({active:true, deleted:false,submission:{$ne:null}})
+    async getStudentSubmission(): Promise<void | studentSubmission & ScheduledTask_Model []> {
+        const result = await userModel.aggregate([{
+            $match:{
+                active:true, 
+                deleted:false,
+                submission:{$ne:null}
+            },
+            },
+           
+        ])
         const out :studentSubmission[] = result.map((user:UserEntity_Model)=>{
             return {
                 firstName: user.firstName,
                 email:user.email,
                 batchId:user.batchId,
                 submission :user.submission,
+                 
             }
         })    
-        return out 
-
-    }
         
- 
+        console.log(out,'sorted list')
+        return out 
+    }
 }
 
-// Export the UserAdapters class
 export default MongoDb_UserActivity;
  

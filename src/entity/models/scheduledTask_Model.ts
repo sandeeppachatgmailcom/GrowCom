@@ -4,6 +4,7 @@ export interface ScheduledTask_Model{
     eventName?:string;
     scheduledDate:Date;
     staffInCharge?:string;
+    staffDesignation?:string;
     location?:string;
     timeFixed?:boolean;
     startDateTime?:Date;

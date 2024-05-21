@@ -8,6 +8,7 @@ const scheduleMongoSchema :Schema<ScheduledTask_Model & Document> = new mongoose
     eventName:{type:String},
     scheduledDate:{type:Date},
     staffInCharge:{type:String},
+    staffDesignation:{type:String},
     location:{type:String},
     timeFixed:{type:Boolean},
     startDateTime:{type:String},

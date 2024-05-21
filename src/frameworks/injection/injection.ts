@@ -61,9 +61,9 @@ const DesignationAdapter = new Mongo_DesignationRepository()
 const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter,DesignationAdapter)
 const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter )
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
-const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter)
+const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter)
 const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter,submissionRepo,serialNumberAdapter,studentBatchAdapter)
-//router controllers 
+// router controllers 
 const adminController = new AdminController(adminSocket,utilitySocket)
 const userController = new UserController(userSocket)
 const utilsController = new UtilityController(utilitySocket)
