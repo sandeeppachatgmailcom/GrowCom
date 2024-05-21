@@ -74,9 +74,34 @@ export class TrainerSocket implements TrainerUsecase {
 }): Promise<ScheduledTask_Model[] | void> {
     const events = await this.eventRepo.getTaskByTrainerEmail(data);
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
-   // const subMission = await this.userRepo.getStudentSubmission()
-    let pendingWork: any[] = [];
+    const subMission = await this.userRepo.getStudentSubmission()
+    
+    
+    
+    const studentSubmission= subMission.map((student)=>{
+      for (let key in student.submission){
+        const tempsche =  scheduledEvent.filter((evento)=>{
+           
+          if( evento.ScheduledTaskID == key)  return evento
+        }) 
+        for (let taskkey in student.submission[key] ){
+          const tempSudmission = {
+            type:'submission',
+            ...student,
+            ...tempsche[0]._doc,
+            ...student.submission[key][taskkey][0] 
+          }
+          // delete tempSudmission.submission;
+          delete tempSudmission.audience;
+          delete tempSudmission.matchedTasks;
+          return tempSudmission;
+        }
+      }
+    })
 
+   
+    let pendingWork: any[] = [];
+    pendingWork = [...studentSubmission]
     if (events) {
         await Promise.all(events.map(async (item: Event_Model) => {
             let event = JSON.parse(JSON.stringify(item));
@@ -90,21 +115,21 @@ export class TrainerSocket implements TrainerUsecase {
                 const result = this.genRepo.getDayName(i);
                 if (event.repeat == "Weekly") {
                     if (result.dayName == event.dayName) {
-                        const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                        const scheduleProgram = { type:'taskCreation',scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                       if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
                 } else if (event.repeat == "daily") {
-                    const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                    const scheduleProgram = {type:'taskCreation', scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                     if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
                 } else if (event.repeat == "Monthly") {
                     if (result.day == event.monthDay) {
-                        const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                        const scheduleProgram = { type:'taskCreation',scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                         if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
                 } else {
                     const month = result.monthDay + "-" + result.day;
                     if (month == event.yearDay) {
-                        const scheduleProgram = { scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                        const scheduleProgram = {type:'taskCreation', scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                         if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
                     }
                 }
@@ -128,17 +153,17 @@ export class TrainerSocket implements TrainerUsecase {
                         );
                     });
                     if (correspondingEvent) {
-                      console.log('am at here ')
+                      
                         // Update pendingWork with the corresponding event
                         Object.assign(work,JSON.parse(JSON.stringify( correspondingEvent)));
-                        // console.log(work, 'Updated pendingWork item');
+                        // 
                     }
                 }
             });
         }
 
-        console.log(pendingWork, 'Final pendingWork');
-
+        
+        console.log(pendingWork,pendingWork.length,'----------->>>>>>>pendingWork<<<<---------------')
         return pendingWork;
     }
 }
@@ -153,9 +178,9 @@ export class TrainerSocket implements TrainerUsecase {
       });
       data.ScheduledTaskID = tempid.serialNumber;
     }
-    console.log(data,'ssssssss')
+    
     const task = await this.SchTask.createScheduledTask(data);
-    console.log('task',task)
+    
     return task as ScheduledTask_Model & FailedStatus_reply;
   }
 }

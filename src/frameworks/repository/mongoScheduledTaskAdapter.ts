@@ -5,16 +5,20 @@ import { ScheduledTask_Repository } from "../../entity/repository/scheduledTaskR
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
 import scheduledTask_DB from "../models/scheduledTask_DB";
 import { lookup } from "dns";
+import userModel from "../models/userModel";
+import { UserEntity_Model } from "../../entity/models/UserModel";
 
 export class MongoScheduledTask implements ScheduledTask_Repository{
       
     async  createScheduledTask(data: ScheduledTask_Model & FailedStatus_reply): Promise<void | ScheduledTask_Model & FailedStatus_reply> {
         try {
-            console.log(data, 'final');
+           
+            const designation :UserEntity_Model= await userModel.findOne({email:data.staffInCharge})
             if(data._id) delete data._id  
             if(data.message) delete data.message  
             if(data.status) delete data.status
- 
+            data.staffDesignation = designation.designation;
+            console.log(data, 'final');
             const result = await scheduledTask_DB.updateOne(
                 { ScheduledTaskID: data.ScheduledTaskID },
                 { $set: data },
@@ -48,18 +52,19 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
     }
     
     async getScheduledTask(data: { email: string; startDate: Date; endDate: Date; }): Promise<void | ScheduledTask_Model[]> {
-        console.log('reached mongo db',data)
-        const scheduledTask = await scheduledTask_DB.find({
-            staffInCharge: data.email,
+       
+        const designation  = await userModel.findOne({email:data.email})    
+        
+        const scheduledTask :ScheduledTask_Model[] = await scheduledTask_DB.find({
+            staffDesignation: designation?.designation,
             scheduledDate: { $gte: data.startDate, $lte: data.endDate }
         });
-          console.log(scheduledTask,'scheduledTask')
+          
         if (scheduledTask)  return scheduledTask
         else return []
-        
     }
     async getStudentTask(data: { batchId: string; week: string; startDate: Date; endDate: Date; }): Promise<void | ScheduledTask_Model[]> {
-        console.log('reached student schedule repository',data);
+        console.log(data,'------------------------>>>>>>>>data<<<<<----------------')
         const scheduledTasks = await scheduledTask_DB.aggregate([
             {
                 $match: {
@@ -96,7 +101,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
             
         ]) 
         
-        console.log(scheduledTasks,'please print here ')
+         
          
         return scheduledTasks;
     }

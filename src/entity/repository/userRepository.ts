@@ -1,3 +1,4 @@
+import { ScheduledTask_Model } from "../models/scheduledTask_Model";
 import { Academic, UserEntity_Model } from "../models/UserModel";
 import { VenueModels } from "../models/venue_model";
 import { createdUser } from "../ReturnTypes/createdUser";
@@ -14,7 +15,7 @@ export interface UserRepository {
     updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>
     getUsers(): Promise<void | UserEntity_Model[]>
     getActiveTrainers():Promise<void|ValidHumanReturnTypes[]>
-    getStudentSubmission():Promise<void| studentSubmission[]>
+    getStudentSubmission():Promise<void| studentSubmission & ScheduledTask_Model[]>
 }
 
 
