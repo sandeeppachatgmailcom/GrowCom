@@ -17,7 +17,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
             if(data._id) delete data._id  
             if(data.message) delete data.message  
             if(data.status) delete data.status
-            data.staffDesignation = designation.designation;
+            data.staffDesignation = designation?.designation;
             console.log(data, 'final');
             const result = await scheduledTask_DB.updateOne(
                 { ScheduledTaskID: data.ScheduledTaskID },
@@ -52,14 +52,14 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
     }
     
     async getScheduledTask(data: { email: string; startDate: Date; endDate: Date; }): Promise<void | ScheduledTask_Model[]> {
-       
+        console.log(data,'data at root')
         const designation  = await userModel.findOne({email:data.email})    
-        
+       
         const scheduledTask :ScheduledTask_Model[] = await scheduledTask_DB.find({
             staffDesignation: designation?.designation,
-            scheduledDate: { $gte: data.startDate, $lte: data.endDate }
+           // scheduledDate: { $gte: data.startDate, $lte: new Date( data.endDate) }
         });
-          
+          console.log(scheduledTask,'scheduled task find one ')
         if (scheduledTask)  return scheduledTask
         else return []
     }

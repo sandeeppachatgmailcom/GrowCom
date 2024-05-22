@@ -153,4 +153,32 @@ export class UserController {
     console.log(reply,'reply')
     res.status(200).json(reply)
   }  
+  async getSubmissionDetails(req: Req, res: Res, next: Next) {
+    try {
+      const { email, password, googleAuth } = req.body;
+      if (this.isValidEmail(email)) {
+        const result = await this.userSocket.getSubmissionDetails(
+          email,
+          password,
+          googleAuth,
+          next
+        );
+        
+        console.log(result,'result at controller ')
+        const data  = JSON.parse(JSON.stringify(result))
+        if (data?.active ){ 
+         
+          const data = JSON.parse(JSON.stringify(result))
+          req?.body?.token? res.cookie('manGrow', req.body.token.token ):''
+          
+          res.status(200).json(data);
+        }
+
+        else{
+          const data = JSON.parse(JSON.stringify(result))
+          res.status(200).json(data);
+        }
+      }
+    } catch (error) {}
+  }
 }

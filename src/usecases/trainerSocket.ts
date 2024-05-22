@@ -1,4 +1,6 @@
+import { resourceLimits } from "worker_threads";
 import { FailedStatus_reply } from "../entity/Types/failedStatus";
+import { UserEntity_Model } from "../entity/models/UserModel";
 import { Event_Model } from "../entity/models/eventModel";
 import { ScheduledTask_Model } from "../entity/models/scheduledTask_Model";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository";
@@ -72,41 +74,55 @@ export class TrainerSocket implements TrainerUsecase {
     startDate: Date;
     endDate: Date;
 }): Promise<ScheduledTask_Model[] | void> {
+
+  
     const events = await this.eventRepo.getTaskByTrainerEmail(data);
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
-    const subMission = await this.userRepo.getStudentSubmission()
+    const tempMission  = await this.userRepo.getStudentSubmission()
+    const subMission = JSON.parse(JSON.stringify(tempMission))
+    console.log(subMission,'<<<<<<<<<<<<<<<<<<<<<<IIIIIIIIIIIIII>>>>>>>>>>>>>>>>>>>>>>')
+
     
-    
-    
-    const studentSubmission= subMission.map((student)=>{
+
+    const studentSubmission= subMission.map((student:any)=>{
+       
+      let tempOut = []
       for (let key in student.submission){
-        const tempsche =  scheduledEvent.filter((evento)=>{
-           
-          if( evento.ScheduledTaskID == key)  return evento
-        }) 
-        for (let taskkey in student.submission[key] ){
-          const tempSudmission = {
-            type:'submission',
-            ...student,
-            ...tempsche[0]._doc,
-            ...student.submission[key][taskkey][0] 
-          }
-          // delete tempSudmission.submission;
-          delete tempSudmission.audience;
-          delete tempSudmission.matchedTasks;
-          return tempSudmission;
+        const tempsche =  scheduledEvent.filter((evento:any)=>{
+          if( evento.ScheduledTaskID == key)  return evento  
+         }) 
+ 
+         for (let taskkey in student.submission[key] ){
+              
+              const tempSudmission = {
+                type:'submission',
+                ...student,
+                ...tempsche[0]?._doc,
+                ...student?.submission[key][taskkey][0] 
+              }
+             
+              // delete tempSudmission.submission;
+              delete tempSudmission.audience;
+              delete tempSudmission.matchedTasks;
+             
+              tempOut.push(tempSudmission)
+             
+              
+          
         }
       }
+      return tempOut
     })
-
-   
+    
     let pendingWork: any[] = [];
-    pendingWork = [...studentSubmission]
+  
+     studentSubmission.map((item:any)=>{ pendingWork =[...pendingWork,...item] })
     if (events) {
-        await Promise.all(events.map(async (item: Event_Model) => {
-            let event = JSON.parse(JSON.stringify(item));
-            const tempAudience = await this.getAudianceGroup(event.audienceType);
-            event.audience = tempAudience;
+      
+      const p = await Promise.all(events.map(async (item: Event_Model) => {
+        let event = JSON.parse(JSON.stringify(item));
+        const tempAudience = await this.getAudianceGroup(event.audienceType);
+        event.audience = tempAudience;
 
             let curDate = new Date(data.startDate);
             let endDate = new Date(data.endDate);
@@ -116,43 +132,54 @@ export class TrainerSocket implements TrainerUsecase {
                 if (event.repeat == "Weekly") {
                     if (result.dayName == event.dayName) {
                         const scheduleProgram = { type:'taskCreation',scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                      if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
+                        if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
                 } else if (event.repeat == "daily") {
                     const scheduleProgram = {type:'taskCreation', scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                     if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
-                } else if (event.repeat == "Monthly") {
+                  } else if (event.repeat == "Monthly") {
                     if (result.day == event.monthDay) {
-                        const scheduleProgram = { type:'taskCreation',scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
-                        if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
+                      const scheduleProgram = { type:'taskCreation',scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                      if( new Date(i)>= new Date())  pendingWork.push(scheduleProgram);
                     }
-                } else {
+                  } else {
                     const month = result.monthDay + "-" + result.day;
                     if (month == event.yearDay) {
-                        const scheduleProgram = {type:'taskCreation', scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
+                      const scheduleProgram = {type:'taskCreation', scheduledDate: new Date(i), ...JSON.parse(JSON.stringify(event)) };
                         if( new Date(i)>= new Date()) pendingWork.push(scheduleProgram);
                     }
                 }
             }
         }));
-        pendingWork.sort((a: any, b: any) => a.scheduledDate - b.scheduledDate);
-        if (scheduledEvent) {
-            const scheduledDates = new Set();
-            scheduledEvent.forEach((event: any) => {
-                event.scheduledDate.setHours(0, 0, 0, 0);
-                scheduledDates.add(`${event.scheduledDate.getTime()}_${event.eventId}`);
-            });
-            pendingWork.forEach((work: any) => {
-                work.scheduledDate.setHours(0, 0, 0, 0);
-                if (scheduledDates.has(`${work.scheduledDate.getTime()}_${work.eventId}`)) {
-                    // Find the corresponding scheduled event and update pendingWork
-                    const correspondingEvent = scheduledEvent.find((event: any) => {
-                        return (
-                            event.scheduledDate.getTime() === work.scheduledDate.getTime() &&
-                            event.eventId === work.eventId
-                        );
-                    });
-                    if (correspondingEvent) {
+
+        
+    pendingWork.sort((a: any, b: any) => a.scheduledDate - b.scheduledDate);
+    
+    if (scheduledEvent) {
+      
+      const scheduledDates = new Set();
+      scheduledEvent.forEach((event: any) => {
+        event.scheduledDate.setHours(0, 0, 0, 0);
+        
+        scheduledDates.add(`${event.scheduledDate.toISOString().split('T')[0]}_${event.eventId}`);
+      });
+      pendingWork.forEach((work: any) => {
+        
+        work.scheduledDate.setHours(0, 0, 0, 0);
+        
+       
+        if (scheduledDates.has(`${work.scheduledDate.toISOString().split('T')[0]}_${work.eventId}`)) {
+          
+          
+          // Find the corresponding scheduled event and update pendingWork
+          const correspondingEvent = scheduledEvent.find((event: any) => {
+            return (
+              event.scheduledDate.getTime() === work.scheduledDate.getTime() &&
+              event.eventId === work.eventId
+            );
+          });
+
+          if (correspondingEvent) {
                       
                         // Update pendingWork with the corresponding event
                         Object.assign(work,JSON.parse(JSON.stringify( correspondingEvent)));
@@ -163,7 +190,7 @@ export class TrainerSocket implements TrainerUsecase {
         }
 
         
-        console.log(pendingWork,pendingWork.length,'----------->>>>>>>pendingWork<<<<---------------')
+        
         return pendingWork;
     }
 }
@@ -182,5 +209,22 @@ export class TrainerSocket implements TrainerUsecase {
     const task = await this.SchTask.createScheduledTask(data);
     
     return task as ScheduledTask_Model & FailedStatus_reply;
+  }
+
+  async updateMarkToCollection(data: { email:string, ScheduledTaskID: string; taskId: string; mark: string; comment: string;verified:boolean }): Promise<UserEntity_Model> {
+      const tempuser :UserEntity_Model = await this.userRepo.findUser({email:data.email})
+      // if (!tempuser) {
+      //   return { status: false, message: 'User not found' }; // Error handling for non-existent user
+      // } 
+      console.log(data, tempuser.submission[data.ScheduledTaskID][data.taskId][0].mark,'input data ')
+      const user = JSON.parse(JSON.stringify(tempuser))
+      user.submission[data.ScheduledTaskID][data.taskId][0].mark = data.mark;
+      user.submission[data.ScheduledTaskID][data.taskId][0].verified = data.verified;
+      user.submission[data.ScheduledTaskID][data.taskId][0].comment= data.comment;
+      //console.log(user.submission[data.ScheduledTaskID][data.taskId],'user.submission[data.ScheduledTaskID][data.taskId]')
+      const result =  await this.userRepo.updateUserBasics(user)
+    //  console.log( result,'result' )
+      return result
+       
   }
 }

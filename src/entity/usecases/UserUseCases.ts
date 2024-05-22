@@ -14,5 +14,5 @@ export interface UserUseCases{
     getUsers(): Promise<void|UserEntity_Model[]>
     forgotOtp (email:string,name:string):Promise<{success:boolean}>
     resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}>
-    
+    getSubmissionDetails(email: string, password: string, googleAuth: boolean, next:Next ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>
 }

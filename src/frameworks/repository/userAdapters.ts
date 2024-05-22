@@ -159,7 +159,7 @@ class MongoDb_UserActivity implements UserRepository {
     async getActiveTrainers(): Promise<void | ValidHumanReturnTypes[]> {
         const result = await userModel.find({role:'trainer',active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
         const users = JSON.parse(JSON.stringify(result))
-        console.log(users,'users.................')
+         
         return users
     }  
     async getStudentSubmission(): Promise<void | studentSubmission & ScheduledTask_Model []> {
@@ -182,9 +182,59 @@ class MongoDb_UserActivity implements UserRepository {
             }
         })    
         
-        console.log(out,'sorted list')
+        
         return out 
     }
+
+    async getSubmissionDetails(email: string, password: string, googleAuth: boolean): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>{
+        try {
+            const {email,password,googleAuth} = data
+            if(googleAuth){
+                const user = await userModel.findOne({email},{password:0})
+                if(user) user.verified=true
+                if (user?.active){
+                    return user
+                }
+            }
+            else{
+                //const user = await userModel.findOne({email:email,password:password})
+                const user = await userModel.aggregate([
+                    {
+                        $match:{email}
+                    },
+                    {
+                        $lookup:{
+                            from:'studentbatches',
+                            localField:'batchId',
+                            foreignField:'batchId',
+                            as :'batch'
+                        }
+                    } 
+                    ,{
+                        $lookup: {
+                          from: 'scheduledtasks', // Replace with your actual collection name
+                          localField: { // Use $objectToArray to convert submission to key-value pairs
+                            $objectToArray: "$submission"
+                          },
+                          foreignField: 'ScheduledTaskID', // Join on scheduledtasks' _id (assuming it's the identifier)
+                          as: 'joinedTasks'
+                        }
+                      } 
+                ])
+                console.log('reached authentication',password,user)
+                const data = JSON.parse(JSON.stringify(user[0])) 
+                delete data.password;
+                if(user) data.verified=true
+                if (data?.email){
+                    
+                    return data
+                }
+                else return {status:false,message:'Wrong credential'}
+            }
+        } catch (error) {
+             
+        }
+    } 
 }
 
 export default MongoDb_UserActivity;
