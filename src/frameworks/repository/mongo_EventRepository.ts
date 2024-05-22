@@ -5,6 +5,8 @@ import events_Model from "../models/eventModel";
 import { FailedStatus_reply } from "../../entity/Types/failedStatus";
 
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
+import userModel from "../models/userModel";
+import { UserEntity_Model } from "../../entity/models/UserModel";
 
 export class Mongo_EventRepository implements EventsRepository{
     constructor(
@@ -76,11 +78,14 @@ export class Mongo_EventRepository implements EventsRepository{
         else return
     }
     async getTaskByTrainerEmail(data: { email: string; }): Promise<void | Event_Model[]> {
-        const localactiveEvents = await events_Model.find({staffInCharge:data.email,deleted:false,active:true}) 
+        const designation  = await userModel.find({email:data.email})
+        const localactiveEvents = await events_Model.find({designation:designation?.designation,deleted:false,active:true}) 
+        console.log(designation,'designationdesignation')
+        
         const activeEvents = await events_Model.aggregate(
         [
             {
-            $match:{staffInCharge:data.email,deleted:false,active:true}
+            $match:{designation:designation.designation,deleted:false,active:true}
             },
             {
                 $lookup: {
@@ -100,7 +105,7 @@ export class Mongo_EventRepository implements EventsRepository{
             },
         
         ])
-        console.log(activeEvents,'activeEventsactiveEventsactiveEventsaaaaa')
+        
         return activeEvents
     }
     async getTaskByDesignation(data: { designation: string; }): Promise<void | Event_Model[]> {

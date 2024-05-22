@@ -38,6 +38,7 @@ export class UserSocket implements UserUseCases {
     });
     return result;
   }
+
   async findUser(
     email: string,
     next: Next
@@ -160,6 +161,43 @@ export class UserSocket implements UserUseCases {
     const user = await this.repo.findUser({ email });
     if(user) return user
     else return {status:false}
+  }
+  
+  async getSubmissionDetails(
+    email: string,
+    password: string,
+    googleAuth: boolean,
+    next:Next
+  ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }> {
+     
+    const user = await this.repo.findUserWithPassword({ email });
+    if (user) {
+      if(!user.active)   return {status:false,message:'user disabled by admin'}
+      const hashedPassword = user.password as string;
+      if(googleAuth){ 
+        return user}
+      const hashedPasswords = await this.passwordManager.comparePassword(
+        password,
+        hashedPassword
+      );
+      console.log("afrter comaparing", hashedPasswords);
+      if (hashedPasswords) {
+        const result = await this.repo.getSubmissionDetails(email,{password: hashedPassword}, googleAuth );
+        return result;
+        
+        
+
+
+
+
+
+      } else {
+        return {status:false,message:'Wrong credential'}
+      }
+    }
+    else{
+      return{status:false,message:'user not found'}
+    }
   }
 
    
