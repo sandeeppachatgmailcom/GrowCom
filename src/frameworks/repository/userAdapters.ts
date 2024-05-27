@@ -188,16 +188,10 @@ class MongoDb_UserActivity implements UserRepository {
 
     async getSubmissionDetails(email: string, password: string, googleAuth: boolean): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>{
         try {
-            const {email,password,googleAuth} = data
-            if(googleAuth){
-                const user = await userModel.findOne({email},{password:0})
-                if(user) user.verified=true
-                if (user?.active){
-                    return user
-                }
-            }
-            else{
-                //const user = await userModel.findOne({email:email,password:password})
+             console.log('its reading from here ')
+             
+            
+              
                 const user = await userModel.aggregate([
                     {
                         $match:{email}
@@ -210,18 +204,10 @@ class MongoDb_UserActivity implements UserRepository {
                             as :'batch'
                         }
                     } 
-                    ,{
-                        $lookup: {
-                          from: 'scheduledtasks', // Replace with your actual collection name
-                          localField: { // Use $objectToArray to convert submission to key-value pairs
-                            $objectToArray: "$submission"
-                          },
-                          foreignField: 'ScheduledTaskID', // Join on scheduledtasks' _id (assuming it's the identifier)
-                          as: 'joinedTasks'
-                        }
-                      } 
+                     
+                     
                 ])
-                console.log('reached authentication',password,user)
+                console.log('reached authentication',password,user,'*************************')
                 const data = JSON.parse(JSON.stringify(user[0])) 
                 delete data.password;
                 if(user) data.verified=true
@@ -230,7 +216,7 @@ class MongoDb_UserActivity implements UserRepository {
                     return data
                 }
                 else return {status:false,message:'Wrong credential'}
-            }
+           
         } catch (error) {
              
         }

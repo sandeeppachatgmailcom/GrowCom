@@ -91,78 +91,90 @@ export class UserController {
     return emailRegex.test(email);
   }
   validatePassword(password: string) {
-    if (password.length < 8) {
-      return {
-        status: false,
-        message: "Password must be at least 8 characters long",
-      };
+    try {
+      if (password.length < 8) {
+        return {
+          status: false,
+          message: "Password must be at least 8 characters long",
+        };
+      }
+      // Validate if password contains at least one uppercase letter
+      if (!/[A-Z]/.test(password)) {
+        return {
+          status: false,
+          message: "Password must contain at least one uppercase letter",
+        };
+      }
+      // Validate if password contains at least one lowercase letter
+      if (!/[a-z]/.test(password)) {
+        return {
+          status: false,
+          message: "Password must contain at least one lowercase letter",
+        };
+      }
+      // Validate if password contains at least one number
+      if (!/\d/.test(password)) {
+        return {
+          status: false,
+          message: "Password must contain at least one number",
+        };
+      }
+      // Validate if password contains at least one special character
+      if (!/[^a-zA-Z0-9]/.test(password)) {
+        return {
+          status: false,
+          message: "Password must contain at least one special character",
+        };
+      }
+      // If no errors, return an empty string
+      return { status: true, message: "" };
+    } catch (error) {
+      
     }
-    // Validate if password contains at least one uppercase letter
-    if (!/[A-Z]/.test(password)) {
-      return {
-        status: false,
-        message: "Password must contain at least one uppercase letter",
-      };
-    }
-    // Validate if password contains at least one lowercase letter
-    if (!/[a-z]/.test(password)) {
-      return {
-        status: false,
-        message: "Password must contain at least one lowercase letter",
-      };
-    }
-    // Validate if password contains at least one number
-    if (!/\d/.test(password)) {
-      return {
-        status: false,
-        message: "Password must contain at least one number",
-      };
-    }
-    // Validate if password contains at least one special character
-    if (!/[^a-zA-Z0-9]/.test(password)) {
-      return {
-        status: false,
-        message: "Password must contain at least one special character",
-      };
-    }
-    // If no errors, return an empty string
-    return { status: true, message: "" };
   }
   getUsers(req:Req,res:Res,next:Next){
 
   }
   async savebasicProfile(req:Req,res:Res,next:Next){
-    console.log(req.body,'request received here ')
-    const user =await  this.userSocket.updateUserBasics(req.body)
+    try {
+      console.log(req.body,'request received here ')
+      const user =await  this.userSocket.updateUserBasics(req.body)
     res.json(user)
+    } catch (error) {
+      
+    }
   }
   async forgotPassword(req:Req,res:Res,next:Next){
-    const {name,email} = req.body
-    const otp =await this.userSocket.forgotOtp(email,name)
-    const out = JSON.parse(JSON.stringify(otp))
-    out.changePassword=true
-    res.json(out)
+   try {
+      const {name,email} = req.body
+      const otp =await this.userSocket.forgotOtp(email,name)
+      const out = JSON.parse(JSON.stringify(otp))
+      out.changePassword=true
+      res.json(out)
+   } catch (error) {
+    
+   }
   }
   async resetPassword (req:Req,res:Res,next:Next){
-    const {password ,email } = req.body
-    const user = await this.userSocket.findUser(email,next) 
-     const {firstName }= user as UserEntity_Model
-    const result= await this.userSocket.resetPassword(firstName,email,password)
-    const reply = JSON.parse(JSON.stringify(result))
-    reply.changePassword=true
-    console.log(reply,'reply')
-    res.status(200).json(reply)
+    try {
+      const {password ,email } = req.body
+      const user = await this.userSocket.findUser(email,next) 
+      const {firstName }= user as UserEntity_Model
+      const result= await this.userSocket.resetPassword(firstName,email,password)
+      const reply = JSON.parse(JSON.stringify(result))
+      reply.changePassword=true
+      console.log(reply,'reply')
+      res.status(200).json(reply)
+    } catch (error) {
+      
+    }
   }  
   async getSubmissionDetails(req: Req, res: Res, next: Next) {
     try {
+      console.log('reached controller after rote')
       const { email, password, googleAuth } = req.body;
       if (this.isValidEmail(email)) {
-        const result = await this.userSocket.getSubmissionDetails(
-          email,
-          password,
-          googleAuth,
-          next
-        );
+        const result = await this.userSocket.getSubmissionDetails( email, password, googleAuth, next );
         
         console.log(result,'result at controller ')
         const data  = JSON.parse(JSON.stringify(result))
@@ -178,6 +190,10 @@ export class UserController {
           const data = JSON.parse(JSON.stringify(result))
           res.status(200).json(data);
         }
+      }
+      else{
+        console.log('reached else')
+        res.status(200).json({message:'fail',status:false});
       }
     } catch (error) {}
   }

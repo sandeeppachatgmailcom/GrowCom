@@ -9,13 +9,21 @@ export class StudentsController {
 
     }
     async postStudentsTask(req:Req,res:Res,next:Next){
-        const task = await this.studentsSocket.getStudentsTask(req.body)
-        res.json(task)
+        try {
+            const task = await this.studentsSocket.getStudentsTask(req.body)
+            res.json(task)
+        } catch (error) {
+            
+        }
     }
     async postSubmitStudentTask(req:Req,res:Res,next:Next){
-        const submission = await this.studentsSocket.submitStudentsTask(req.body)
-        console.log(submission,'submission task')
+        try {
+            const submission = await this.studentsSocket.submitStudentsTask(req.body)
+            console.log(submission,'submission task')
         res.json(submission)
+        } catch (error) {
+            
+        }
     }
 
 

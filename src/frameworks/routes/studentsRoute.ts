@@ -52,7 +52,11 @@ export function studentsRouter(router: Router) {
      */
 
     router.post('/postStudentsTask', (req: Req, res: Res, next: Next) => {
-        studentsController.postStudentsTask(req, res, next)
+        try {
+          studentsController.postStudentsTask(req, res, next)
+        } catch (error) {
+          
+        }
     })
 
 

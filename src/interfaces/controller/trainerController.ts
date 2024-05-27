@@ -9,7 +9,7 @@ export class TrainerController {
       const data = req.body;
        console.log(data,'at controller')
       const pendings = await this.trainerSocket.getPending(data);
-      
+      console.log(pendings,'pendingspendingspendingspendings')
       res.status(200).json(pendings);
     } catch (error) {
       
