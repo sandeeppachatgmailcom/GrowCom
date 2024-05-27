@@ -24,36 +24,60 @@ export class UtilitySocket implements UtilUseCases{
         
     }
     async getActiveVenue():Promise<void | VenueModels[]>{
-        const result = await this.venueRepo.getActiveVenue()
+        try {
+            const result = await this.venueRepo.getActiveVenue()
         return result;
+        } catch (error) {
+            
+        }
     }
     async getActiveTrainers(): Promise<void | ValidHumanReturnTypes[]> {
-       console.log('reached user socket')
+       try {
+        console.log('reached user socket')
         const result = await this.userRepo.getActiveTrainers();
         console.log(result ,'result at socket')
         return result;
+       } catch (error) {
+        
+       }
     }
     async  getActiveBatches():Promise<void| StudentBatch_Model[] >{
+       try {
         console.log('get Active usecase reached ')
         const result = await this.batchRepo.readActiveBatches()
         console.log(result,'result')
         return result;
+       } catch (error) {
+        
+       }
     }
     async getActiveEvents(): Promise<void | Event_Model[]> {
-        console.log('reached utility socket  ')
+        try {
+            console.log('reached utility socket  ')
         const result = await this.eventsRepo.readActiveEvents();
         console.log('socet result',result)
         return result;
+        } catch (error) {
+            
+        }
     }
     async getActiveTask(): Promise<void | Task_model[]> {
-         const tasks = await this.taskRepo.readAllTask()
-        //const tasks = []
-        console.log(tasks,'taskssss')
-        return tasks
+        try {
+            const tasks = await this.taskRepo.readAllTask()
+            //const tasks = []
+            console.log(tasks,'taskssss')
+            return tasks
+        } catch (error) {
+            
+        }
     }   
     async getActiveDesignation(): Promise<void | DesignationModel[]> {
+       try {
         const designation = await this.Designation.realAllDesination()    
         console.log(designation)
         return designation
+       } catch (error) {
+        
+       }
     }
 }

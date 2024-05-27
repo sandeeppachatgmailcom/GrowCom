@@ -57,7 +57,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository{
        
         const scheduledTask :ScheduledTask_Model[] = await scheduledTask_DB.find({
             staffDesignation: designation?.designation,
-           // scheduledDate: { $gte: data.startDate, $lte: new Date( data.endDate) }
+            //scheduledDate: { $gte: data.startDate, $lte: new Date( data.endDate) }
         });
           console.log(scheduledTask,'scheduled task find one ')
         if (scheduledTask)  return scheduledTask

@@ -31,7 +31,7 @@ export function utilRouter(router :Router) {
     
 router.get('/listBatches',(req: Req, res: Res, next: Next) => {
   try {
-    console.log('first')
+   
     utilsController.getActiveBatches(req, res, next);
       
   } catch (error) {}
@@ -70,7 +70,7 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
 
     router.get('/getActiveVenues',(req: Req, res: Res, next: Next) => {
         try {
-            console.log('reched backend')
+             
             adminController.getActiveVenues(req, res, next);
         } catch (error) {}
       });  
@@ -106,7 +106,7 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
 
     router.get('/getActiveTrainers',(req: Req, res: Res, next: Next) => {
         try {
-            console.log('reched backend')
+           
             adminController.getActiveTrainers(req, res, next); 
         } catch (error) {}
       }); 
@@ -143,7 +143,7 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
       
       router.get('/listActiveEvents',(req: Req, res: Res, next: Next) => {
         try {
-            console.log('reched backend')
+           
             utilsController.getActiveEvents(req, res, next); 
         } catch (error) {}
       });     

@@ -315,7 +315,6 @@ export function authRouter(router: Router) {
         } catch (error) {}
       }
     );    
- 
 
   /**
    * @swagger
@@ -349,60 +348,47 @@ export function authRouter(router: Router) {
     } catch (error) {}
   }
 );     
-
-
-
-  /**
-   * @swagger
-   * /auth/getSubmissionDetails:
-   *   get:
-   *     summary: Session-based login
-   *     description: Authenticate a user and establish a session-based login.
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               email:
-   *                 type: string
-   *                 description: The email address of the user.
-   *               password:
-   *                 type: string
-   *                 description: The password of the user.
-   *               googleAuth:
-   *                 type: boolean
-   *                 description: Indicates whether the user is authenticated with Google.
-   *     responses:
-   *       '200':
-   *         description: Login successful. Returns user data with token.
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 email:
-   *                   type: string
-   *                   description: The email address of the user.
-   *                 token:
-   *                   type: string
-   *                   description: The authentication token generated for the user.
-   *                 active:
-   *                   type: boolean
-   *                   description: Indicates whether the user is active or not.
-   *       '401':
-   *         description: Unauthorized - Invalid email or password.
-   *       '500':
-   *         description: Internal server error.
+    /**
+ * @swagger
+ * /auth/getSubmissionDetails:
+ *   get:
+ *     summary: Get List of Pending Staff
+ *     description: Retrieve a list of pending staff members from the admin dashboard.
+ *     responses:
+ *       '200':
+ *         description: A list of pending staff members retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: The ID of the pending staff member.
+ *                   name:
+ *                     type: string
+ *                     description: The name of the pending staff member.
+ *                   email:
+ *                     type: string
+ *                     format: email
+ *                     description: The email address of the pending staff member.
+ *                   role:
+ *                     type: string
+ *                     description: The role of the pending staff member.
+ *       '404':
+ *         description: No pending staff members found.
+ *       '500':
+ *         description: Internal server error.
  *     tags:
- *       - User
+ *       - Admin
  */
 
-  router.get("/getSubmissionDetails",(req: Req, res: Res, next: Next) => {
+  router.get("/getSubmissionDetails",token.verifyToken,(req: Req, res: Res, next: Next) => {
     try {
       console.log('getSubmissionDetails route')
-      token.verifyToken, userController.getSubmissionDetails(req, res, next);
+        userController.getSubmissionDetails(req, res, next);
     } catch (error) {}
   }
 );
