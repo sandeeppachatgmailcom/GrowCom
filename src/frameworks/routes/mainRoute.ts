@@ -8,6 +8,7 @@ import { adminRouter } from './adminRoute';
 import { utilRouter } from './utilityRoute';
 import { trainerRouter } from './trainerRoute';
 import { studentsRouter } from './studentsRoute';
+import { chatRouter } from './chatRoute';
 
 export const allRoutes = {
     ...adminRouter,
@@ -20,6 +21,7 @@ export function mainRoute(router:Route) {
     router.use('/utils', utilRouter(express.Router()))
     router.use('/trainer',trainerRouter(express.Router()))
     router.use('/student',studentsRouter(express.Router()))
+    router.use('/chat',chatRouter(express.Router()))
     return router;
 }
  

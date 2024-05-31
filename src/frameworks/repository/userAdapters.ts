@@ -7,6 +7,8 @@ import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
 import { ValidHumanReturnTypes } from "../../entity/ReturnTypes/validHuman";
 import { studentSubmission } from "../../entity/ReturnTypes/StudentSubmission";
 import { ScheduledTask_Model } from "../../entity/models/scheduledTask_Model";
+import { userInput } from "../../entity/ReturnTypes/validUser";
+import designationDb from "../models/designationModel";
 
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
@@ -67,16 +69,9 @@ class MongoDb_UserActivity implements UserRepository {
     async login(data:{email:string,password:string,googleAuth:boolean}){
         try {
             const {email,password,googleAuth} = data
-            if(googleAuth){
-                const user = await userModel.findOne({email},{password:0})
-                if(user) user.verified=true
-                if (user?.active){
-                    return user
-                }
-            }
-            else{
+             
                 //const user = await userModel.findOne({email:email,password:password})
-                const user = await userModel.aggregate([
+                const user:UserEntity_Model = await userModel.aggregate([
                     {
                         $match:{email}
                     },
@@ -87,18 +82,27 @@ class MongoDb_UserActivity implements UserRepository {
                             foreignField:'batchId',
                             as :'batch'
                         }
+                    },
+                    {
+                        $lookup:{
+                            from:'designations',
+                            localField:'designation',
+                            foreignField:'id',
+                            as:'designationDetail'
+                        }
                     }
+                    
                 ])
                 console.log('reached authentication',password,user)
-                const data = JSON.parse(JSON.stringify(user[0])) 
-                delete data.password;
-                if(user) data.verified=true
+                const tempData = JSON.parse(JSON.stringify(user[0])) 
+                delete tempData.password;
+                if(user) tempData.verified=true
                 if (data?.email){
                     
-                    return data
+                    return tempData
                 }
                 else return {status:false,message:'Wrong credential'}
-            }
+             
         } catch (error) {
              
         }
@@ -220,6 +224,12 @@ class MongoDb_UserActivity implements UserRepository {
         } catch (error) {
              
         }
+    } 
+    async getActiveUsers(): Promise<void | ValidHumanReturnTypes[]> {
+        const result = await userModel.find({active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
+        const users = JSON.parse(JSON.stringify(result))
+        console.log(users,'----------------------------------------------dslflhdflhs------------------')
+        return users
     } 
 }
 

@@ -80,4 +80,15 @@ export class UtilitySocket implements UtilUseCases{
         
        }
     }
+    async getActiveUsers(): Promise<void | ValidHumanReturnTypes[]> {
+        try {
+          
+         const result = await this.userRepo.getActiveUsers();
+        
+         return result;
+        } catch (error) {
+         
+        }
+     }
+
 }

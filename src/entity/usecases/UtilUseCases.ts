@@ -13,4 +13,5 @@ export interface UtilUseCases {
     getActiveEvents():Promise<void|Event_Model[]>
     getActiveTask():Promise<void| Task_model[]>
     getActiveDesignation():Promise<void | DesignationModel[]>
+    getActiveUsers():Promise<void|ValidHumanReturnTypes[]>
 } 

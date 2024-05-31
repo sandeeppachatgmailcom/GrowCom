@@ -260,20 +260,16 @@ export class TrainerSocket implements TrainerUsecase {
       // if (!tempuser) {
       //   return { status: false, message: 'User not found' }; // Error handling for non-existent user
       // }
-      console.log(
-        data,
-        tempuser.submission[data.ScheduledTaskID][data.taskId][0].mark,
-        "input data "
-      );
+       
       const user = JSON.parse(JSON.stringify(tempuser));
       user.submission[data.ScheduledTaskID][data.taskId][0].mark = data.mark;
       user.submission[data.ScheduledTaskID][data.taskId][0].verified =
         data.verified;
       user.submission[data.ScheduledTaskID][data.taskId][0].comment =
         data.comment;
-      //console.log(user.submission[data.ScheduledTaskID][data.taskId],'user.submission[data.ScheduledTaskID][data.taskId]')
+      
       const result = await this.userRepo.updateUserBasics(user);
-      //  console.log( result,'result' )
+      
       return {...result ,status:true,message:'Update success'};
     
     } catch (error) {

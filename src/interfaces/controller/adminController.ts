@@ -54,6 +54,14 @@ export class AdminController {
     } catch (error) {}
   }
 
+  async getActiveUsers (req: Req, res: Res, next: Next) {
+    try {
+        console.log('reached conrtroller')
+      const trainers = await this.utilsSocket.getActiveUsers();
+      res.json(trainers);
+    } catch (error) {}
+  }
+
   async postCreateEvents(req:Req,res:Res,next:Next){
     try {
         console.log('reached admin Controller')
