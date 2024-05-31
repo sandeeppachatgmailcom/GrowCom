@@ -10,7 +10,7 @@ import { UserEntity_Model } from "../../entity/models/UserModel";
 
 export class Mongo_EventRepository implements EventsRepository {
   constructor(private indexRepo: SerialNumbersRepository) {}
-  async creatAndEditEvents(
+  async creatAndEditEvents( 
     data: Event_Model
   ): Promise<void | (Event_Model & FailedStatus_reply)> {
     try {

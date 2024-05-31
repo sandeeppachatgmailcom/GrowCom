@@ -225,5 +225,42 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
         } catch (error) {}
       });  
 
+           /**
+ * @swagger
+ * /utils/getActiveUsers:
+ *   get:
+ *     summary: Get List of  Trainers
+ *     description: Call this API to get all the active Trainers created. No input parameters are required. The response will include Trainers names,email,contact,profile image link and IDs.
+ *     responses:
+ *       '200':
+ *         description: A list of Trainers created.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: The ID of the venue.
+ *                   name:
+ *                     type: string
+ *                     description: The name of the venue.
+ *       '404':
+ *         description: No venues found.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Utils
+ */
+
+    router.get('/getActiveUsers',(req: Req, res: Res, next: Next) => {
+      try {
+         
+          adminController.getActiveUsers(req, res, next); 
+      } catch (error) {}
+    }); 
+
       return router 
 }

@@ -89,18 +89,26 @@ export class UserSocket implements UserUseCases {
   > {
     try {
       const user = await this.repo.findUserWithPassword({ email });
+      console.log('================================================================')
       if (user) {
         if (!user.active)
           return { status: false, message: "user disabled by admin" };
         const hashedPassword = user.password as string;
         if (googleAuth) {
-          return user;
+         
+            const result = await this.repo.login({
+            email,
+            password: hashedPassword,
+            googleAuth,
+          });
+          console.log(result ,'sample print here ')
+          return result;
         }
         const hashedPasswords = await this.passwordManager.comparePassword(
           password,
           hashedPassword
         );
-        console.log("afrter comaparing", hashedPasswords);
+         
         if (hashedPasswords) {
           const result = await this.repo.login({
             email,

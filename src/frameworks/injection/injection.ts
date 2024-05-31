@@ -29,6 +29,9 @@ import submission_Db from "../models/submission_Model";
 import { MongoSubmissionAdapter } from "../repository/mongoSubmissionAdapter";
 import designationDb from "../models/designationModel";
 import { Mongo_DesignationRepository } from "../repository/Mongo_DesignationRepository";
+import { ChatController } from "../../interfaces/controller/chatController";
+import ChatSocket from "../../usecases/ChatSocket";
+import MongoConversationAdapter from "../repository/mongoConverationAdapter";
 
 
 //Db Adapters
@@ -54,6 +57,7 @@ const taskAdapter = new MongoTaskRepository(serialNumberAdapter)
 const scheduledTaskAdapter = new MongoScheduledTask()
 const submissionRepo = new MongoSubmissionAdapter(serialNumberAdapter)
 const DesignationAdapter = new Mongo_DesignationRepository()
+const conversationAdapter = new MongoConversationAdapter(serialNumberAdapter)
 
 
 
@@ -63,14 +67,16 @@ const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapt
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
 const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter)
 const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter,submissionRepo,serialNumberAdapter,studentBatchAdapter)
+const chatUseCase = new ChatSocket(conversationAdapter)
 // router controllers 
 const adminController = new AdminController(adminSocket,utilitySocket)
 const userController = new UserController(userSocket)
 const utilsController = new UtilityController(utilitySocket)
 const trainerController = new TrainerController(trainerSocket)
 const studentsController = new StudentsController(studentSocket)
+const chatController = new ChatController(chatUseCase)
 
 //servers 
 const appServer = new NpmModule()
 const dbServer = new MongoDB()
-export{userController,adminController,utilsController,appServer,dbServer,trainerController,studentsController};
+export{userController,adminController,utilsController,appServer,dbServer,trainerController,studentsController,chatController};
