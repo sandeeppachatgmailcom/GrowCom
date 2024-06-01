@@ -16,7 +16,7 @@ export class UserSocket implements UserUseCases {
     private emailer: EmailServices,
     private otpGenerator: OtpServices
   ) {
-    console.log("useCase Connect");
+     
   }
   async createUser(
     firstName: string,
@@ -26,7 +26,7 @@ export class UserSocket implements UserUseCases {
     next: Next
   ): Promise<any> {
     try {
-      console.log("useCase Connect");
+       
       const hasedpassword = await this.passwordManager.hashPassword(password);
       const userOtp = await this.otpGenerator.generateOTP();
       const sentMail = await this.emailer.sendEmailVerification(
@@ -48,7 +48,7 @@ export class UserSocket implements UserUseCases {
   }
 
   async findUser(email: string, next: Next): Promise<UserEntity_Model | void> {
-    console.log("find User");
+     
     const result = await this.repo.findUser({ email });
     if (result) {
       return result;
@@ -61,7 +61,7 @@ export class UserSocket implements UserUseCases {
     try {
       const { email, otp } = data;
       const user = await this.repo.findUser({ email });
-      console.log(user, "user");
+       
       if (user) {
         const otp = await this.otpGenerator.generateOTP();
         if (otp) {
@@ -89,7 +89,7 @@ export class UserSocket implements UserUseCases {
   > {
     try {
       const user = await this.repo.findUserWithPassword({ email });
-      console.log('================================================================')
+      
       if (user) {
         if (!user.active)
           return { status: false, message: "user disabled by admin" };
@@ -101,7 +101,7 @@ export class UserSocket implements UserUseCases {
             password: hashedPassword,
             googleAuth,
           });
-          console.log(result ,'sample print here ')
+        
           return result;
         }
         const hashedPasswords = await this.passwordManager.comparePassword(
@@ -134,10 +134,7 @@ export class UserSocket implements UserUseCases {
   > {
     try {
       const user = await this.repo.findUser({ email: data.email });
-      console.log(
-        user?.active && !user?.deleted,
-        "user?.active && !user?.deleted"
-      );
+       
       if (user?.active) {
         const result = await this.repo.updateUserBasics(data);
 
@@ -146,7 +143,7 @@ export class UserSocket implements UserUseCases {
           status: true,
           message: "Update Success",
         } as UserEntity_Model & FailedStatus_reply;
-        console.log(out, "oooooooooooooooooooooo");
+         
         return out;
       } else if (!user?.active) {
         const data: FailedStatus_reply = {
@@ -172,7 +169,7 @@ export class UserSocket implements UserUseCases {
   }
   async forgotOtp(email: string, name: string): Promise<{ success: boolean }> {
     try {
-      console.log("hello usecase", email, name, "email,name");
+       
       const userOtp: string = await this.otpGenerator.generateOTP();
 
       const saveOtpToCollection = await this.repo.saveOtpToCollection({
@@ -185,12 +182,7 @@ export class UserSocket implements UserUseCases {
           email,
           userOtp
         );
-        console.log(
-          userOtp,
-          sentMail,
-          saveOtpToCollection,
-          "userOtp,sentMail,saveOtpToCollection"
-        );
+         
         return JSON.parse(JSON.stringify(sentMail));
       } else {
         return JSON.parse(JSON.stringify(saveOtpToCollection));
@@ -229,7 +221,7 @@ export class UserSocket implements UserUseCases {
     | { status: boolean; message: string }
   > {
     try {
-      console.log("reached usecase;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; socket");
+       
       const user = await this.repo.findUserWithPassword({ email });
 
       const result = await this.repo.getSubmissionDetails(
@@ -240,14 +232,14 @@ export class UserSocket implements UserUseCases {
       const schedules = Object.keys(result.submission);
       let tasks = [];
       for (let key in result.submission) {
-        console.log(key, "schedule");
+         
         if (result.submission[key]) {
           for (let task in result.submission[key]) {
-            console.log(task, "task");
+            
           }
         }
       }
-      console.log(submissions, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+       
       return result;
     } catch (error) {}
   }

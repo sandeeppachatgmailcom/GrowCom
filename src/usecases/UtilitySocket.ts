@@ -33,9 +33,9 @@ export class UtilitySocket implements UtilUseCases{
     }
     async getActiveTrainers(): Promise<void | ValidHumanReturnTypes[]> {
        try {
-        console.log('reached user socket')
+         
         const result = await this.userRepo.getActiveTrainers();
-        console.log(result ,'result at socket')
+        
         return result;
        } catch (error) {
         
@@ -43,9 +43,9 @@ export class UtilitySocket implements UtilUseCases{
     }
     async  getActiveBatches():Promise<void| StudentBatch_Model[] >{
        try {
-        console.log('get Active usecase reached ')
+         
         const result = await this.batchRepo.readActiveBatches()
-        console.log(result,'result')
+        
         return result;
        } catch (error) {
         
@@ -53,9 +53,9 @@ export class UtilitySocket implements UtilUseCases{
     }
     async getActiveEvents(): Promise<void | Event_Model[]> {
         try {
-            console.log('reached utility socket  ')
+           
         const result = await this.eventsRepo.readActiveEvents();
-        console.log('socet result',result)
+         
         return result;
         } catch (error) {
             
@@ -65,7 +65,7 @@ export class UtilitySocket implements UtilUseCases{
         try {
             const tasks = await this.taskRepo.readAllTask()
             //const tasks = []
-            console.log(tasks,'taskssss')
+             
             return tasks
         } catch (error) {
             
@@ -74,7 +74,7 @@ export class UtilitySocket implements UtilUseCases{
     async getActiveDesignation(): Promise<void | DesignationModel[]> {
        try {
         const designation = await this.Designation.realAllDesination()    
-        console.log(designation)
+         
         return designation
        } catch (error) {
         

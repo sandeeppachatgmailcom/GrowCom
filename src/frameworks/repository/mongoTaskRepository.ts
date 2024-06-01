@@ -16,13 +16,13 @@ export class MongoTaskRepository implements TaskRepository{
             new:false
         }
         if(!data.taskId) {
-            console.log(data,'datatatatat')
+            
             const serial = await this.serial.getIndex( {collectionName:'task'}) 
             temp.new = true;
             data.taskId = serial.serialNumber
             const exist = await  task_db.findOne({taskName:data.taskName})    
             if(exist && temp.new){
-                console.log('a class')
+               
                 return {status:false,message:'already record exist in the same name',...JSON.parse(JSON.stringify(exist))}
                 
             }

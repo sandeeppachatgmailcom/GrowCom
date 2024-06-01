@@ -30,7 +30,7 @@ export class AdminSocket implements AdminUseCase{
     async pending_Approval_Staff(): Promise<void | UserEntity_Model[]> {
        try {
             const result = await this.repo.pending_Approval_Staff()
-            console.log(result ,'result is printing here ')
+             
             return result;
        } catch (error) {
         
@@ -39,9 +39,9 @@ export class AdminSocket implements AdminUseCase{
     
     async createBatch(data: StudentBatch_Model): Promise<void | StudentBatch_Model> {
         try {
-            console.log('before create batch')
+             
             const result = await this.batchRepo.createStudentBatch(data)
-            console.log(result,'create batch')
+            
             return result;
         } catch (error) {
             
@@ -50,9 +50,9 @@ export class AdminSocket implements AdminUseCase{
 
     async createVenue(data: { venueName: string; }): Promise<void | (VenueModels & FailedStatus_reply)> {
         try {
-            console.log('reached socket')
+             
             const result = await this.venueRepo.createVenue({venueName:data.venueName}) 
-            console.log(result,'returned to socket')
+            
             return result;
         } catch (error) {
             
@@ -60,7 +60,7 @@ export class AdminSocket implements AdminUseCase{
     }
     async  creatAndEditEvents(data: Event_Model): Promise<void | (Event_Types & FailedStatus_reply)> {
         try {
-            console.log('reached admin socket ')
+             
             if(data.active && data.startDate !== undefined){
                 const datetime = data.startDate
                 const weekName = this.genRepo.getDayName(datetime)
@@ -69,7 +69,7 @@ export class AdminSocket implements AdminUseCase{
                 data.yearDay = weekName.day +'-'+weekName.monthDay 
             }
             const result = await this.eventRepo.creatAndEditEvents(data)
-            console.log(result,'result of events')
+            
             return result;
         } catch (error) {
             
@@ -77,9 +77,9 @@ export class AdminSocket implements AdminUseCase{
     }
     async deleteEvents(data:Event_Model):Promise<Event_Types&FailedStatus_reply|void>{
         try {
-            console.log('reached admin socket ')
+             
             const result = await this.eventRepo.deleteEvents(data);
-            console.log(result,'deleted result')
+           
             return result
         } catch (error) {
             
@@ -87,9 +87,9 @@ export class AdminSocket implements AdminUseCase{
     }
     async createTask(data: Task_model): Promise<void | (FailedStatus_reply & Task_model)> {
        try {
-            console.log('reached admin socket')
+            
             const result =await this.taskRepo.crateTask(data)
-            console.log(result,'task result')
+            
             return result;
        } catch (error) {
         

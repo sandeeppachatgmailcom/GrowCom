@@ -13,17 +13,17 @@ import designationDb from "../models/designationModel";
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
     constructor() {
-        console.log('reached repo');
+         
     }
 
     async createUser(data: { firstName: string; email: string; password: string; otp:string ,googleAuth:boolean }): Promise<createdUser | void> {
         try {
-            console.log('reached repository');
+             
             const { firstName, email, password,otp,googleAuth } = data;
             const name = firstName;
-            console.log('reached crate',data) 
+            
             const result = await userModel.updateOne({ email:email }, { $set: { firstName: firstName, email:email, password: password,otp:otp,otpVerified:googleAuth } }, { upsert: true });
-            console.log(result, 'resulted');
+           
             if (result.upsertedCount > 0) {
                 return {name  ,email,password,status:true};
             } else {
@@ -36,10 +36,10 @@ class MongoDb_UserActivity implements UserRepository {
     }
     async findUser(data: { email: string; pasword: string; }): Promise<UserEntity_Model|void  > {
         try {
-            console.log('reached find user')
+             
             const {email} = data;
             const user = await userModel.findOne({email},{password:0})
-            console.log(user,'find user')
+             
             if(user){
                 return user
             } 
@@ -51,11 +51,11 @@ class MongoDb_UserActivity implements UserRepository {
     }
     async findUserWithPassword(data: { email: string; pasword: string; }): Promise<UserEntity_Model & {batch:object} |void  > {
         try {
-            console.log('reached find user')
+             
             const {email} = data;
             const user = await userModel.findOne({email})
             
-            console.log(user,'find user')
+           
             if(user){
                 return JSON.parse(JSON.stringify(user)) 
             } 
@@ -93,7 +93,7 @@ class MongoDb_UserActivity implements UserRepository {
                     }
                     
                 ])
-                console.log('reached authentication',password,user)
+                 
                 const tempData = JSON.parse(JSON.stringify(user[0])) 
                 delete tempData.password;
                 if(user) tempData.verified=true
@@ -127,7 +127,7 @@ class MongoDb_UserActivity implements UserRepository {
         try {
             const { name, email } = data;
             const result = await userModel.updateOne({ email }, { $set: { delete: true } });
-            console.log(result, 'result');
+             
             if (result.upsertedCount > 0) {
                 return 'User deleted successfully';
             } else {
@@ -141,7 +141,7 @@ class MongoDb_UserActivity implements UserRepository {
 
     async updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model| void> {
         try {
-            console.log(data,'yes final step is here ')
+             
             const {email} = data
             if(data?.admin)data.role='admin'
             else if(data?.trainer) data.role='trainer'
@@ -192,7 +192,7 @@ class MongoDb_UserActivity implements UserRepository {
 
     async getSubmissionDetails(email: string, password: string, googleAuth: boolean): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>{
         try {
-             console.log('its reading from here ')
+              
              
             
               
@@ -211,7 +211,7 @@ class MongoDb_UserActivity implements UserRepository {
                      
                      
                 ])
-                console.log('reached authentication',password,user,'*************************')
+              
                 const data = JSON.parse(JSON.stringify(user[0])) 
                 delete data.password;
                 if(user) data.verified=true
@@ -228,7 +228,7 @@ class MongoDb_UserActivity implements UserRepository {
     async getActiveUsers(): Promise<void | ValidHumanReturnTypes[]> {
         const result = await userModel.find({active:true},{ humanid:1,firstName:1,lastName:1,isAdmin:1,active:1,mob:1,email:1,web:1,role:1,deleted:1,verified:1,profileImage:1,admin:1,user:1,student:1,trainer:1} )
         const users = JSON.parse(JSON.stringify(result))
-        console.log(users,'----------------------------------------------dslflhdflhs------------------')
+        
         return users
     } 
 }

@@ -81,10 +81,7 @@ export class TrainerSocket implements TrainerUsecase {
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
     const tempMission = await this.userRepo.getStudentSubmission();
     const subMission = JSON.parse(JSON.stringify(tempMission));
-    console.log(
-      events,
-      "<<<<<<<<<<<<<<<<<<<<<<IIIIIIIIIIIIII>>>>>>>>>>>>>>>>>>>>>>"
-    );
+    
 
     const studentSubmission = subMission.map((student: any) => {
       let tempOut = [];

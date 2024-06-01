@@ -68,7 +68,7 @@ export class UserController {
           next
         );
         
-        console.log(result,'result at controller ')
+        
         const data  = JSON.parse(JSON.stringify(result))
         if (data?.active ){ 
          

@@ -20,7 +20,7 @@ export class Mongo_EventRepository implements EventsRepository {
           deleted: false,
         });
         if (exist) {
-          console.log(data, "data.eventId right");
+           
           return {
             status: false,
             message: "already another event in this name ",
@@ -40,8 +40,8 @@ export class Mongo_EventRepository implements EventsRepository {
           );
 
           const event = await events_Model.findOne({ eventId: data.eventId });
-          console.clear();
-          console.log(insert, eventIndex.serialNumber, "insert");
+           
+           
           return {
             status: true,
             message: "event creation success ",
@@ -53,7 +53,7 @@ export class Mongo_EventRepository implements EventsRepository {
           { deleted: false, eventId: data.eventId },
           { $set: data }
         );
-        console.log("hi hi hi hi ", updateResult);
+         
         const result = await events_Model.findOne({ eventId: data.eventId });
         if (updateResult.modifiedCount > 0) {
           return {
@@ -81,7 +81,7 @@ export class Mongo_EventRepository implements EventsRepository {
         { $set: { deleted: true } }
       );
       const reply = await events_Model.findOne({ eventId: data.eventId });
-      console.log(reply);
+       
       return {
         status: true,
         message: "event deletion success",
@@ -92,7 +92,7 @@ export class Mongo_EventRepository implements EventsRepository {
   async readActiveEvents(): Promise<void | Event_Model[]> {
     try {
       const reply = await events_Model.find({ deleted: false });
-      console.log(reply);
+       
       if (reply) return reply;
       else return;
     } catch (error) {}
@@ -107,7 +107,7 @@ export class Mongo_EventRepository implements EventsRepository {
       deleted: false,
       active: true,
     });
-    console.log(designation[0], "designationdesignation");
+     
 
     const activeEvents = await events_Model.aggregate([
       {
@@ -174,7 +174,7 @@ export class Mongo_EventRepository implements EventsRepository {
           },
         },
       ]);
-      console.log(activeEvents, "activeEventsactiveEventsactiveEventsaaaaa");
+       
       return activeEvents;
     } catch (error) {}
   }

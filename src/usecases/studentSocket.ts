@@ -22,7 +22,7 @@ export class StudentSocket implements StudentUseCase{
       try {
               // Find the student based on the email
             const student = await this.userRepo.findUser({ email: data.email });
-            console.log(student,'student')
+             
             const batch = await this.studentBatchRepo.readActiveBatches()
             
             let batchName=''
@@ -30,13 +30,13 @@ export class StudentSocket implements StudentUseCase{
                 
                 if(batch[key]?.batchId ==student?.batchId) batchName = batch[key].batchName
             }
-            console.log(batchName,'after validation')
+            
             // Assuming you have the student object, proceed to find their tasks
             if (student) {
                 // Query for scheduled tasks for the student within the specified date range
                 const tasks = await this.scheduledTaskRepo.getStudentTask({batchId:batchName as string ,week:student.week,startDate:data.startDate ,endDate:data.endDate })
                 
-                console.log(tasks,'task')
+                 
                 return tasks;
             } else {
                 // Handle the case where the student is not found
