@@ -13,7 +13,7 @@ export default class ChatSocket implements ChatUseCase{
     async createConversation(data: { senderId: string; receiverId: string; }): Promise<void | {conversation:Conversation_Model,messages:Chat_Message_model[]}> {
             try {
                 const converSation = await this.conversationRepo.createConversation(data)
-                console.log(converSation,'converSation,converSation,')
+                
                 if(converSation){
                     const messages  = await this.conversationRepo.getAllMessage({converationId:converSation.converationId})
                 
@@ -26,7 +26,7 @@ export default class ChatSocket implements ChatUseCase{
     async saveMessage(data: { senderMessage: string; receiverMessage: string; TransDateTime: Date; receiverId: string; senderId: string; conversationId: string; }): Promise<void | Chat_Message_model> {
         try {
             const message = await this.conversationRepo.saveMessage(data)
-            console.log(message,'useCase')
+            
             if(message){
                 return message;
             }

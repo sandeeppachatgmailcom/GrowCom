@@ -13,9 +13,9 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     }
     async createStudentBatch(data: StudentBatch_Model): Promise<void | StudentBatch_Model & FailedStatus_reply> {
         let {batchId,BatchType , batchName, location, maxCapacity,trainer} = data
-        console.log(batchId,'batchId',data,'datata')
+        
         let tempbatchID =   {}
-        console.log(batchId,data.batchName,'batchIdbatchIdbatchId')
+        
         if(!batchId.length){
             const existing = await studentBatchModel.findOne({batchName:data.batchName,deleted:false})
             if(existing && existing.batchId!==batchId){
@@ -32,7 +32,7 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
         }
         else{
             const existing = await studentBatchModel.find({batchName:data.batchName,batchId:{$ne:batchId},deleted:false})
-            console.log(existing ,'existing existing existing ')
+           
             if(existing.length ) return {...JSON.parse(JSON.stringify(existing)),status:false,message:'record already exist in the same name'}
             const batch = await studentBatchModel.updateOne({batchId:batchId},{$set:data})   
             const result = await studentBatchModel.findOne({batchId:batchId,deleted:false})   
@@ -44,12 +44,12 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
         let tempbatchID =   {}
         !batchid.length? tempbatchID  = await this.indexRepo.getIndex({collectionName:'studentsBatch'}) :''
         const batch =await studentBatchModel.findOneAndUpdate({batchid},{$set:{deleted:true}},{upsert:true}) as StudentBatch_Model  
-        console.log(batch)
+         
         return batch
     }
     async readStudentBatchById(data:{batchid:string}):Promise<StudentBatch_Model|void>{
         const batch =await studentBatchModel.findOne({deleted:false,batchId:data.batchid}) as StudentBatch_Model  
-        console.log(batch)  
+         
         return batch
     }
     async readActiveBatches():Promise<StudentBatch_Model[]|void>{

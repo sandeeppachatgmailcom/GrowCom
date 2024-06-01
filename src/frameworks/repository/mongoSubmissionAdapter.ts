@@ -16,8 +16,7 @@ export class MongoSubmissionAdapter implements Submission_Repo{
         
     }
     async createSubmission(data: Submission__Model): Promise<void | (Submission__Model & FailedStatus_reply)> {
-        console.log('reached here mongoDb')
-       
+         
         const save =await submission_Db.updateOne({submissionId:data.submissionId},{$set:data}, {upsert:true})
         if(save.upsertedCount>0)
             return {status:true,message:'submission Success', ...data}

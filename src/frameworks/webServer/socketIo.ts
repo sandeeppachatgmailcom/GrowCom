@@ -1,3 +1,4 @@
+import { disconnect } from 'process';
 import { Server, Socket } from 'socket.io';
 
 interface User {
@@ -22,14 +23,16 @@ function initializeSocket(server: any) {
     let users: User[] = [];
 
     const addUser = (userId: string, socketId: string) => {
+        console.log('usersOnline',users)
         const existingUser = users.find(user => user.userId === userId);
         if (existingUser) {
             existingUser.socketId = socketId;
             existingUser.online = true;
         } else {
-            users.push({ userId, socketId, online: true });
+            userId? users.push({ userId, socketId, online: true }):''
         }
-        io.emit("usersOnline", users.filter(user => user.online));
+        console.log('usersOnline',users)
+        io.emit("usersOnline", users);
     };
 
     const removeUser = async (socketId: string) => { // Mark function as async
@@ -44,32 +47,35 @@ function initializeSocket(server: any) {
                 console.error("Failed to update user last seen:", error);
             }
         }
+        console.log(users,'backend ')
         io.emit("usersOnline", users.filter(user => user.online));
     };
 
     const getUser = (userId: string) => users.find(user => user.userId === userId);
 
     io.on("connection", (socket: Socket) => {
-        console.log("a new user connected ",socket.id)
-        io.emit("message","My new Message")
+        console.log("a new user connected ")
+        socket.on("addUser",(user)=>{
+            addUser(user.userid,socket.id)
+        })
         socket.on("message", (message) => {
                 console.log(message,'messahe')
-            io.emit("getUsers", );
-          });
-  
-          socket.on("user-message", (message) => {
-            console.log(message,'messaasddfasdhe')
-            const temp = {
-              ...message,
-              senderMessage:message.receiverMessage,
-              receiverMessage:message.senderMessage,
-              senderId:message.receiverId,
-              receiverId:message.senderId
-            }
-          io.emit("user-message",temp);
         });
+        socket.on('disconnect', function() {
+        removeUser(socket.id)
+        })       
+        socket.on('logout', function() {
+            removeUser(socket.id)
+            })   
   
+        socket.on("send-message",(message:{})=>{
+            console.log('received message ' , message)
+            const user = getUser(message.receiverId);
+            console.log('-----------------',user,'user--------------------------------')
+            socket.to(user?.socketId).emit("send-message",message)
+        })
         }
+
       )
 }
 
