@@ -60,5 +60,57 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
             
         }
     }
-     
+    async readBatchSummaryBystaffId(data: { designation: string; }): Promise<void | []> {
+        try {
+            
+            const result  = await studentBatchModel.aggregate([
+                {
+                    $match:{
+                        trainer:data.designation
+                    }
+                },
+                {
+                    $lookup:{
+                        from:'users',
+                        localField:'batchId',
+                        foreignField:'batchId',
+                        as :'students'
+                    }
+                },
+                {
+                    $project:{
+                        _id:1,
+                        batchId:1,
+                        BatchType:1,
+                        __v:1,
+                        active:1,
+                        batchName:1,
+                        deleted:1,
+                        edited:1,
+                        endDate:1 ,
+                        location:1,
+                        maxCapacity:1,
+                        startDate:1 ,
+                        trainer:1,
+                        venue:1,
+                        cordinator:1,
+                        'students.week':1,
+                        'students.firstName':1,
+                        'students.email':1,
+                         
+                    }
+                }
+            ])
+
+
+
+            if(result){
+                return result
+            }
+            else
+            return []
+        } catch (error) {
+            console.log(error)
+        }
+    } 
 }

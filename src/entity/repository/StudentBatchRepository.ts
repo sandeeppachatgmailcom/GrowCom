@@ -5,4 +5,5 @@ export interface StudentBatchRepository{
     deleteStudentBatch(data:{batchid:string}):Promise<StudentBatch_Model|void>
     readStudentBatchById(data:{batchid:string}):Promise<StudentBatch_Model|void>
     readActiveBatches():Promise<StudentBatch_Model[]|void>
+    readBatchSummaryBystaffId(data:{designation:string}):Promise<[]|void>
 } 

@@ -449,5 +449,121 @@ export function trainerRouter(router: Router) {
       } catch (error) {}
     }
   );
+
+
+
+  /**
+ * @swagger
+ * /trainer/readBatchSummaryByDesignation:
+ *   post:
+ *     summary: Schedule a task for a trainer
+ *     description: Endpoint to schedule a task for a particular trainer.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                
+ *               designation:
+ *                 type: string
+ *                 description: The link associated with the task.
+ *     responses:
+ *       '200':
+ *         description: Task scheduled successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   description: Status of the operation.
+ *                 message:
+ *                   type: string
+ *                   description: Message indicating success or failure.
+ *                 scheduledTask:
+ *                   type: object
+ *                   description: Details of the scheduled task.
+ *                   properties:
+ *                      
+ *                     designation:
+ *                       type: string
+ *                       description: The link associated with the task.
+ *       '400':
+ *         description: Bad request, invalid input.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Trainer
+ */
+
+
+  router.post(
+    "/getTrainerBasedBatchSummary",
+    async (req: Req, res: Res, next: Next) => {
+      try {
+        await trainerController.staffWiseBatchProgress(req, res, next);
+      } catch (error) {}
+    }
+  );
+
+  
+  /**
+ * @swagger
+ * /trainer/getWeeklyStudentssummary:
+ *   get:
+ *     summary: Schedule a task for a trainer
+ *     description: Endpoint to schedule a task for a particular trainer.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                
+ *                
+ *     responses:
+ *       '200':
+ *         description: Task scheduled successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   description: Status of the operation.
+ *                 message:
+ *                   type: string
+ *                   description: Message indicating success or failure.
+ *                 scheduledTask:
+ *                   type: object
+ *                   description: Details of the scheduled task.
+ *                   properties:
+ *                      
+ *                     designation:
+ *                       type: string
+ *                       description: The link associated with the task.
+ *       '400':
+ *         description: Bad request, invalid input.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Trainer
+ */
+
+
+  router.get(
+    "/getWeeklyStudentssummary",
+    async (req: Req, res: Res, next: Next) => {
+      try {
+        console.log('reached router')
+        await trainerController.getWeeklyStudentssummary(req, res, next);
+      } catch (error) {}
+    }
+  );
   return router;
 }
