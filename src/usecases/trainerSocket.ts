@@ -272,4 +272,25 @@ export class TrainerSocket implements TrainerUsecase {
     } catch (error) {
       
     }}
+
+async designationWiseProgress(data: { designation: string; }): Promise<void | []> {
+  try {
+      const batches = await this.batchRepo.readBatchSummaryBystaffId({designation:data.designation}) 
+      console.log(batches)
+      return batches
+       } catch (error) {
+      console.log(error)
+  }
+}
+async getWeeklyStudentssummary(): Promise<void | { week: string; count: number; }[]> {
+  try {
+      const result = await this.userRepo.getWeeklyStudentssummary()
+      console.log(result,'result')
+      return result
+  } catch (error) {
+    console.log(error)
+  }
+}
+ 
+
 }

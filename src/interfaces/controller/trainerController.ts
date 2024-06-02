@@ -35,4 +35,23 @@ export class TrainerController {
       
     }
   }
+
+  async staffWiseBatchProgress (req: Req, res: Res, next: Next){
+  try {
+      const result    = await this.trainerSocket.designationWiseProgress(req.body)
+      res.json(result)
+  } catch (error) {
+    
+  }
+  }
+
+  async getWeeklyStudentssummary (req: Req, res: Res, next: Next){
+    try {
+        const result = await this.trainerSocket.getWeeklyStudentssummary()
+        res.json(result)
+    } catch (error) {
+      
+    }
+    }
+  
 }
