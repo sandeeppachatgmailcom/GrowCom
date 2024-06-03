@@ -565,5 +565,64 @@ export function trainerRouter(router: Router) {
       } catch (error) {}
     }
   );
+
+/**
+ * @swagger
+ * /trainer/designationWiseEventProgress:
+ *   post:
+ *     summary: Schedule a task for a trainer
+ *     description: Endpoint to schedule a task for a particular trainer.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                
+ *               designation:
+ *                 type: string
+ *                 description: The link associated with the task.
+ *     responses:
+ *       '200':
+ *         description: Task scheduled successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   description: Status of the operation.
+ *                 message:
+ *                   type: string
+ *                   description: Message indicating success or failure.
+ *                 scheduledTask:
+ *                   type: object
+ *                   description: Details of the scheduled task.
+ *                   properties:
+ *                      
+ *                     designation:
+ *                       type: string
+ *                       description: The link associated with the task.
+ *       '400':
+ *         description: Bad request, invalid input.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Trainer
+ */
+
+
+router.post(
+  "/designationWiseEventProgress",
+  async (req: Req, res: Res, next: Next) => {
+    try {
+      await trainerController.designationWiseEventProgress(req, res, next);
+    } catch (error) {}
+  }
+);
+
+
   return router;
 }

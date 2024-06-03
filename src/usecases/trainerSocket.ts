@@ -10,6 +10,7 @@ import { SerialNumbersRepository } from "../entity/repository/serialNumberReposi
 import { UserRepository } from "../entity/repository/userRepository";
 import { TrainerUsecase } from "../entity/usecases/trainerUseCase";
 import { GeneralUtils } from "../interfaces/utils/GeneralUtils";
+import { ScheduledTaskManagerService } from "../entity/services/scheduledTaskManager";
 
 export class TrainerSocket implements TrainerUsecase {
   constructor(
@@ -18,7 +19,8 @@ export class TrainerSocket implements TrainerUsecase {
     private serialRepo: SerialNumbersRepository,
     private batchRepo: StudentBatchRepository,
     private SchTask: ScheduledTask_Repository,
-    private userRepo: UserRepository
+    private userRepo: UserRepository,
+    private SchedulerService :ScheduledTaskManagerService 
   ) {}
 
   async getAudianceGroup(audianceType: string) {
@@ -235,6 +237,12 @@ export class TrainerSocket implements TrainerUsecase {
     }
 
     const task = await this.SchTask.createScheduledTask(data);
+    console.log(task,'new Work Starts Here ')
+    const start =await  this.SchedulerService.startTask(task)
+    const end =await  this.SchedulerService.endTask(task)
+    console.log(start,end,'start end ')
+
+
 
     return task as ScheduledTask_Model & FailedStatus_reply;
    } catch (error) {
@@ -291,6 +299,15 @@ async getWeeklyStudentssummary(): Promise<void | { week: string; count: number; 
     console.log(error)
   }
 }
- 
+async designationWiseEventProgress(data: { designation: string; }): Promise<[]> {
+    try {
+      const result = await this.SchTask.designationWiseEventProgress(data)
+      return result
+    } catch (error) {
+      
+    }
+}
+
+
 
 }
