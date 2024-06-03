@@ -32,6 +32,7 @@ import { Mongo_DesignationRepository } from "../repository/Mongo_DesignationRepo
 import { ChatController } from "../../interfaces/controller/chatController";
 import ChatSocket from "../../usecases/ChatSocket";
 import MongoConversationAdapter from "../repository/mongoConverationAdapter";
+import Crone_ScheduleTaskManager from "../services/Crone_ScheduleTaskManager";
 
 
 //Db Adapters
@@ -58,16 +59,17 @@ const scheduledTaskAdapter = new MongoScheduledTask()
 const submissionRepo = new MongoSubmissionAdapter(serialNumberAdapter)
 const DesignationAdapter = new Mongo_DesignationRepository()
 const conversationAdapter = new MongoConversationAdapter(serialNumberAdapter)
-
+const SchedulerAdapter = new Crone_ScheduleTaskManager(scheduledTaskAdapter)
 
 
 // sockets 
 const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter,DesignationAdapter)
 const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter )
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
-const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter)
+const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter,SchedulerAdapter)
 const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter,submissionRepo,serialNumberAdapter,studentBatchAdapter)
 const chatUseCase = new ChatSocket(conversationAdapter)
+
 // router controllers 
 const adminController = new AdminController(adminSocket,utilitySocket)
 const userController = new UserController(userSocket)

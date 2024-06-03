@@ -34,7 +34,8 @@ const scheduleMongoSchema :Schema<ScheduledTask_Model & Document> = new mongoose
     dayDiscription:{type:String},
     matchedTasks:{type:[]},
     createdDate:{type:Date},
-    submissionDate:{type:Date}
+    submissionDate:{type:Date},
+    participants:{type:[]}
     }
 )
 

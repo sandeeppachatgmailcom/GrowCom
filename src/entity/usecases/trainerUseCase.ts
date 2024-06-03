@@ -9,4 +9,5 @@ export interface TrainerUsecase {
     updateMarkToCollection(data:{email:string ,ScheduledTaskID:string,taskId:string,mark:string, comment:string,verified:boolean}):Promise<void | UserEntity_Model & FailedStatus_reply >
     designationWiseProgress(data:{designation:string}):Promise<void|[]>
     getWeeklyStudentssummary(): Promise<void | { week: string; count: number }[]>
+    designationWiseEventProgress (data:{designation:string}):Promise<[]>
 }

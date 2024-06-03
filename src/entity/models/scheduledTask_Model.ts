@@ -31,6 +31,7 @@ export interface ScheduledTask_Model{
     matchedTasks?:object;
     createdDate?:Date;
     submissionDate?:Date;
+    participants:[];
 }
     
   

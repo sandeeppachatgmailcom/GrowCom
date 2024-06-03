@@ -1,8 +1,8 @@
 import { Next, Req, Res } from "../../entity/Types/ServerTypes";
-import { TrainerSocket } from "../../usecases/trainerSocket";
+import { TrainerUsecase } from "../../entity/usecases/trainerUseCase";
 
 export class TrainerController {
-  constructor(private trainerSocket: TrainerSocket) {}
+  constructor(private trainerSocket: TrainerUsecase) {}
 
   async postTrainerPendingEvents(req: Req, res: Res, next: Next) {
     try {
@@ -53,5 +53,14 @@ export class TrainerController {
       
     }
     }
+  async designationWiseEventProgress (req: Req, res: Res, next: Next){
+    try {
+      console.log(req.body)
+        const result = await this.trainerSocket.designationWiseEventProgress(req.body)
+        res.json(result)
+    } catch (error) {
+      
+    }
+    }  
   
 }
