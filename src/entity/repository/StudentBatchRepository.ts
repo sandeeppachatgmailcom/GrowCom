@@ -6,4 +6,5 @@ export interface StudentBatchRepository{
     readStudentBatchById(data:{batchid:string}):Promise<StudentBatch_Model|void>
     readActiveBatches():Promise<StudentBatch_Model[]|void>
     readBatchSummaryBystaffId(data:{designation:string}):Promise<[]|void>
+    
 } 

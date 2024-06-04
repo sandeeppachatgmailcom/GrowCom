@@ -11,6 +11,7 @@ import { UserRepository } from "../entity/repository/userRepository";
 import { TrainerUsecase } from "../entity/usecases/trainerUseCase";
 import { GeneralUtils } from "../interfaces/utils/GeneralUtils";
 import { ScheduledTaskManagerService } from "../entity/services/scheduledTaskManager";
+import submission_Db from "../frameworks/models/submission_Model";
 
 export class TrainerSocket implements TrainerUsecase {
   constructor(
@@ -78,17 +79,17 @@ export class TrainerSocket implements TrainerUsecase {
     endDate: Date;
   }): Promise<ScheduledTask_Model[] | void> {
     try {
-    
+     
     const events = await this.eventRepo.getTaskByTrainerEmail(data);
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
     const tempMission = await this.userRepo.getStudentSubmission();
     const subMission = JSON.parse(JSON.stringify(tempMission));
     
-
+     
     const studentSubmission = subMission.map((student: any) => {
       let tempOut = [];
       for (let key in student.submission) {
-        const tempsche = scheduledEvent.filter((evento: any) => {
+        const tempsche = scheduledEvent?.filter((evento: any) => {
           if (evento.ScheduledTaskID == key) return evento;
         });
 
@@ -115,6 +116,8 @@ export class TrainerSocket implements TrainerUsecase {
     studentSubmission.map((item: any) => {
       pendingWork = [...pendingWork, ...item];
     });
+
+
     if (events) {
       const p = await Promise.all(
         events.map(async (item: Event_Model) => {
@@ -169,25 +172,24 @@ export class TrainerSocket implements TrainerUsecase {
           }
         })
       );
-
-      pendingWork.sort((a: any, b: any) => a.scheduledDate - b.scheduledDate);
-     
+       
       if (scheduledEvent) {
         const scheduledDates = new Set();
         scheduledEvent.forEach((event: any) => {
-          event.scheduledDate.setHours(0, 0, 0, 0);
-
+        event.scheduledDate.setHours(0, 0, 0, 0);
+           
           scheduledDates.add(
             `${event.scheduledDate.toISOString().split("T")[0]}_${
               event.eventId
             }`
           );
+           
         });
-        
-        pendingWork.forEach((work: any) => {
-          work.scheduledDate.setHours(0, 0, 0, 0);
-           
-           
+         
+        pendingWork.map((work: any) => {
+          
+         if(work.scheduledDate){
+            work.scheduledDate.setHours(0, 0, 0, 0);
           if (
             scheduledDates.has(
               `${work.scheduledDate.toISOString().split("T")[0]}_${
@@ -213,9 +215,16 @@ export class TrainerSocket implements TrainerUsecase {
               
             }
           }
+         }
+         
+          
+            
+          
+          
         });
         
       }
+    
       return pendingWork;
     }
     

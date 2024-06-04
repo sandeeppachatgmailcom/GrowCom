@@ -23,7 +23,7 @@ function initializeSocket(server: any) {
     let users: User[] = [];
 
     const addUser = (userId: string, socketId: string) => {
-        console.log('usersOnline',users)
+       
         const existingUser = users.find(user => user.userId === userId);
         if (existingUser) {
             existingUser.socketId = socketId;
@@ -31,7 +31,7 @@ function initializeSocket(server: any) {
         } else {
             userId? users.push({ userId, socketId, online: true }):''
         }
-        console.log('usersOnline',users)
+      
         io.emit("usersOnline", users);
     };
 
@@ -47,19 +47,19 @@ function initializeSocket(server: any) {
                 console.error("Failed to update user last seen:", error);
             }
         }
-        console.log(users,'backend ')
+         
         io.emit("usersOnline", users.filter(user => user.online));
     };
 
     const getUser = (userId: string) => users.find(user => user.userId === userId);
 
     io.on("connection", (socket: Socket) => {
-        console.log("a new user connected ")
+        
         socket.on("addUser",(user)=>{
             addUser(user.userid,socket.id)
         })
         socket.on("message", (message) => {
-                console.log(message,'messahe')
+               
         });
         socket.on('disconnect', function() {
         removeUser(socket.id)
@@ -69,9 +69,9 @@ function initializeSocket(server: any) {
             })   
   
         socket.on("send-message",(message:{})=>{
-            console.log('received message ' , message)
+            
             const user = getUser(message.receiverId);
-            console.log('-----------------',user,'user--------------------------------')
+           
             socket.to(user?.socketId).emit("send-message",message)
         })
         }

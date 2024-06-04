@@ -1,4 +1,5 @@
 import { ValidHumanReturnTypes } from "../entity/ReturnTypes/validHuman";
+import { UserEntity_Model } from "../entity/models/UserModel";
 import { DesignationModel } from "../entity/models/designationModel";
 import { Event_Model } from "../entity/models/eventModel";
 import { StudentBatch_Model } from "../entity/models/studentBatchModel";
@@ -7,10 +8,12 @@ import { VenueModels } from "../entity/models/venue_model";
 import { DesignationRepository } from "../entity/repository/DesignationRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";
+import { ScheduledTask_Repository } from "../entity/repository/scheduledTaskRepository";
 import { TaskRepository } from "../entity/repository/taskRepository";
 import { UserRepository } from "../entity/repository/userRepository";
 import { VenueRepository } from "../entity/repository/venueRepository";
 import { UtilUseCases } from "../entity/usecases/UtilUseCases";
+import scheduledTask_DB from "../frameworks/models/scheduledTask_DB";
 
 export class UtilitySocket implements UtilUseCases{
     constructor (
@@ -19,7 +22,8 @@ export class UtilitySocket implements UtilUseCases{
         private batchRepo:StudentBatchRepository,
         private eventsRepo:EventsRepository,
         private taskRepo:TaskRepository,
-        private Designation:DesignationRepository
+        private Designation:DesignationRepository,
+        private scheduledTaskRepo:ScheduledTask_Repository,
     ){
         
     }
@@ -90,5 +94,22 @@ export class UtilitySocket implements UtilUseCases{
          
         }
      }
+    async getStudentsTaskProgressRatio(data: { email: string; }): Promise<void | UserEntity_Model[]> {
+            try {
+               
+                const result = await this.scheduledTaskRepo.getStudentsTaskProgressRatio(data)
+                return result
+            } catch (error) {
+                
+            }
+    } 
+    async getuserDetailsByEmail(data:{email:string}):Promise<void|UserEntity_Model>{
+        try {
+            const result = await this.userRepo.findUser(data);
+            return result
+        } catch (error) {
+            
+        }
+    }
 
 }

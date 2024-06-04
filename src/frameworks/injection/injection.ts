@@ -63,7 +63,7 @@ const SchedulerAdapter = new Crone_ScheduleTaskManager(scheduledTaskAdapter)
 
 
 // sockets 
-const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter,DesignationAdapter)
+const utilitySocket = new UtilitySocket(venueAdapter,user_adapter,studentBatchAdapter,eventsAdapter,taskAdapter,DesignationAdapter,scheduledTaskAdapter)
 const adminSocket = new AdminSocket(admin_Adapter,studentBatchAdapter,venueAdapter,eventsAdapter,generalAdapter,taskAdapter )
 const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,otp_Adapter)
 const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter,SchedulerAdapter)

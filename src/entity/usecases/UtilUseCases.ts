@@ -1,4 +1,5 @@
 import { ValidHumanReturnTypes } from "../ReturnTypes/validHuman";
+import { UserEntity_Model } from "../models/UserModel";
 import { DesignationModel } from "../models/designationModel";
 import { Event_Model } from "../models/eventModel";
 import { StudentBatch_Model } from "../models/studentBatchModel";
@@ -14,4 +15,6 @@ export interface UtilUseCases {
     getActiveTask():Promise<void| Task_model[]>
     getActiveDesignation():Promise<void | DesignationModel[]>
     getActiveUsers():Promise<void|ValidHumanReturnTypes[]>
+    getStudentsTaskProgressRatio(data:{email:string}):Promise<void | UserEntity_Model[]>
+    getuserDetailsByEmail(data:{email:string}):Promise<void|UserEntity_Model>
 } 

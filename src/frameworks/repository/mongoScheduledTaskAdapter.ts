@@ -7,6 +7,7 @@ import scheduledTask_DB from "../models/scheduledTask_DB";
 import { lookup } from "dns";
 import userModel from "../models/userModel";
 import { UserEntity_Model } from "../../entity/models/UserModel";
+import { emitWarning } from "process";
 
 export class MongoScheduledTask implements ScheduledTask_Repository {
   async createScheduledTask(
@@ -187,9 +188,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     console.log(studentsList, "students list");
   }
 
-  async designationWiseEventProgress(data: {
-    designation: string;
-  }): Promise<any[]> {  // Update the return type to match the expected return value
+  async designationWiseEventProgress(data: { designation: string; }): Promise<any[]> {  // Update the return type to match the expected return value
     console.log(data);
   
     // Fetch the scheduled tasks based on the designation
@@ -227,5 +226,80 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     console.log(final);
     return final;  // Return the final result with attendees included
   }
+
+  async getStudentsTaskProgressRatio(data:{email:string}):Promise<void | UserEntity_Model[]>{
+    try {
+      console.log('first')
+      const result = await userModel.aggregate([
+        {
+          $match: {
+            email: data.email,
+          },
+        },
+        {
+          $lookup: {
+            from: 'scheduledtasks',
+            let: { userEmail: '$email' }, // Define variables for the lookup
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $gt: [
+                      {
+                        $size: {
+                          $filter: {
+                            input: '$participants',
+                            as: 'participant',
+                            cond: { $eq: ['$$participant.email', '$$userEmail'] },
+                          },
+                        },
+                      },
+                      0,
+                    ],
+                  },
+                },
+              },
+            ],
+            as: 'totalPrograms', // Rename the output array to 'totalPrograms'
+          },
+        },
+        {
+          $project: {
+            firstName: 1,
+            email: 1,
+            submission:1,
+            'totalPrograms.ScheduledTaskID': 1,
+            'totalPrograms.eventName': 1,
+            'totalPrograms.matchedPrograms': 1,
+          },
+        },
+      ]);
+      const temp = JSON.parse(JSON.stringify(result))
+      let out = []
+       temp.map((student)=>{
+        if(student.submission){
+          console.log('test')
+            Object.keys(student.submission).map((scTask)=>{
+              
+                Object.keys(student.submission[scTask]).map((task)=>{
+                  console.log('test',scTask,task)
+                  if(task!='program') student.submission[scTask][task][0] = student.submission[scTask][task][0].mark 
+              })
+              
+          })
+          
+        }
+        out.push(student)
+        console.log(out,'student')
+      })
+
+
+      
+        return out 
+
+    } catch (error) {
+      
+    }
+  } 
   
 }
