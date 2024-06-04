@@ -18,7 +18,7 @@ export interface UserRepository {
     getStudentSubmission():Promise<void| studentSubmission & ScheduledTask_Model[]>
     getSubmissionDetails(email: string, password: string, googleAuth: boolean ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>
     getActiveUsers():Promise<void|ValidHumanReturnTypes[]>
-    readBatchSummaryBystaffId(): Promise<void | { week: string; count: number }[]>
+    // readBatchSummaryBystaffId(): Promise<void | { week: string; count: number }[]>
 }
 
 

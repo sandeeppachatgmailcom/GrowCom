@@ -262,5 +262,96 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
       } catch (error) {}
     }); 
 
+
+
+ /**
+ * @swagger
+ * /utils/studentsTaskProgressRatio:  # Corrected endpoint name (descriptive)
+ *   post:
+ *     summary: Get Student Task Progress Ratio
+ *       # Description should reflect actual functionality
+ *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email address of the student.
+ *     responses:
+ *       '200':
+ *         description: Student details and associated scheduled tasks progress ratio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object  # Assuming response is a single object
+ *               properties:
+ *                 # ... Define properties for user details and progress ratio
+ *       '400':
+ *         description: Bad request (e.g., invalid email format).
+ *       '404':
+ *         description: Student not found for the provided email.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Utils  # Corrected tag
+ */
+
+      router.post('/studentsTaskProgressRatio',(req: Req, res: Res, next: Next) => {
+      try {
+          
+          utilsController.getStudentsTaskProgress(req, res, next); 
+      } catch (error) {}
+    }); 
+
+
+    
+
+ /**
+ * @swagger
+ * /utils/getuserDetailsByEmail:  # Corrected endpoint name (descriptive)
+ *   post:
+ *     summary: Get Student Task Progress Ratio
+ *       # Description should reflect actual functionality
+ *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email address of the student.
+ *     responses:
+ *       '200':
+ *         description: Student details and associated scheduled tasks progress ratio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object  # Assuming response is a single object
+ *               properties:
+ *                 # ... Define properties for user details and progress ratio
+ *       '400':
+ *         description: Bad request (e.g., invalid email format).
+ *       '404':
+ *         description: Student not found for the provided email.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - Utils  # Corrected tag
+ */
+
+ router.post('/getuserDetailsByEmail',(req: Req, res: Res, next: Next) => {
+  try {
+      
+      utilsController.getuserDetailsByEmail(req, res, next); 
+  } catch (error) {}
+}); 
+
       return router 
 }

@@ -46,4 +46,23 @@ export class UtilityController {
             
         }
     }
+    
+    async getStudentsTaskProgress (req:Req,res:Res,next:Next){
+        try {
+            
+            const student = await this.utility.getStudentsTaskProgressRatio(req.body)
+            res.json(student)
+        } catch (error) {
+            
+        }
+    }
+    async getuserDetailsByEmail (req:Req,res:Res,next:Next){
+        try {
+            
+            const student = await this.utility.getuserDetailsByEmail(req.body)
+            res.json(student)
+        } catch (error) {
+            
+        }
+    }
 }
