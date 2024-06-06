@@ -197,4 +197,23 @@ export class UserController {
       }
     } catch (error) {}
   }
+  async getBatchWiseStudentsList (req:Req,res:Res,next:Next){
+    try {
+      
+        const student = await this.userSocket.getBatchWiseStudentsList()
+        console.log(student,'sasasa')
+        res.json(student)
+    } catch (error) {
+        
+    }
+}
+async getDesignationWiseStaffList(req:Req,res:Res,next:Next){
+  try {
+      const student = await this.userSocket.getDesignationWiseStaffList()
+      console.log(student,'getDesignationWiseStaffList')
+      res.json(student)
+  } catch (error) {
+      
+  }
+}
 }
