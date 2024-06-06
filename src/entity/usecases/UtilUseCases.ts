@@ -17,4 +17,5 @@ export interface UtilUseCases {
     getActiveUsers():Promise<void|ValidHumanReturnTypes[]>
     getStudentsTaskProgressRatio(data:{email:string}):Promise<void | UserEntity_Model[]>
     getuserDetailsByEmail(data:{email:string}):Promise<void|UserEntity_Model>
+    
 } 

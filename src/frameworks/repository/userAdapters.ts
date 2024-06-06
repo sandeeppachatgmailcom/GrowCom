@@ -9,6 +9,7 @@ import { studentSubmission } from "../../entity/ReturnTypes/StudentSubmission";
 import { ScheduledTask_Model } from "../../entity/models/scheduledTask_Model";
 import { userInput } from "../../entity/ReturnTypes/validUser";
 import designationDb from "../models/designationModel";
+import { count } from "console";
 
 // Define and export UserAdapters class
 class MongoDb_UserActivity implements UserRepository {
@@ -311,6 +312,70 @@ class MongoDb_UserActivity implements UserRepository {
       console.log(error);
     }
   }
+  async getBatchWiseStudentsList(): Promise<void | any[]> {
+      try {
+        const res = userModel.aggregate([
+          {
+            $match:{
+               role:'student' 
+            }
+          },
+          {
+            $lookup:{
+              from:'studentbatches',
+              localField:'batchId',
+              foreignField:'batchId',
+              as :'batchName'
+            }
+          },
+          {
+            $unwind:'$batchName'
+          }
+          ,
+          {
+            $group:{
+              _id:'$batchName.batchName',
+              count:{$sum:1}
+            }
+          }
+            
+        ])
+
+        return res
+      } catch (error) {
+        
+      }  
+  }
+  async getDesignationWiseStaffList():Promise<void | any[] >{
+   try {
+    const data = designationDb.aggregate([
+      {
+        $match:{}
+      },
+      {
+        $lookup:{
+          from:'users',
+          foreignField:'designation',
+          localField:'id',
+          as : 'employee'
+        }
+      },
+      {
+        $project:{
+          Designation:1,
+          id:1,
+          shortHand:1,
+          staffCount:{$size:'$employee'}
+        }
+      }
+      ])
+      return data;    
+    }
+     catch (error) {
+    
+   }
+  }
+  
 }
 
 export default MongoDb_UserActivity;

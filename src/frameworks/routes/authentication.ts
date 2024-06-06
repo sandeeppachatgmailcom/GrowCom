@@ -394,5 +394,73 @@ export function authRouter(router: Router) {
 );
 
 
+ /**
+ * @swagger
+ * /auth/getBatchWiseStudentsList:  # Corrected endpoint name (descriptive)
+ *   get:
+ *     summary: Get Student Task Progress Ratio
+ *       # Description should reflect actual functionality
+ *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+ *      
+ *     responses:
+ *       '200':
+ *         description: Student details and associated scheduled tasks progress ratio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object  # Assuming response is a single object
+ *               properties:
+ *                 # ... Define properties for user details and progress ratio
+ *       '400':
+ *         description: Bad request (e.g., invalid email format).
+ *       '404':
+ *         description: Student not found for the provided email.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - User   
+ */
+
+ router.get('/getBatchWiseStudentsList',(req: Req, res: Res, next: Next) => {
+  try {
+     
+    userController.getBatchWiseStudentsList(req, res, next); 
+  } catch (error) {}
+}); 
+
+/**
+ * @swagger
+ * /auth/getDesignationWiseStaffList:  # Corrected endpoint name (descriptive)
+ *   get:
+ *     summary: Get Student Task Progress Ratio
+ *       # Description should reflect actual functionality
+ *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+ *      
+ *     responses:
+ *       '200':
+ *         description: Student details and associated scheduled tasks progress ratio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object  # Assuming response is a single object
+ *               properties:
+ *                 # ... Define properties for user details and progress ratio
+ *       '400':
+ *         description: Bad request (e.g., invalid email format).
+ *       '404':
+ *         description: Student not found for the provided email.
+ *       '500':
+ *         description: Internal server error.
+ *     tags:
+ *       - User   
+ */
+
+router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
+  try {
+     
+    userController.getDesignationWiseStaffList(req, res, next); 
+  } catch (error) {}
+}); 
+
   return router;
 }

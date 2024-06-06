@@ -46,7 +46,6 @@ export class UserSocket implements UserUseCases {
     
    }
   }
-
   async findUser(email: string, next: Next): Promise<UserEntity_Model | void> {
      
     const result = await this.repo.findUser({ email });
@@ -208,7 +207,6 @@ export class UserSocket implements UserUseCases {
       else return { status: false };
     } catch (error) {}
   }
-
   async getSubmissionDetails(
     email: string,
     password: string,
@@ -242,5 +240,13 @@ export class UserSocket implements UserUseCases {
        
       return result;
     } catch (error) {}
+  }
+  getDesignationWiseStaffList(): Promise<void | any[]> {
+     const result = this.repo.getDesignationWiseStaffList()  
+     return result;
+  }
+  async getBatchWiseStudentsList ():Promise<void | any[]>{
+    const user = this.repo.getBatchWiseStudentsList()
+    return user
   }
 }
