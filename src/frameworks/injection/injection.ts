@@ -33,6 +33,7 @@ import { ChatController } from "../../interfaces/controller/chatController";
 import ChatSocket from "../../usecases/ChatSocket";
 import MongoConversationAdapter from "../repository/mongoConverationAdapter";
 import Crone_ScheduleTaskManager from "../services/Crone_ScheduleTaskManager";
+import { JwtToken_Adapter } from "../services/JwtToken_Adapter";
 
 
 //Db Adapters
@@ -46,7 +47,6 @@ const Designation = designationDb
 const otp_Adapter = new Custom_OtpAdapter()
 const email_Adapter = new NodeMailer_Adapter()
 const password_Adapter = new Bcrypt_PasswordAdapter()
-
 const user_adapter = new MongoDb_UserActivity()
 const admin_Adapter = new MongoDb_AdminAdapter()
 const serialNumberAdapter = new Mongo_Serial_Number()
@@ -60,6 +60,7 @@ const submissionRepo = new MongoSubmissionAdapter(serialNumberAdapter)
 const DesignationAdapter = new Mongo_DesignationRepository()
 const conversationAdapter = new MongoConversationAdapter(serialNumberAdapter)
 const SchedulerAdapter = new Crone_ScheduleTaskManager(scheduledTaskAdapter)
+const tokenService = new JwtToken_Adapter(user_adapter)
 
 
 // sockets 
@@ -81,4 +82,4 @@ const chatController = new ChatController(chatUseCase)
 //servers 
 const appServer = new NpmModule()
 const dbServer = new MongoDB()
-export{userController,adminController,utilsController,appServer,dbServer,trainerController,studentsController,chatController};
+export{tokenService, userController,adminController,utilsController,appServer,dbServer,trainerController,studentsController,chatController};
