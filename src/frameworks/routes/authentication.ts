@@ -1,9 +1,9 @@
-import { userController } from "../injection/injection";
+import { tokenService, userController } from "../injection/injection";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import express, { Router } from "express";
-import { JwtToken_Adapter } from "../services/JwtToken_Adapter";
 
-const token = new JwtToken_Adapter();
+
+ 
 
 export function authRouter(router: Router) {
   console.log('first')
@@ -45,7 +45,7 @@ export function authRouter(router: Router) {
         userController.validateOtp(req, res, next);
     } catch (error) {}
   });  
-
+ 
   // @ts-ignore
   /**
    * @swagger
@@ -160,7 +160,7 @@ export function authRouter(router: Router) {
  *       - User
  */
 
-  router.get("/delete", token.verifyToken, (req: Req, res: Res, next: Next) => {
+  router.get("/delete", tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
     try {
        userController.createUser(req, res, next);
     } catch (error) {}
@@ -189,7 +189,7 @@ export function authRouter(router: Router) {
    *                 description: Indicates whether the user is authenticated with Google.
    *     responses:
    *       '200':
-   *         description: Login successful. Returns user data with token.
+   *         description: Login successful. Returns user data with tokenService.
    *         content:
    *           application/json:
    *             schema:
@@ -211,8 +211,9 @@ export function authRouter(router: Router) {
  *     tags:
  *       - User
  */
-  router.post("/login",token.createJwtToken ,(req: Req, res: Res, next: Next) => {
+  router.post("/login",tokenService.createJwtToken ,(req: Req, res: Res, next: Next) => {
     try {
+      
         userController.login(req, res, next);
     } catch (error) {}
   });
@@ -241,7 +242,7 @@ export function authRouter(router: Router) {
    *                 description: Indicates whether the user is authenticated with Google.
    *     responses:
    *       '200':
-   *         description: Login successful. Returns user data with token.
+   *         description: Login successful. Returns user data with tokenService.
    *         content:
    *           application/json:
    *             schema:
@@ -264,9 +265,10 @@ export function authRouter(router: Router) {
  *       - User
  */
 
-  router.get("/getlogin",token.verifyToken,(req: Req, res: Res, next: Next) => {
+  router.get("/getmylogin/:role", tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
       try {
-        token.verifyToken, userController.login(req, res, next);
+        console.log('hi i reached here ')
+         userController.login(req, res, next);
       } catch (error) {}
     }
   );
@@ -302,14 +304,14 @@ export function authRouter(router: Router) {
    *             schema:
    *               // Define the schema of the response object representing the updated user profile
    *       '401':
-   *         description: Unauthorized - Invalid or missing authentication token.
+   *         description: Unauthorized - Invalid or missing authentication tokenService.
    *       '500':
    *         description: Internal server error.
    *     tags:
  *       - User
  */
 
-  router.post("/saveBasicInfo",token.verifyToken,(req: Req, res: Res, next: Next) => {
+  router.post("/saveBasicInfo",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
         try {
             userController.savebasicProfile(req, res, next);
         } catch (error) {}
@@ -385,7 +387,7 @@ export function authRouter(router: Router) {
  *       - Admin
  */
 
-  router.get("/getSubmissionDetails",token.verifyToken,(req: Req, res: Res, next: Next) => {
+  router.get("/getSubmissionDetails",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
     try {
       console.log('getSubmissionDetails route')
         userController.getSubmissionDetails(req, res, next);

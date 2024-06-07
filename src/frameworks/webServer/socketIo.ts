@@ -54,12 +54,10 @@ function initializeSocket(server: any) {
     const getUser = (userId: string) => users.find(user => user.userId === userId);
 
     io.on("connection", (socket: Socket) => {
-        
         socket.on("addUser",(user)=>{
             addUser(user.userid,socket.id)
         })
         socket.on("message", (message) => {
-               
         });
         socket.on('disconnect', function() {
         removeUser(socket.id)
@@ -67,11 +65,8 @@ function initializeSocket(server: any) {
         socket.on('logout', function() {
             removeUser(socket.id)
             })   
-  
         socket.on("send-message",(message:{})=>{
-            
             const user = getUser(message.receiverId);
-           
             socket.to(user?.socketId).emit("send-message",message)
         })
         }

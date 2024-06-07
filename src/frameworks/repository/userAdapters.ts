@@ -50,10 +50,7 @@ class MongoDb_UserActivity implements UserRepository {
       throw new Error("Failed to create user");
     }
   }
-  async findUser(data: {
-    email: string;
-    pasword: string;
-  }): Promise<UserEntity_Model | void> {
+  async findUser(data: { email: string; }): Promise<void | UserEntity_Model>  {
     try {
       const { email } = data;
       const user = await userModel.findOne({ email }, { password: 0 });

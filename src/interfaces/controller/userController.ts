@@ -71,10 +71,14 @@ export class UserController {
         
         const data  = JSON.parse(JSON.stringify(result))
         if (data?.active ){ 
-         
           const data = JSON.parse(JSON.stringify(result))
-          req?.body?.token? res.cookie('manGrow', req.body.token.token ):''
-          
+          let cookieName = ''
+          if(data.role == 'student') cookieName ='student' 
+          else if(data.role == 'trainer') cookieName ='trainer' 
+          else if(data.role == 'admin') cookieName ='admin' 
+          req?.body?.token? res.cookie('manGrow'+cookieName, req.body.token.token ):''
+          console.log(data)
+          if(data.verified) data.success = true
           res.status(200).json(data);
         }
 
