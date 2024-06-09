@@ -159,7 +159,6 @@ export function authRouter(router: Router) {
  *     tags:
  *       - User
  */
-
   router.get("/delete", tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
     try {
        userController.createUser(req, res, next);
@@ -213,11 +212,9 @@ export function authRouter(router: Router) {
  */
   router.post("/login",tokenService.createJwtToken ,(req: Req, res: Res, next: Next) => {
     try {
-      
         userController.login(req, res, next);
     } catch (error) {}
   });
-
   /**
    * @swagger
    * /getLogin:
@@ -264,7 +261,6 @@ export function authRouter(router: Router) {
  *     tags:
  *       - User
  */
-
   router.get("/getmylogin/:role", tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
       try {
         console.log('hi i reached here ')
@@ -272,14 +268,12 @@ export function authRouter(router: Router) {
       } catch (error) {}
     }
   );
-
   router.get("/user",(req: Req, res: Res, next: Next) => {
     try {
      userController.getUsers(req, res, next);
     } catch (error) {}
   }
 );    
-
   /**
    * @swagger
    * /saveBasicInfo:
@@ -310,14 +304,12 @@ export function authRouter(router: Router) {
    *     tags:
  *       - User
  */
-
   router.post("/saveBasicInfo",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
         try {
             userController.savebasicProfile(req, res, next);
         } catch (error) {}
       }
     );    
-
   /**
    * @swagger
    * /forgotPassword:
@@ -386,7 +378,6 @@ export function authRouter(router: Router) {
  *     tags:
  *       - Admin
  */
-
   router.get("/getSubmissionDetails",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
     try {
       console.log('getSubmissionDetails route')
@@ -394,7 +385,6 @@ export function authRouter(router: Router) {
     } catch (error) {}
   }
 );
-
 
  /**
  * @swagger

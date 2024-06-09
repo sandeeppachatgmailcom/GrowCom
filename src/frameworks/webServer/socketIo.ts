@@ -54,9 +54,16 @@ function initializeSocket(server: any) {
     const getUser = (userId: string) => users.find(user => user.userId === userId);
 
     io.on("connection", (socket: Socket) => {
+        console.log('new connection',socket.id)
         socket.on("addUser",(user)=>{
             addUser(user.userid,socket.id)
         })
+        socket.on("dialACall",(message)=>{
+            console.log(message,socket.id,'call received from front')
+            const user = getUser(message.receiverId) 
+            socket.to(user?.socketId).emit('incomingCall',message)
+        });
+        
         socket.on("message", (message) => {
         });
         socket.on('disconnect', function() {

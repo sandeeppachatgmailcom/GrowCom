@@ -5,17 +5,13 @@ import dotenv from "dotenv";
 import { UserRepository } from '../../entity/repository/userRepository';
 
 export class JwtToken_Adapter implements TokenServises{
-    
     constructor(
         private userRepo : UserRepository 
     ){
         dotenv.config()          
-        
     }
 
     async createJwtToken(req:Req,res:Res,next:Next):Promise<Next|void>{
-       // const tempuser = await this.userRepo.findUser({email:req.body.email}) 
-        //console.log(tempuser,'************************************')
         const token =await jwt.sign({ email: req.body.email,sessionID: req.sessionID,googleAuth:true }, process.env.JWT_VERIFICATION_KEY as string , { expiresIn: '600m' });
         req.body.token={token:token} 
         next()
@@ -24,7 +20,7 @@ export class JwtToken_Adapter implements TokenServises{
     async verifyToken(req:Req,res:Res,next:Next):Promise<Next|void>{
          
         const param = req.params
-         console.log(param.role,req.cookies)
+        console.log(param.role,req.cookies)
         const token = req.cookies[param.role]
         console.log(token,'token')
         if(token){ 
