@@ -1,3 +1,4 @@
+import { SocketType } from 'dgram';
 import { disconnect } from 'process';
 import { Server, Socket } from 'socket.io';
 
@@ -51,6 +52,14 @@ function initializeSocket(server: any) {
         io.emit("usersOnline", users.filter(user => user.online));
     };
 
+    const handleCallResPonce = async (socket:Socket ,message:any)=>{
+        console.log(message,'message ')
+        const receiver :User = getUser(message?.user?.email)
+        socket.to(receiver?.socketId as string).emit("CallResponce",message.offer)
+    }
+  
+
+ 
     const getUser = (userId: string) => users.find(user => user.userId === userId);
 
     io.on("connection", (socket: Socket) => {
@@ -59,11 +68,23 @@ function initializeSocket(server: any) {
             addUser(user.userid,socket.id)
         })
         socket.on("dialACall",(message)=>{
-            console.log(message,socket.id,'call received from front')
-            const user = getUser(message.receiverId) 
+            console.log(message.message.data ,'call received from front')
+           
+            const user = getUser(message.message.data.receiverId) 
             socket.to(user?.socketId).emit('incomingCall',message)
         });
-        
+        socket.on("endCall",(message)=>{
+            console.log(message,'end Call') 
+            const user = getUser(message.receiverId)
+            console.log(user)
+            socket.to(user?.socketId).emit("endCurrentCall",message)
+
+        })
+        socket.on("CallResPonce",(message)=>{
+            console.log(message,'CallResPonce')
+            const receiver = getUser(message?.user?.email)
+            socket.to(receiver?.socketId as string).emit("takeCallResponce",message.offer)
+        })
         socket.on("message", (message) => {
         });
         socket.on('disconnect', function() {

@@ -261,7 +261,7 @@ export function authRouter(router: Router) {
  *     tags:
  *       - User
  */
-  router.get("/getmylogin/:role", tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
+  router.get("/getmylogin/:role",tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
       try {
         console.log('hi i reached here ')
          userController.login(req, res, next);
