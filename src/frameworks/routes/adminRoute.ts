@@ -59,7 +59,7 @@ export function adminRouter(router: Router){
  */
 router.post('/createVenue',(req: Req, res: Res, next: Next) => {
   try {
-    console.log('helooooo reached router')
+     
       adminController.postCreateVenue(req, res, next);
   } catch (error) {}
 });   
@@ -209,7 +209,7 @@ router.post('/createVenue',(req: Req, res: Res, next: Next) => {
 
 router.post(adminApis.createBatch, (req: Req, res: Res, next: Next) => {
   try {
-    console.log('reached router ')
+     
     adminController.postCreateBatch(req, res, next);
   } catch (error) {
     // Handle error
@@ -430,7 +430,7 @@ router.post('/deleteEvent',(req:Req,res:Res,next:Next)=>{
  */
     router.post('/createTask',(req:Req,res:Res,next:Next) => {
       try {
-        console.log(req.body,'reqreqreq')
+        
           adminController.postCreateTask(req, res, next);
       } catch (error) {}
     });   

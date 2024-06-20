@@ -183,7 +183,7 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
       
       router.get('/listAllTask',(req: Req, res: Res, next: Next) => {
         try {
-            console.log('reched backend')
+             
             utilsController.getActiveTask(req, res, next); 
         } catch (error) {}
       });  
@@ -220,7 +220,7 @@ router.get('/listBatches',(req: Req, res: Res, next: Next) => {
     
       router.get('/getAllDesignation',(req: Req, res: Res, next: Next) => {
         try {
-            console.log('reched backend')
+             
             utilsController.getActiveDesignation(req, res, next); 
         } catch (error) {}
       });  

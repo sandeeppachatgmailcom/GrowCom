@@ -10,6 +10,7 @@ export class StudentsController {
     }
     async postStudentsTask(req:Req,res:Res,next:Next){
         try {
+            
             const task = await this.studentsSocket.getStudentsTask(req.body)
             res.json(task)
         } catch (error) {

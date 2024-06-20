@@ -17,7 +17,7 @@ export class UserController {
 
       if (this.isValidEmail(email) && this.validatePassword(password)) {
         if (!exist?.email) {
-          console.log(exist, "exist");
+           
           const result = await this.userSocket.createUser(
             firstName,
             email,
@@ -39,12 +39,12 @@ export class UserController {
       const { email, otp,resetPaaword } = req.body;
       const result = await this.userSocket.findUser(email, next);
       if (result) {
-        console.log(result,'result user')
+         
         if (result?.otp == otp) {
           result.otpVerified  =  true;
           result.otp = '';
           const updateResult = await this.userSocket.updateUserBasics(result)
-          console.log(updateResult,'updated user')
+           
           const reply = JSON.parse(JSON.stringify(updateResult))
           reply.resetPaaword =  resetPaaword
            
@@ -77,7 +77,7 @@ export class UserController {
           else if(data.role == 'trainer') cookieName ='trainer' 
           else if(data.role == 'admin') cookieName ='admin' 
           req?.body?.token? res.cookie('manGrow'+cookieName, req.body.token.token ):''
-          console.log(data)
+           
           if(data.verified) data.success = true
           res.status(200).json(data);
         }
@@ -141,7 +141,7 @@ export class UserController {
   }
   async savebasicProfile(req:Req,res:Res,next:Next){
     try {
-      console.log(req.body,'request received here ')
+       
       const user =await  this.userSocket.updateUserBasics(req.body)
     res.json(user)
     } catch (error) {
@@ -167,7 +167,7 @@ export class UserController {
       const result= await this.userSocket.resetPassword(firstName,email,password)
       const reply = JSON.parse(JSON.stringify(result))
       reply.changePassword=true
-      console.log(reply,'reply')
+       
       res.status(200).json(reply)
     } catch (error) {
       
@@ -175,12 +175,12 @@ export class UserController {
   }  
   async getSubmissionDetails(req: Req, res: Res, next: Next) {
     try {
-      console.log('reached controller after rote')
+       
       const { email, password, googleAuth } = req.body;
       if (this.isValidEmail(email)) {
         const result = await this.userSocket.getSubmissionDetails( email, password, googleAuth, next );
         
-        console.log(result,'result at controller ')
+         
         const data  = JSON.parse(JSON.stringify(result))
         if (data?.active ){ 
          
@@ -196,7 +196,7 @@ export class UserController {
         }
       }
       else{
-        console.log('reached else')
+         
         res.status(200).json({message:'fail',status:false});
       }
     } catch (error) {}
@@ -205,7 +205,7 @@ export class UserController {
     try {
       
         const student = await this.userSocket.getBatchWiseStudentsList()
-        console.log(student,'sasasa')
+         
         res.json(student)
     } catch (error) {
         
@@ -214,7 +214,7 @@ export class UserController {
 async getDesignationWiseStaffList(req:Req,res:Res,next:Next){
   try {
       const student = await this.userSocket.getDesignationWiseStaffList()
-      console.log(student,'getDesignationWiseStaffList')
+       
       res.json(student)
   } catch (error) {
       

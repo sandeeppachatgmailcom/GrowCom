@@ -6,7 +6,7 @@ import express, { Router } from "express";
  
 
 export function authRouter(router: Router) {
-  console.log('first')
+   
   // @ts-ignore
   /**
    * @swagger
@@ -263,7 +263,7 @@ export function authRouter(router: Router) {
  */
   router.get("/getmylogin/:role",tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
       try {
-        console.log('hi i reached here ')
+         
          userController.login(req, res, next);
       } catch (error) {}
     }
@@ -380,7 +380,7 @@ export function authRouter(router: Router) {
  */
   router.get("/getSubmissionDetails",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
     try {
-      console.log('getSubmissionDetails route')
+       
         userController.getSubmissionDetails(req, res, next);
     } catch (error) {}
   }

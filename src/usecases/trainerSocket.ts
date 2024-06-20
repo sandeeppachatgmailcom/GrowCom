@@ -12,6 +12,7 @@ import { TrainerUsecase } from "../entity/usecases/trainerUseCase";
 import { GeneralUtils } from "../interfaces/utils/GeneralUtils";
 import { ScheduledTaskManagerService } from "../entity/services/scheduledTaskManager";
 import submission_Db from "../frameworks/models/submission_Model";
+import { Console } from "console";
 
 export class TrainerSocket implements TrainerUsecase {
   constructor(
@@ -74,6 +75,7 @@ export class TrainerSocket implements TrainerUsecase {
   }
 
   async getPending(data: {
+    designation:string
     email: string;
     startDate: Date;
     endDate: Date;
@@ -82,42 +84,76 @@ export class TrainerSocket implements TrainerUsecase {
      
     const events = await this.eventRepo.getTaskByTrainerEmail(data);
     const scheduledEvent = await this.SchTask.getScheduledTask(data);
-    const tempMission = await this.userRepo.getStudentSubmission();
+    const tempMission = await this.userRepo.getStudentSubmission(data);
     const subMission = JSON.parse(JSON.stringify(tempMission));
+     
+    let tempOut = []
+     
+   await subMission.map((user)=>{
+      
+        Object.keys(user.submission).map((subM)=>{
+           Object.keys(user.submission[subM]).map((task)=>{
+            if(task !=  'program'){
+              console.log(user.submission[subM][task][0].verifiedBy,'taskiiii')
+              if (user.submission[subM][task][0].verifiedBy == data.designation ) {
+
+                const tempSudmission = {
+                  type: "submission",
+                  ScheduledTaskID:subM,
+                  ...user,
+                  ...user.submission.program,
+                  ...user.submission[subM][task][0],
+                };
+                delete tempSudmission.submission
+                delete tempSudmission.audience
+                delete tempSudmission.matchedTasks;
+                tempOut.push(tempSudmission)
+                
+      
+              }
+            }
+          })
+           
+        })
+     }) 
+
     
      
-    const studentSubmission = subMission.map((student: any) => {
-      let tempOut = [];
-      for (let key in student.submission) {
-        const tempsche = scheduledEvent?.filter((evento: any) => {
-          if (evento.ScheduledTaskID == key) return evento;
-        });
+    //  const studentSubmission = subMission.map((student: any) => {
+    //   let tempOut = [];
+    //   for (let key in student.submission) {
+    //     const tempsche = scheduledEvent?.filter((evento: any) => {
+    //       if (evento.ScheduledTaskID == key) return evento;
+    //     });
 
-        for (let taskkey in student.submission[key]) {
-          const tempSudmission = {
-            type: "submission",
-            ...student,
-            ...tempsche[0]?._doc,
-            ...student?.submission[key][taskkey][0],
-          };
+    //     for (let taskkey in student.submission[key]) {
+    //       const tempSudmission = {
+    //         type: "submission",
+    //         ...student,
+    //         ...tempsche[0]?._doc,
+    //         ...student?.submission[key][taskkey][0],
+    //       };
 
-          // delete tempSudmission.submission;
-          delete tempSudmission.audience;
-          delete tempSudmission.matchedTasks;
+    //       // delete tempSudmission.submission;
+    //       delete tempSudmission.audience;
+    //       delete tempSudmission.matchedTasks;
 
-          tempOut.push(tempSudmission);
-        }
-      }
-      return tempOut;
-    });
+    //       tempOut.push(tempSudmission);
+    //     }
+    //   }
+    //   return tempOut;
+    // });
 
+    
     let pendingWork: any[] = [];
 
-    studentSubmission.map((item: any) => {
-      pendingWork = [...pendingWork, ...item];
+    // studentSubmission.map((item: any) => {
+    //   pendingWork = [...pendingWork, ...item];
+    // });
+    tempOut.map((item: any) => {
+      pendingWork.push(item)
     });
-
-
+    
     if (events) {
       const p = await Promise.all(
         events.map(async (item: Event_Model) => {
@@ -197,6 +233,7 @@ export class TrainerSocket implements TrainerUsecase {
               }`
             )
           ) {
+             
             // Find the corresponding scheduled event and update pendingWork
             const correspondingEvent = scheduledEvent.find((event: any) => {
                
@@ -246,10 +283,10 @@ export class TrainerSocket implements TrainerUsecase {
     }
 
     const task = await this.SchTask.createScheduledTask(data);
-    console.log(task,'new Work Starts Here ')
+     
     const start =await  this.SchedulerService.startTask(task)
     const end =await  this.SchedulerService.endTask(task)
-    console.log(start,end,'start end ')
+     
 
 
 
@@ -293,7 +330,7 @@ export class TrainerSocket implements TrainerUsecase {
 async designationWiseProgress(data: { designation: string; }): Promise<void | []> {
   try {
       const batches = await this.batchRepo.readBatchSummaryBystaffId({designation:data.designation}) 
-      console.log(batches)
+       
       return batches
        } catch (error) {
       console.log(error)
@@ -302,7 +339,7 @@ async designationWiseProgress(data: { designation: string; }): Promise<void | []
 async getWeeklyStudentssummary(): Promise<void | { week: string; count: number; }[]> {
   try {
       const result = await this.userRepo.getWeeklyStudentssummary()
-      console.log(result,'result')
+       
       return result
   } catch (error) {
     console.log(error)

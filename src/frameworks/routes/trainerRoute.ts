@@ -62,7 +62,7 @@ export function trainerRouter(router: Router) {
     "/postTrainerPendingEvents",
     async (req: Req, res: Res, next: Next) => {
       try {
-        console.log('postTrainerPendingEvents at root')
+        console.log(req.body,'------------------++++++++++++++++-----------------')
         await trainerController.postTrainerPendingEvents(req, res, next);
       } catch (error) {}
     }
@@ -253,7 +253,7 @@ export function trainerRouter(router: Router) {
     "/postScheduleTask",
     async (req: Req, res: Res, next: Next) => {
       try {
-        console.log("postTrainerPendingEvents");
+         
         await trainerController.postCreateScheduledTask(req, res, next);
       } catch (error) {}
     }
@@ -444,7 +444,7 @@ export function trainerRouter(router: Router) {
     "/updateMarkToCollection",
     async (req: Req, res: Res, next: Next) => {
       try {
-        console.log("updateMarkToCollection");
+         
         await trainerController.updateMarkToCollection(req, res, next);
       } catch (error) {}
     }
@@ -560,7 +560,7 @@ export function trainerRouter(router: Router) {
     "/getWeeklyStudentssummary",
     async (req: Req, res: Res, next: Next) => {
       try {
-        console.log('reached router')
+         
         await trainerController.getWeeklyStudentssummary(req, res, next);
       } catch (error) {}
     }

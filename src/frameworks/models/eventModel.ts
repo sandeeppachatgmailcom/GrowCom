@@ -24,8 +24,8 @@ const eventSchema :Schema <Event_Model& Document> =new mongoose.Schema({
     dayName:{type:String},
     monthDay:{type:String},
     yearDay:{type:String},
-    designation:{type:String}
-
+    designation:{type:String},
+    review:{type:Boolean,default:false}
 })
 
 const events_Model :Model<Event_Model & Document> = mongoose.model('event',eventSchema)

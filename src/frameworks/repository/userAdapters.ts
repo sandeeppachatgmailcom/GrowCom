@@ -204,9 +204,10 @@ class MongoDb_UserActivity implements UserRepository {
 
     return users;
   }
-  async getStudentSubmission(): Promise<
+  async getStudentSubmission(data:{ email: string, startDate: Date, endDate: Date,designation:string }): Promise<
     void | (studentSubmission & ScheduledTask_Model[])
   > {
+    console.log(data,'at user Adapter')
     const result = await userModel.aggregate([
       {
         $match: {
@@ -215,7 +216,9 @@ class MongoDb_UserActivity implements UserRepository {
           submission: { $ne: null },
         },
       },
+       
     ]);
+     
     const out: studentSubmission[] = result.map((user: UserEntity_Model) => {
       return {
         firstName: user.firstName,

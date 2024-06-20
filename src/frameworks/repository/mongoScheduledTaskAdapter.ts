@@ -14,13 +14,14 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     data: ScheduledTask_Model & FailedStatus_reply
   ): Promise<void | (ScheduledTask_Model & FailedStatus_reply)> {
     try {
-      const designation: UserEntity_Model = await userModel.findOne({
-        email: data.staffInCharge,
-      });
+      // const designation: UserEntity_Model = await userModel.findOne({
+      //   email: data.staffInCharge,
+      // });
+      console.log(data,'deflate')
       if (data._id) delete data._id;
       if (data.message) delete data.message;
       if (data.status) delete data.status;
-      data.staffDesignation = designation?.designation;
+      data.staffDesignation = data?.designation;
 
       const result = await scheduledTask_DB.updateOne(
         { ScheduledTaskID: data.ScheduledTaskID },
@@ -58,13 +59,15 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     startDate: Date;
     endDate: Date;
   }): Promise<void | ScheduledTask_Model[]> {
-    const designation = await userModel.findOne({ email: data.email });
 
+      
+    const designation = await userModel.findOne({ email: data.email });
+   
     const scheduledTask: ScheduledTask_Model[] = await scheduledTask_DB.find({
       staffDesignation: designation?.designation,
       //scheduledDate: { $gte: data.startDate, $lte: new Date( data.endDate) }
     });
-
+     
     if (scheduledTask) return scheduledTask;
     else return [];
   }
@@ -74,6 +77,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     startDate: Date;
     endDate: Date;
   }): Promise<void | ScheduledTask_Model[]> {
+     
     const scheduledTasks = await scheduledTask_DB.aggregate([
       {
         $match: {
@@ -111,7 +115,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
         },
       },
     ]);
-
+    console.log(scheduledTasks,'scheduledTasksscheduledTasks')
     return scheduledTasks;
   }
 
@@ -147,7 +151,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
         }
       });
     }
-    console.log(batches, weeks, roles, "batches,weeks,roles");
+    
     const ogStudentsList: UserEntity_Model[] = await userModel.find(
       {
         $or: [
@@ -178,18 +182,18 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
       }
     );
 
-    console.log(studentsList, "students list");
+    
 
     ogStudentsList.map((student) => studentsList.add(student));
     const updateDb = await scheduledTask_DB.updateOne(
       { ScheduledTaskID: data.ScheduledTaskID },
       { $set: { participants: [...studentsList] } }
     );
-    console.log(studentsList, "students list");
+    
   }
 
   async designationWiseEventProgress(data: { designation: string; }): Promise<any[]> {  // Update the return type to match the expected return value
-    console.log(data);
+    
   
     // Fetch the scheduled tasks based on the designation
     const tempResult = await scheduledTask_DB.find(
@@ -223,13 +227,13 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
       })
     );
   
-    console.log(final);
+    
     return final;  // Return the final result with attendees included
   }
 
   async getStudentsTaskProgressRatio(data:{email:string}):Promise<void | UserEntity_Model[]>{
     try {
-      console.log('first')
+      
       const result = await userModel.aggregate([
         {
           $match: {
@@ -278,11 +282,11 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
       let out = []
        temp.map((student)=>{
         if(student.submission){
-          console.log('test')
+          
             Object.keys(student.submission).map((scTask)=>{
               
                 Object.keys(student.submission[scTask]).map((task)=>{
-                  console.log('test',scTask,task)
+                  
                   if(task!='program') student.submission[scTask][task][0] = student.submission[scTask][task][0].mark 
               })
               
@@ -290,7 +294,7 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
           
         }
         out.push(student)
-        console.log(out,'student')
+        
       })
 
 

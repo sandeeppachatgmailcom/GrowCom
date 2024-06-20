@@ -7,9 +7,9 @@ export class TrainerController {
   async postTrainerPendingEvents(req: Req, res: Res, next: Next) {
     try {
       const data = req.body;
-       console.log(data,'at controller')
+       
       const pendings = await this.trainerSocket.getPending(data);
-      
+     
       res.status(200).json(pendings);
     } catch (error) {
       
@@ -20,7 +20,7 @@ export class TrainerController {
     try {
 
       const data = req.body;
-      console.log(data,'datadatadata') 
+      
       const creaethetak = await this.trainerSocket.createScheduledTask(data);
       res.status(200).json(creaethetak);
     } catch (error) {}
@@ -55,7 +55,7 @@ export class TrainerController {
     }
   async designationWiseEventProgress (req: Req, res: Res, next: Next){
     try {
-      console.log(req.body)
+      
         const result = await this.trainerSocket.designationWiseEventProgress(req.body)
         res.json(result)
     } catch (error) {

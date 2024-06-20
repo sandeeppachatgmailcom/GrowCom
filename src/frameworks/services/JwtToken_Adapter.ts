@@ -22,20 +22,18 @@ export class JwtToken_Adapter implements TokenServises {
   async verifyToken(req: Req, res: Res, next: Next): Promise<Next | void> {
     try {
       const param = req.params;
-      console.log(param.role, req.cookies);
+     
       const token = req.cookies[param.role];
-      console.log(token, "token");
+    
       if (token) {
         
         const verified =  jwt.verify(
           token,
           process.env.JWT_VERIFICATION_KEY as string
         );
-        console.log(verified,'----------------')
+        
         if (verified) {
-          console.log(
-            "-----------------------<<<>>>>><<<<>>><<<<>>>-------------------"
-          );
+           
           const temp = {
             ...req.body,
             ...JSON.parse(JSON.stringify(verified)),
