@@ -11,6 +11,7 @@ import { FailedStatus_reply } from "../entity/Types/failedStatus";
 
 export class UserSocket implements UserUseCases {
   constructor(
+    
     private repo: UserRepository,
     private passwordManager: EncryptPasswordServices,
     private emailer: EmailServices,
