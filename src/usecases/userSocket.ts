@@ -1,5 +1,5 @@
 import { stringify } from "querystring";
-import { Next } from "../entity/Types/Serv_erTypes";
+import { Next } from "../entity/Types/ServerTypes";
 import { UserUseCases } from "../entity/usecases/UserUseCases";
 import { UserRepository } from "../entity/repository/userRepository";
 import { UserEntity_Model } from "../entity/models/UserModel";

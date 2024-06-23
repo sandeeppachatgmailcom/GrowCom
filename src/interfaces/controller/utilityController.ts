@@ -1,4 +1,4 @@
-import { Next, Req, Res } from "../../entity/Types/Serv_erTypes"
+import { Next, Req, Res } from "../../entity/Types/ServerTypes"
 import { UtilitySocket } from "../../usecases/utilitySocket"
 
 export class UtilityController {

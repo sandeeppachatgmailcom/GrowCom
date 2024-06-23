@@ -1,5 +1,5 @@
 import { adminController, userController } from '../injection/injection'
-import { Route, Req, Res, Next } from '../../entity/Types/Serv_erTypes'
+import { Route, Req, Res, Next } from '../../entity/Types/ServerTypes'
 import express, { Router } from 'express'; 
 import { adminApis } from '../../interfaces/apis/adminapi';
 

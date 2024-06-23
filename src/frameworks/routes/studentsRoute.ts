@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Next, Req, Res } from "../../entity/Types/Serv_erTypes";
+import { Next, Req, Res } from "../../entity/Types/ServerTypes";
 import { studentsController } from "../injection/injection";
 
 export function studentsRouter(router: Router) {
