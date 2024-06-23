@@ -101,9 +101,9 @@ export class Mongo_EventRepository implements EventsRepository {
     email: string;
   }): Promise<void | Event_Model[]> {
     try {
-        const designation = await userModel.find({ email: data.email });
+        const designation:UserEntity_Model[] = await userModel.find({ email: data.email });
     const localactiveEvents = await events_Model.find({
-      designation: designation?.designation,
+      designation: designation[0]?.designation ,
       deleted: false,
       active: true,
     });
@@ -145,7 +145,7 @@ export class Mongo_EventRepository implements EventsRepository {
   }): Promise<void | Event_Model[]> {
     try {
       const localactiveEvents = await events_Model.find({
-        staffInCharge: data.email,
+        staffInCharge: data.designation,
         deleted: false,
         active: true,
       });

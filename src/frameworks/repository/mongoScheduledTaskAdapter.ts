@@ -11,16 +11,12 @@ import { emitWarning } from "process";
 
 export class MongoScheduledTask implements ScheduledTask_Repository {
   async createScheduledTask(
-    data: ScheduledTask_Model & FailedStatus_reply
+    data: ScheduledTask_Model & FailedStatus_reply & any
   ): Promise<void | (ScheduledTask_Model & FailedStatus_reply)> {
     try {
-      // const designation: UserEntity_Model = await userModel.findOne({
-      //   email: data.staffInCharge,
-      // });
-      console.log(data,'deflate')
-      if (data._id) delete data._id;
-      if (data.message) delete data.message;
-      if (data.status) delete data.status;
+      if (data?._id) delete data._id;
+      if (data?.message) delete data?.message;
+      if (data?.status) delete data?.status;
       data.staffDesignation = data?.designation;
 
       const result = await scheduledTask_DB.updateOne(
@@ -29,25 +25,14 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
         { upsert: true }
       );
 
-      if (result.upsertedCount > 0) {
-        return {
-          status: true,
-          message: "created successfullyxxx",
-          ...data,
-        };
-      } else if (result.modifiedCount > 0) {
-        return {
-          status: true,
-          message: "updated successfully",
-          ...data,
-        };
-      } else {
-        return {
-          status: false,
-          message: "no changes found",
-          ...data,
-        };
-      }
+    if (result.upsertedCount > 0 && !result.modifiedCount) {
+        return {  ...data,status: true, message: "created successfullyxxx" };
+    } else if (result.modifiedCount > 0) {
+        return {  ...data,status: true, message: "updated successfully" };
+    } else {
+        return {  ...data,status: false, message: "no changes found" };
+    }
+    
     } catch (error) {
       console.error("Error creating/updating task:", error);
       return;
@@ -124,12 +109,12 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
     const task = await scheduledTask_DB.findOne({
       ScheduledTaskID: data.ScheduledTaskID,
     });
-    let batches = [];
-    let weeks = [];
-    let roles = [];
+    let batches :any = [];
+    let weeks :any= [];
+    let roles :any= [];
     if (task?.audience) {
       Object.keys(task?.audience).map((audienceType) => {
-        const audiance = task.audience;
+        const audiance:any = task.audience;
         if (audienceType == "btches") {
           Object.keys(audiance?.btches).map((batch) => {
             if (audiance?.btches[batch]) {
@@ -279,8 +264,8 @@ export class MongoScheduledTask implements ScheduledTask_Repository {
         },
       ]);
       const temp = JSON.parse(JSON.stringify(result))
-      let out = []
-       temp.map((student)=>{
+      let out:any= []
+       temp.map((student:any)=>{
         if(student.submission){
           
             Object.keys(student.submission).map((scTask)=>{

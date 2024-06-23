@@ -32,6 +32,10 @@ export interface ScheduledTask_Model{
     createdDate?:Date;
     submissionDate?:Date;
     participants:[];
+    _id?: string;
+    message?: string;
+    status?: string;
+    designation?: string;
 }
     
   
