@@ -83,7 +83,7 @@ class MongoDb_UserActivity implements UserRepository {
       const { email, password, googleAuth } = data;
 
       //const user = await userModel.findOne({email:email,password:password})
-      const user: UserEntity_Model = await userModel.aggregate([
+      const user: any  = await userModel.aggregate([
         {
           $match: { email },
         },
@@ -105,7 +105,7 @@ class MongoDb_UserActivity implements UserRepository {
         },
       ]);
 
-      const tempData = JSON.parse(JSON.stringify(user[0]));
+      const tempData :any|UserEntity_Model[] = JSON.parse(JSON.stringify(user[0]));
       delete tempData.password;
       if (user) tempData.verified = true;
       if (data?.email) {
