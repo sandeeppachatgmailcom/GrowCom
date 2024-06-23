@@ -9,7 +9,7 @@ export default class Crone_ScheduleTaskManager implements ScheduledTaskManagerSe
     ){
 
     }
-    async endTask(task: ScheduledTask_Model): Promise<void> {
+    async endTask(task: ScheduledTask_Model & any): Promise<void> {
         const endCronExpression = this.constructCronExpression(task.endDateTime, task.submissionDate);
         const endJob = cron.schedule(endCronExpression, () => {
           console.log(`task starts at ${endCronExpression}`)
@@ -22,7 +22,7 @@ export default class Crone_ScheduleTaskManager implements ScheduledTaskManagerSe
        // return Promise.resolve(true); 
       }
 
-    async startTask(task: ScheduledTask_Model): Promise<void > {
+    async startTask(task: ScheduledTask_Model & any ): Promise<void > {
         const startCronExpression = this.constructCronExpression(task.startDateTime, task.scheduledDate);
         
         const startJob = cron.schedule(startCronExpression, () => {
@@ -38,7 +38,7 @@ export default class Crone_ScheduleTaskManager implements ScheduledTaskManagerSe
        // return Promise.resolve(true); // Resolve after scheduling the start job
       }
 
-    private constructCronExpression(dateTime: string, mydate: Date): string {
+    private constructCronExpression(dateTime: string, mydate:  string): string {
    
         const minute =  dateTime.split(':')[1];
         const hour = dateTime.split(':')[0];
