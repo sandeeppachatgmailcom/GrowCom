@@ -1,7 +1,7 @@
 import { StudentBatch_Model } from "../entity/models/studentBatchModel"; 
 import { UserEntity_Model } from "../entity/models/UserModel";
 import { VenueModels } from "../entity/models/venue_model";
-import { AdminRepository } from "../entity/Repository/AdminRepository";
+import { AdminRepository } from "../entity/repository/AdminRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository"; 
 import { FailedStatus_reply } from "../entity/Types/failedStatus";
 import { AdminUseCase } from "../entity/usecases/AdminUseCase";
