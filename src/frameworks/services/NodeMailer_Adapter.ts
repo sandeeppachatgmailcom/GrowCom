@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { EmailServices } from "../../entity/Services/EmailServices";
+import { EmailServices } from "../../entity/services/emailServices";  
 
 export class NodeMailer_Adapter implements EmailServices {
   private transporter: nodemailer.Transporter;
