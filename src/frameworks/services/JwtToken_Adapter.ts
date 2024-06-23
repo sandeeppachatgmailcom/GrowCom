@@ -1,6 +1,6 @@
 import { TokenServises } from "../../entity/services/tokenServises";
 import jwt from "jsonwebtoken";
-import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
+import { Route, Req, Res, Next } from "../ServerTypes";
 import dotenv from "dotenv";
 import { UserRepository } from "../../entity/repository/userRepository"; 
 export class JwtToken_Adapter implements TokenServises {
@@ -8,9 +8,9 @@ export class JwtToken_Adapter implements TokenServises {
     dotenv.config();
   }
 
-  async createJwtToken(req: Req & {sessionID:string} , res: Res, next: Next): Promise<Next | void> {
+  async createJwtToken(req: Req & {sessionID?:string} , res: Res, next: Next): Promise<Next | void> {
     const token = await jwt.sign(
-      { email: req.body.email, sessionID: req.sessionID  , googleAuth: true },
+      { email: req.body.email, sessionID: req?.sessionID  , googleAuth: true },
       process.env.JWT_VERIFICATION_KEY as string,
       { expiresIn: "600m" }
     );

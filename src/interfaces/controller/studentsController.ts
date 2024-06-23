@@ -1,4 +1,4 @@
-import { Next, Req, Res } from "../../entity/Types/ServerTypes";
+import { Next, Req, Res } from "../../frameworks/ServerTypes";
 import { StudentUseCase } from "../../entity/usecases/StudentUsecase";
 
 export class StudentsController {

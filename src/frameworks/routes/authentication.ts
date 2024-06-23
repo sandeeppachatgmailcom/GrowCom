@@ -1,5 +1,5 @@
 import { tokenService, userController } from "../injection/injection";
-import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
+import { Route, Req, Res, Next } from "../ServerTypes";
 import express, { Router } from "express";
 
 
@@ -210,7 +210,7 @@ export function authRouter(router: Router) {
  *     tags:
  *       - User
  */
-  router.post("/login",tokenService.createJwtToken ,(req: Req, res: Res, next: Next) => {
+  router.post("/login",tokenService.createJwtToken ,(req: Req & {sessionID?:string} , res: Res, next: Next) => {
     try {
         userController.login(req, res, next);
     } catch (error) {}

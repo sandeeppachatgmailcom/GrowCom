@@ -1,6 +1,6 @@
 import { UserEntity_Model } from "../models/UserModel";
 import { validatedUser } from "../ReturnTypes/validatedUsed";
-import { Next } from "../Types/ServerTypes";
+import { Next } from "../../frameworks/ServerTypes";
 import { createdUser } from "../ReturnTypes/createdUser";
 import { FailedStatus_reply } from "../Types/failedStatus";
 
