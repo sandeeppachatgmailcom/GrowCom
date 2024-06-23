@@ -2,14 +2,27 @@ import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import { UserSocket } from "../../usecases/userSocket";  
 import { UserEntity_Model } from "../../entity/models/UserModel";
+import { UpdatePromoCode } from "../../entity/usecases/commonUseCases/updatePromoCode";
 
 export class UserController {
   private userSocket: UserSocket;
+  private updatePromoCode : UpdatePromoCode 
 
-  constructor(userSocket: UserSocket) {
+  constructor( userSocket: UserSocket,updatePromoCode : UpdatePromoCode) {
       this.userSocket = userSocket;
+      this.updatePromoCode = updatePromoCode
   }
-
+  async applyPromocode (req: Req, res: Res, next: Next){
+    try {
+      console.log('controller again on ')
+        const result =await this.updatePromoCode.updatePromoCode(req.body)
+        console.log(result,'result @ controller')
+        res.json(result)
+        return result
+    } catch (error) {
+      
+    }
+  }
   async createUser(req: Req, res: Res, next: Next) {
     try {
       const {firstName, email, password,googleAuth } = req.body;

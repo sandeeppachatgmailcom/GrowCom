@@ -42,6 +42,9 @@ const userSchema: Schema<UserEntity_Model & Document> = new mongoose.Schema({
   week:{type:String} ,
   designation:{type:String},
   submission:{type:{}},
+  promoCode:{type:String},
+  Promo_validity_date:{type:String},
+  isPromoCodeValid:{type:String,default:false},
   address:[
     {
       houseName: { type: String },

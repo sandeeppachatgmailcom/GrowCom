@@ -454,5 +454,39 @@ router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
   } catch (error) {}
 }); 
 
+ /**
+   * @swagger
+   * /auth/applyPromoCode:
+   *   post:
+   *     summary: apply promotion code
+   *     description: Sends a password reset email to the user's email address.
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               email:
+   *                 type: string
+   *                 description: The email address of the user.
+   *     responses:
+   *       '200':
+   *         description: Password reset email sent successfully.
+   *       '404':
+   *         description: User not found or email address not registered.
+   *       '500':
+   *         description: Internal server error.
+  *     tags:
+ *       - User
+ */
+ router.post("/applyPromoCode",(req: Req, res: Res, next: Next) => {
+  try {
+    console.log('controller on')
+      userController.applyPromocode(req, res, next);
+  } catch (error) {}
+}
+); 
+
   return router;
 }

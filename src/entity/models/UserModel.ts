@@ -60,7 +60,9 @@ export interface Academic {
     week:string;
     designation?:string;
     submission?:any;
-    
+    promoCode?:string,
+    Promo_validity_date?:Date,
+    isPromoCodeValid:Boolean
   }
 
   interface subMission {

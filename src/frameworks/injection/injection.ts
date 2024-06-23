@@ -33,7 +33,8 @@ import { ChatController } from "../../interfaces/controller/chatController";
 import ChatSocket from "../../usecases/ChatSocket";
 import MongoConversationAdapter from "../repository/mongoConverationAdapter";
 import Crone_ScheduleTaskManager from "../services/Crone_ScheduleTaskManager";
-import { JwtToken_Adapter } from "../services/JwtToken_Adapter";
+import { JwtToken_Adapter } from "../services/JwtToken_Adapter";  
+import UpdatePromoCodeSocket from "../../usecases/commonUseCases/updatePromoCodeSocket";
 
 
 //Db Adapters
@@ -70,10 +71,11 @@ const userSocket = new UserSocket(user_adapter,password_Adapter,email_Adapter,ot
 const trainerSocket = new TrainerSocket(eventsAdapter,generalAdapter,serialNumberAdapter,studentBatchAdapter,scheduledTaskAdapter,user_adapter,SchedulerAdapter)
 const studentSocket = new StudentSocket(scheduledTaskAdapter,user_adapter,submissionRepo,serialNumberAdapter,studentBatchAdapter)
 const chatUseCase = new ChatSocket(conversationAdapter)
+const PromoCodeSocket = new UpdatePromoCodeSocket(user_adapter)
 
 // router controllers 
 const adminController = new AdminController(adminSocket,utilitySocket)
-const userController = new UserController(userSocket)
+const userController = new UserController(userSocket,PromoCodeSocket)
 const utilsController = new UtilityController(utilitySocket)
 const trainerController = new TrainerController(trainerSocket)
 const studentsController = new StudentsController(studentSocket)

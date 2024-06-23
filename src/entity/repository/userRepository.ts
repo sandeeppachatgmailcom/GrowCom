@@ -21,6 +21,7 @@ export interface UserRepository {
     // readBatchSummaryBystaffId(): Promise<void | { week: string; count: number }[]>
     getBatchWiseStudentsList():Promise<void | any[]>
     getDesignationWiseStaffList():Promise<void | any[] >
+    applyPromocode(data:{email:string,promoCode:string,role:string,validity:Date}):Promise<void |  {status:boolean,message:string,role:string}>
 }
 
 
