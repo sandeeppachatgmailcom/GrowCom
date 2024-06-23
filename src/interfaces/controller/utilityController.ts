@@ -1,5 +1,5 @@
 import { Next, Req, Res } from "../../entity/Types/ServerTypes"
-import { UtilitySocket } from "../../usecases/utilitySocket_1"
+import { UtilitySocket } from "../../usecases/utilitySocket"
 
 export class UtilityController {
     constructor(
