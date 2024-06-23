@@ -1,4 +1,4 @@
-import { ValidHumanReturnTypes } from "../entity/ReturnTypes/validHuman";
+import { ValidHumanReturnTypes } from "../entity/ReturnTypes_1/validHuman";
 import { UserEntity_Model } from "../entity/models/UserModel";
 import { DesignationModel } from "../entity/models/designationModel";
 import { Event_Model } from "../entity/models/eventModel";

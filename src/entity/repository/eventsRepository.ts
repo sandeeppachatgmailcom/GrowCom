@@ -1,4 +1,4 @@
-import { EventTypes } from "../ReturnTypes/events";
+import { EventTypes } from "../ReturnTypes_1/events";
 import { FailedStatus_reply } from "../Types/failedStatus";
 import { Event_Model } from "../models/eventModel";
 

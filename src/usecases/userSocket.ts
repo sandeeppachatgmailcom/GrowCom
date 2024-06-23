@@ -6,7 +6,7 @@ import { UserEntity_Model } from "../entity/models/UserModel";
 import { EncryptPasswordServices } from "../entity/services/encryptPasswordServices";
 import { EmailServices } from "../entity/services/emailServices";
 import { OtpServices } from "../entity/services/otpServices";
-import { userInput } from "../entity/ReturnTypes/validUser";
+import { userInput } from "../entity/ReturnTypes_1/validUser";
 import { FailedStatus_reply } from "../entity/Types/failedStatus";
 
 export class UserSocket implements UserUseCases {

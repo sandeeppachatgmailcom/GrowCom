@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { IOtpHandler } from "../../entity/ReturnTypes/otpHandler";
+import { IOtpHandler } from "../../entity/ReturnTypes_1/otpHandler";
 
 const schemaOtpHandler :Schema<IOtpHandler|Document>= new mongoose.Schema({
 email:{type:String},

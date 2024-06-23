@@ -3,7 +3,7 @@ import { StudentBatch_Model } from "../models/studentBatchModel";
 import { Task_model } from "../models/taskModel";
 import { UserEntity_Model  } from "../models/UserModel";
 import { VenueModels } from "../models/venue_model";
-import { Event_Types } from "../ReturnTypes/events";
+import { Event_Types } from "../ReturnTypes_1/events";
 import { FailedStatus_reply } from "../Types/failedStatus";
 
 export interface AdminUseCase {

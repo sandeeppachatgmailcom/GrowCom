@@ -8,7 +8,7 @@ import { AdminUseCase } from "../entity/usecases/AdminUseCase";
 import { VenueRepository } from "../entity/repository/venueRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";
 import { Event_Model } from "../entity/models/eventModel";
-import { Event_Types } from "../entity/ReturnTypes/events";
+import { Event_Types } from "../entity/ReturnTypes_1/events";
 import { UtilityServices } from "../entity/utils/utilityServices";
 import { Task_model } from "../entity/models/taskModel";
 import { TaskRepository } from "../entity/repository/taskRepository";
