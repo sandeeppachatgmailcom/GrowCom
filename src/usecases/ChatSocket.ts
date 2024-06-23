@@ -15,7 +15,7 @@ export default class ChatSocket implements ChatUseCase{
                 const converSation = await this.conversationRepo.createConversation(data)
                 
                 if(converSation){
-                    const messages  = await this.conversationRepo.getAllMessage({converationId:converSation.converationId})
+                    const messages:any  = await this.conversationRepo.getAllMessage({converationId:converSation.converationId})
                 
                 return {conversation:converSation,messages:messages};
                 }
