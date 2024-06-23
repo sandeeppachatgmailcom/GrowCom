@@ -12,14 +12,14 @@ export class Mongo_Serial_Number implements SerialNumbersRepository{
         const { prefix, nextNum, deleted,edited, active} = result as SerialNumbers_Model
        
         if (active){
-            let  serialNumber = prefix +nextNum  
+            let  serialNumber = prefix as string +nextNum  
             !serialNumber?serialNumber='':serialNumber
             const updateDb = await MongoSerialNumModel.updateOne({collectionName:collectionName},{$inc:{nextNum:1}} )
             return {serialNumber,active}
         }
         else{
             const serialNumber = ''
-            return{serialNumber,active}
+            return{serialNumber,active:false }
         }   
              
     }
