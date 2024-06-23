@@ -1,6 +1,6 @@
 
 
-import { Route, Req, Res, Next } from '../../entity/Types/ServerTypes'
+import { Route, Req, Res, Next } from '../../entity/Types/Serv_erTypes'
 import express, { Router } from 'express'; 
 import { adminApis } from '../../interfaces/apis/adminapi';
 import { adminController, utilsController } from '../injection/injection';
