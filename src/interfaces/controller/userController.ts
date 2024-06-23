@@ -1,6 +1,6 @@
 import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
-import { UserSocket } from "../../usecases/userSocket_1";  
+import { UserSocket } from "../../usecases/userSocket";  
 import { UserEntity_Model } from "../../entity/models/UserModel";
 import { UpdatePromoCode } from "../../entity/usecases/commonUseCases/updatePromoCode";
 
