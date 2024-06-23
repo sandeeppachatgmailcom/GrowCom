@@ -1,5 +1,5 @@
 import { Submission__Model } from "../../entity/models/SubmissionModel";
-import { FailedStatus_reply } from "../../entity/Types/failedStatus";
+import { FailedStatus_reply } from "../../entity/Types_1/failedStatus";
 import { Submission_Repo } from "../../entity/repository/submissionRepo";
 import { Document, Schema } from "mongoose";
 import { privateDecrypt } from "crypto";

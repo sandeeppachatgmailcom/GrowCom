@@ -1,4 +1,4 @@
-import { Next, Req, Res } from "../../entity/Types/ServerTypes";
+import { Next, Req, Res } from "../../entity/Types_1/ServerTypes";
 import { ChatUseCase } from "../../entity/usecases/ChatUseCase";
 
 

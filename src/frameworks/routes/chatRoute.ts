@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { Next, Req, Res, Route } from "../../entity/Types/ServerTypes";
+import { Next, Req, Res, Route } from "../../entity/Types_1/ServerTypes";
 import { chatController } from "../injection/injection";
 
 export function chatRouter(router: Router) {

@@ -4,7 +4,7 @@ import { VenueModels } from "../models/venue_model";
 import { createdUser } from "../ReturnTypes/createdUser";
 import { studentSubmission } from "../ReturnTypes/StudentSubmission";
 import { ValidHumanReturnTypes } from "../ReturnTypes/validHuman";
-import { FailedStatus_reply } from "../Types/failedStatus";
+import { FailedStatus_reply } from "../Types_1/failedStatus";
 
 export interface UserRepository {
     createUser(data: { firstName: string; email: string; password: string; otp:string; googleAuth:boolean } ): Promise<createdUser | void>;

@@ -1,4 +1,4 @@
-import { FailedStatus_reply } from "../Types/failedStatus";
+import { FailedStatus_reply } from "../Types_1/failedStatus";
 import { Task_model } from "../models/taskModel";
 
 export interface TaskRepository{

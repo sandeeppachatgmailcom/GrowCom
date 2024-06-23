@@ -1,6 +1,6 @@
 import { TokenServises } from "../../entity/services/tokenServises";
 import jwt from "jsonwebtoken";
-import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
+import { Route, Req, Res, Next } from "../../entity/Types_1/ServerTypes";
 import dotenv from "dotenv";
 import { UserRepository } from "../../entity/repository/userRepository";
 

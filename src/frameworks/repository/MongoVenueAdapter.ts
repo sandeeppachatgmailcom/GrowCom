@@ -1,6 +1,6 @@
 import { VenueModels } from "../../entity/models/venue_model";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
-import { FailedStatus_reply } from "../../entity/Types/failedStatus";
+import { FailedStatus_reply } from "../../entity/Types_1/failedStatus";
 import { VenueRepository } from "../../entity/repository/venueRepository";
 import venuModel from "../models/venueModel";
 

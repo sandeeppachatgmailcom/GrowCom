@@ -1,4 +1,4 @@
-import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
+import { Route, Req, Res, Next } from "../../entity/Types_1/ServerTypes";
 import venuModel from "../../frameworks/models/venueModel";
 import { UtilitySocket } from "../../usecases/utilitySocket";
 import { AdminSocket } from "../../usecases/adminSocket";
