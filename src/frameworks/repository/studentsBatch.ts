@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import studentBatchModel from "../models/studentsBatch";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
 import { FailedStatus_reply } from "../../entity/Types/failedStatus";
+import { SerialNumbers_Model } from "../../entity/models/SerialNumbersModel";
 
 export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     constructor(
@@ -14,9 +15,9 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     async createStudentBatch(data: StudentBatch_Model): Promise<void | StudentBatch_Model & FailedStatus_reply> {
         let {batchId,BatchType , batchName, location, maxCapacity,trainer} = data
         
-        let tempbatchID =   {}
+        let tempbatchID :SerialNumbers_Model | {serialNumber?:string,active?:boolean} =   {}
         
-        if(!batchId.length){
+        if(!batchId?.length){
             const existing = await studentBatchModel.findOne({batchName:data.batchName,deleted:false})
             if(existing && existing.batchId!==batchId){
                 return {...JSON.parse(JSON.stringify(existing)),status:false,message:'record already exist in the same name'}
@@ -60,7 +61,7 @@ export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
             
         }
     }
-    async readBatchSummaryBystaffId(data: { designation: string; }): Promise<void | []> {
+    async readBatchSummaryBystaffId(data: { designation: string; }): Promise<void |any> {
         try {
             
             const result  = await studentBatchModel.aggregate([
