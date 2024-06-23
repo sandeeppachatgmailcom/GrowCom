@@ -12,7 +12,7 @@ import MongoDB from "../webServer/mongoDB";
 import { Mongo_StudentBatchAdapter } from "../repository/studentsBatch";
 import { Mongo_Serial_Number } from "../repository/monGoSerialnumberAdapter";
 import { MongoVenueAdapter } from "../repository/MongoVenueAdapter";
-import { UtilitySocket } from "../../usecases/utilitySocket";
+import { UtilitySocket } from "../../usecases/utilitySocket_1";
 import { UtilityController } from "../../interfaces/controller/utilityController";
 import { Mongo_EventRepository } from "../repository/mongo_EventRepository";
 import { TrainerController } from "../../interfaces/controller/trainerController";
