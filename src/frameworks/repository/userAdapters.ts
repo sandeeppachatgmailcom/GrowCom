@@ -2,12 +2,12 @@
 import { UserRepository } from "../../entity/repository/userRepository";
 import { UserEntity_Model } from "../../entity/models/UserModel";
 import userModel from "../models/userModel";
-import { createdUser } from "../../entity/ReturnTypes_1/createdUser";
-import { validatedUser } from "../../entity/ReturnTypes_1/validatedUsed";
-import { ValidHumanReturnTypes } from "../../entity/ReturnTypes_1/validHuman";
-import { studentSubmission } from "../../entity/ReturnTypes_1/StudentSubmission";
+import { createdUser } from "../../entity/ReturnTypes/createdUser";
+import { validatedUser } from "../../entity/ReturnTypes/validatedUsed";
+import { ValidHumanReturnTypes } from "../../entity/ReturnTypes/validHuman";
+import { studentSubmission } from "../../entity/ReturnTypes/StudentSubmission";
 import { ScheduledTask_Model } from "../../entity/models/scheduledTask_Model";
-import { userInput } from "../../entity/ReturnTypes_1/validUser";
+import { userInput } from "../../entity/ReturnTypes/validUser";
 import designationDb from "../models/designationModel";
 import { count } from "console";
 

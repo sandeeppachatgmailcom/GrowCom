@@ -1,5 +1,5 @@
 import { Event_Model } from "../../entity/models/eventModel";
-import { Event_Types } from "../../entity/ReturnTypes_1/events";
+import { Event_Types } from "../../entity/ReturnTypes/events";
 import { EventsRepository } from "../../entity/repository/eventsRepository";
 import events_Model from "../models/eventModel";
 import { FailedStatus_reply } from "../../entity/Types/failedStatus";

@@ -1,9 +1,9 @@
 import { ScheduledTask_Model } from "../models/scheduledTask_Model";
 import { Academic, UserEntity_Model } from "../models/UserModel";
 import { VenueModels } from "../models/venue_model";
-import { createdUser } from "../ReturnTypes_1/createdUser";
-import { studentSubmission } from "../ReturnTypes_1/StudentSubmission";
-import { ValidHumanReturnTypes } from "../ReturnTypes_1/validHuman";
+import { createdUser } from "../ReturnTypes/createdUser";
+import { studentSubmission } from "../ReturnTypes/StudentSubmission";
+import { ValidHumanReturnTypes } from "../ReturnTypes/validHuman";
 import { FailedStatus_reply } from "../Types/failedStatus";
 
 export interface UserRepository {

@@ -1,4 +1,4 @@
-import { Activity_Types } from "../ReturnTypes_1/activityTypes";
+import { Activity_Types } from "../ReturnTypes/activityTypes";
 
 export interface Task_model{
     taskId?:string;
