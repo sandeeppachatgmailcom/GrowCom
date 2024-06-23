@@ -5,7 +5,7 @@ import { Bcrypt_PasswordAdapter } from "../services/Bcrypt_PasswordAdapter";
 import { NodeMailer_Adapter } from "../services/NodeMailer_Adapter";
 import { Custom_OtpAdapter } from "../services/Custom_OtpAdapter";
 import { MongoDb_AdminAdapter } from "../repository/adminAdapter";
-import { AdminSocket } from "../../usecases/adminSocket";
+import { AdminSocket } from "../../usecases/adminS--ocket";
 import { AdminController } from "../../interfaces/controller/adminController";
 import NpmModule from "../webServer/nodeServer";
 import MongoDB from "../webServer/mongoDB"; 

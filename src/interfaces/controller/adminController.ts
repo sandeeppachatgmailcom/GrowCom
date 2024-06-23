@@ -1,7 +1,7 @@
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import venuModel from "../../frameworks/models/venueModel";
 import { UtilitySocket } from "../../usecases/utilitySocket";
-import { AdminSocket } from "../../usecases/adminSocket";
+import { AdminSocket } from "../../usecases/adminS--ocket";
 
 export class AdminController {
   constructor(
