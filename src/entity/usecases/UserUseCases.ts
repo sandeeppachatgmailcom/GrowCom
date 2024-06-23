@@ -12,8 +12,8 @@ export interface UserUseCases{
     saveOtpToCollection(data:{email:string,otp:string}):Promise<{status:boolean,message:string}|void>
     updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void|FailedStatus_reply>
     getUsers(): Promise<void|UserEntity_Model[]>
-    forgotOtp (email:string,name:string):Promise<{success:boolean}>
-    resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}>
+    forgotOtp (email:string,name:string):Promise<{success:boolean}|void>
+    resetPassword(firstName:string,email:string,password:string):Promise<UserEntity_Model|{status:boolean}|void >
     getSubmissionDetails(email: string, password: string, googleAuth: boolean, next:Next ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>
     getBatchWiseStudentsList ():Promise<void | any[]>
     getDesignationWiseStaffList():Promise<void | any[] >

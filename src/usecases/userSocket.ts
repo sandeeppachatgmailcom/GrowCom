@@ -167,7 +167,7 @@ export class UserSocket implements UserUseCases {
       else return;
     } catch (error) {}
   }
-  async forgotOtp(email: string, name: string): Promise<{ success: boolean }> {
+  async forgotOtp(email: string, name: string): Promise<{ success: boolean    }|void> {
     try {
        
       const userOtp: string = await this.otpGenerator.generateOTP();
@@ -193,7 +193,7 @@ export class UserSocket implements UserUseCases {
     firstName: string,
     email: string,
     password: string
-  ): Promise<UserEntity_Model | { status: boolean }> {
+  ): Promise<UserEntity_Model | { status: boolean }|void> {
     try {
       const hasedpassword = await this.passwordManager.hashPassword(password);
       const result = await this.repo.createUser({
@@ -223,7 +223,7 @@ export class UserSocket implements UserUseCases {
        
       const user = await this.repo.findUserWithPassword({ email });
 
-      const result = await this.repo.getSubmissionDetails(
+      const result:any = await this.repo.getSubmissionDetails(
         email,
         password,
         googleAuth
