@@ -8,38 +8,39 @@ import express, { Router } from "express";
 export function authRouter(router: Router) {
    
   // @ts-ignore
-  /**
-   * @swagger
-   * auth/validateOtp:
-   *   post:
-   *     summary: Validate the OTP with the email submitted by the user. ,
-   *     description: Validates the one-time password (OTP) submitted by the user.This api is also used to resetpassword , the third field confirm that the user need to reset the password
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               email:
-   *                 type: string
-   *                 description: The email address to which the OTP was sent.
-   *               otp:
-   *                 type: string
-   *                 description: The one-time password submitted by the user.
-   *               resetPassword:
-   *                 type: boolean
-   *                 description: Indicates whether the user needs to reset the password after OTP validation.
-   *     responses:
-   *       '200':
-   *         description: Successful validation
-   *       '400':
-   *         description: Invalid request body or OTP
-   *       '500':
-   *         description: Internal server error
+/**
+ * @swagger
+ * /auth/validateOtp:
+ *   post:
+ *     summary: Validate the OTP with the email submitted by the user.
+ *     description: Validates the one-time password (OTP) submitted by the user. This API is also used to reset the password; the third field confirms that the user needs to reset the password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The email address to which the OTP was sent.
+ *               otp:
+ *                 type: string
+ *                 description: The one-time password submitted by the user.
+ *               resetPassword:
+ *                 type: boolean
+ *                 description: Indicates whether the user needs to reset the password after OTP validation.
+ *     responses:
+ *       '200':
+ *         description: Successful validation
+ *       '400':
+ *         description: Invalid request body or OTP
+ *       '500':
+ *         description: Internal server error
  *     tags:
  *       - User
  */
+
   router.post("/validateOtp", (req: Req, res: Res, next: Next) => {
     try {
         userController.validateOtp(req, res, next);
