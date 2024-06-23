@@ -15,7 +15,7 @@ export interface UserRepository {
     updateUserBasics(data:UserEntity_Model):Promise< UserEntity_Model|void>
     getUsers(): Promise<void | UserEntity_Model[]>
     getActiveTrainers():Promise<void|ValidHumanReturnTypes[]>
-    getStudentSubmission(data:{ email: string, startDate: Date, endDate: Date,designation:string }):Promise<void| studentSubmission & ScheduledTask_Model[]>
+    getStudentSubmission(data:{ email: string, startDate: Date, endDate: Date,designation:string }):Promise<void| studentSubmission[]>
     getSubmissionDetails(email: string, password: string, googleAuth: boolean ): Promise<UserEntity_Model | void |UserEntity_Model| { status: boolean; message: string }>
     getActiveUsers():Promise<void|ValidHumanReturnTypes[]>
     // readBatchSummaryBystaffId(): Promise<void | { week: string; count: number }[]>

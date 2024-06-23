@@ -205,7 +205,7 @@ class MongoDb_UserActivity implements UserRepository {
     return users;
   }
   async getStudentSubmission(data:{ email: string, startDate: Date, endDate: Date,designation:string }): Promise<
-    void | (studentSubmission & ScheduledTask_Model[])
+    void | (studentSubmission [])
   > {
     console.log(data,'at user Adapter')
     const result = await userModel.aggregate([

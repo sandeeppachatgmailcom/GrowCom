@@ -1,10 +1,10 @@
 export interface studentSubmission{
-    firstName: string;
-    email: string;
+    firstName?: string;
+    email?: string;
     batchId?:string;
-    submission :object;
-    taskDate:Date;
-    submissionDate:Date;
-    submittedDate:Date;
+    submission? :object;
+    taskDate?:Date;
+    submissionDate?:Date;
+    submittedDate?:Date;
   } 
   
