@@ -1,6 +1,6 @@
 
 
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 import { DesignationModel } from "../../entity/models/designationModel";
 
 const designationSchema :Schema<DesignationModel & Document > = new mongoose.Schema({
