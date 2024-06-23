@@ -1,6 +1,6 @@
 import { UserController } from "../../interfaces/controller/userController";
 import MongoDb_UserActivity from "../repository/userAdapters";
-import { UserSocket } from "../../usecases/userSocket";
+import { UserSocket } from "../../usecases/userSocket_1";
 import { Bcrypt_PasswordAdapter } from "../services/Bcrypt_PasswordAdapter";
 import { NodeMailer_Adapter } from "../services/NodeMailer_Adapter";
 import { Custom_OtpAdapter } from "../services/Custom_OtpAdapter";
