@@ -1,4 +1,4 @@
-import { Route, Req, Res, Next } from '../Types_1/ServerTypes'
+import { Route, Req, Res, Next } from '../Types/ServerTypes'
 
 export interface TokenServises {
         

@@ -1,6 +1,6 @@
 
 
-import { Route, Req, Res, Next } from '../../entity/Types_1/ServerTypes'
+import { Route, Req, Res, Next } from '../../entity/Types/ServerTypes'
 import { authRouter } from './authentication';
 import express, { Application } from 'express'; // Importing Application type from express  
 import { Router } from 'express';

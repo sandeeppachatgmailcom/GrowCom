@@ -1,5 +1,5 @@
 import { tokenService, userController } from "../injection/injection";
-import { Route, Req, Res, Next } from "../../entity/Types_1/ServerTypes";
+import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import express, { Router } from "express";
 
 

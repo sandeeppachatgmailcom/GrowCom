@@ -3,7 +3,7 @@ import { TaskRepository } from "../../entity/repository/taskRepository";
 import task_db from "../models/taskModel";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
 import { Mongo_Serial_Number } from "./monGoSerialnumberAdapter";
-import { FailedStatus_reply } from "../../entity/Types_1/failedStatus";
+import { FailedStatus_reply } from "../../entity/Types/failedStatus";
 
 export class MongoTaskRepository implements TaskRepository{
     constructor(

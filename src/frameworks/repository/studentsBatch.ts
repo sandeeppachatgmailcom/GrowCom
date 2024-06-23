@@ -3,7 +3,7 @@ import { StudentBatchRepository } from "../../entity/repository/StudentBatchRepo
 import mongoose from "mongoose";
 import studentBatchModel from "../models/studentsBatch";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
-import { FailedStatus_reply } from "../../entity/Types_1/failedStatus";
+import { FailedStatus_reply } from "../../entity/Types/failedStatus";
 
 export class Mongo_StudentBatchAdapter implements StudentBatchRepository{
     constructor(

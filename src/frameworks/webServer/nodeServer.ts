@@ -3,7 +3,7 @@ import { allRoutes, mainRoute } from "../routes/mainRoute";
 import cors from "cors";
 const session = require("express-session");
 import cookieParser from "cookie-parser";
-import { Next, Req, Res } from "../../entity/Types_1/ServerTypes";
+import { Next, Req, Res } from "../../entity/Types/ServerTypes";
 import { url } from "inspector";
 const { Server } = require('socket.io');
 import initializeSocket from "./socketIo";

@@ -4,7 +4,7 @@ import { Task_model } from "../models/taskModel";
 import { UserEntity_Model  } from "../models/UserModel";
 import { VenueModels } from "../models/venue_model";
 import { Event_Types } from "../ReturnTypes/events";
-import { FailedStatus_reply } from "../Types_1/failedStatus";
+import { FailedStatus_reply } from "../Types/failedStatus";
 
 export interface AdminUseCase {
     pending_Approval_Staff():Promise<UserEntity_Model[]|void>

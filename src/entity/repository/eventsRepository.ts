@@ -1,5 +1,5 @@
 import { EventTypes } from "../ReturnTypes/events";
-import { FailedStatus_reply } from "../Types_1/failedStatus";
+import { FailedStatus_reply } from "../Types/failedStatus";
 import { Event_Model } from "../models/eventModel";
 
 export interface EventsRepository{

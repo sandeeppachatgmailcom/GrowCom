@@ -1,5 +1,5 @@
 import { stringify } from "querystring";
-import { Next } from "../entity/Types_1/ServerTypes";
+import { Next } from "../entity/Types/ServerTypes";
 import { UserUseCases } from "../entity/usecases/UserUseCases";
 import { UserRepository } from "../entity/repository/userRepository";
 import { UserEntity_Model } from "../entity/models/UserModel";
@@ -7,7 +7,7 @@ import { EncryptPasswordServices } from "../entity/services/encryptPasswordServi
 import { EmailServices } from "../entity/services/emailServices";
 import { OtpServices } from "../entity/services/otpServices";
 import { userInput } from "../entity/ReturnTypes/validUser";
-import { FailedStatus_reply } from "../entity/Types_1/failedStatus";
+import { FailedStatus_reply } from "../entity/Types/failedStatus";
 
 export class UserSocket implements UserUseCases {
   constructor(

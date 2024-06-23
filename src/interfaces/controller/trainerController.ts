@@ -1,4 +1,4 @@
-import { Next, Req, Res } from "../../entity/Types_1/ServerTypes";
+import { Next, Req, Res } from "../../entity/Types/ServerTypes";
 import { TrainerUsecase } from "../../entity/usecases/trainerUseCase";
 
 export class TrainerController {

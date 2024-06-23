@@ -3,7 +3,7 @@ import { UserEntity_Model } from "../entity/models/UserModel";
 import { VenueModels } from "../entity/models/venue_model";
 import { AdminRepository } from "../entity/Repository/AdminRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository"; 
-import { FailedStatus_reply } from "../entity/Types_1/failedStatus";
+import { FailedStatus_reply } from "../entity/Types/failedStatus";
 import { AdminUseCase } from "../entity/usecases/AdminUseCase";
 import { VenueRepository } from "../entity/repository/venueRepository";
 import { EventsRepository } from "../entity/repository/eventsRepository";

@@ -1,4 +1,4 @@
-import { FailedStatus_reply } from "../Types_1/failedStatus";
+import { FailedStatus_reply } from "../Types/failedStatus";
 import { UserEntity_Model } from "../models/UserModel";
 import { Event_Model } from "../models/eventModel";
 import { ScheduledTask_Model } from "../models/scheduledTask_Model";

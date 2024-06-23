@@ -1,5 +1,5 @@
 import { deflate } from "zlib";
-import { FailedStatus_reply } from "../../entity/Types_1/failedStatus";
+import { FailedStatus_reply } from "../../entity/Types/failedStatus";
 import { ScheduledTask_Model } from "../../entity/models/scheduledTask_Model";
 import { ScheduledTask_Repository } from "../../entity/repository/scheduledTaskRepository";
 import { SerialNumbersRepository } from "../../entity/repository/serialNumberRepository";
