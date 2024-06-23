@@ -27,7 +27,7 @@ export class TrainerSocket implements TrainerUsecase {
 
   async getAudianceGroup(audianceType: string) {
     try {
-      let audiancedata = { btches: {}, week: {}, role: {} };
+      let audiancedata:any = { btches: {}, week: {}, role: {} };
 
     if (audianceType == "batch") {
       const tempdata = await this.batchRepo.readActiveBatches();
@@ -87,9 +87,9 @@ export class TrainerSocket implements TrainerUsecase {
     const tempMission = await this.userRepo.getStudentSubmission(data);
     const subMission = JSON.parse(JSON.stringify(tempMission));
      
-    let tempOut = []
+    let tempOut:any = []
      
-   await subMission.map((user)=>{
+   await subMission.map((user:any)=>{
       
         Object.keys(user.submission).map((subM)=>{
            Object.keys(user.submission[subM]).map((task)=>{
@@ -282,7 +282,7 @@ export class TrainerSocket implements TrainerUsecase {
       data.ScheduledTaskID = tempid.serialNumber;
     }
 
-    const task = await this.SchTask.createScheduledTask(data);
+    const task :any = await this.SchTask.createScheduledTask(data);
      
     const start =await  this.SchedulerService.startTask(task)
     const end =await  this.SchedulerService.endTask(task)
@@ -305,7 +305,7 @@ export class TrainerSocket implements TrainerUsecase {
     verified: boolean;
   }): Promise<UserEntity_Model & FailedStatus_reply | void> {
     try {
-      const tempuser: UserEntity_Model = await this.userRepo.findUser({
+      const tempuser: UserEntity_Model|void  = await this.userRepo.findUser({
         email: data.email,
       });
       // if (!tempuser) {
@@ -320,8 +320,8 @@ export class TrainerSocket implements TrainerUsecase {
         data.comment;
       
       const result = await this.userRepo.updateUserBasics(user);
-      
-      return {...result ,status:true,message:'Update success'};
+      if (result ) return {...result ,status:true,message:'Update success'};
+      else return   
     
     } catch (error) {
       
@@ -345,7 +345,7 @@ async getWeeklyStudentssummary(): Promise<void | { week: string; count: number; 
     console.log(error)
   }
 }
-async designationWiseEventProgress(data: { designation: string; }): Promise<[]> {
+async designationWiseEventProgress(data: { designation: string; }): Promise<any> {
     try {
       const result = await this.SchTask.designationWiseEventProgress(data)
       return result
