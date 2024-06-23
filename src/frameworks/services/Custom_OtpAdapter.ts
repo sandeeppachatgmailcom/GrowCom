@@ -1,4 +1,4 @@
-import { OtpServices } from "../../entity/Services/OtpServices";  
+import { OtpServices } from "../../entity/services/otpServices"; 
 
 export class Custom_OtpAdapter implements OtpServices{
 async generateOTP():Promise<string>{
