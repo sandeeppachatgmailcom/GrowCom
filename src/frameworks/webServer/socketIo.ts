@@ -3,8 +3,8 @@ import { disconnect } from "process";
 import { Server, Socket } from "socket.io";
 
 interface User {
-  userId: string;
-  socketId: string;
+  userId?: string;
+  socketId?: string;
   lastSeen?: Date;
   online?: boolean;
 }
@@ -57,12 +57,12 @@ function initializeSocket(server: any) {
       users.filter((user) => user.online)
     );
   };
-  const getUser = (userId: string) =>
+  const getUser = (userId: string): User | undefined =>
     users.find((user) => user.userId === userId);
 
   const handleCallResPonce = async (socket: Socket, message: any) => {
     console.log(message, "message ");
-    const receiver: User = getUser(message?.user?.email);
+    const receiver: User | undefined = getUser(message?.user?.email);
     socket.to(receiver?.socketId as string).emit("CallResponce", message.offer);
   };
 
@@ -70,25 +70,31 @@ function initializeSocket(server: any) {
     console.log("new connection", socket.id);
 
     socket.on("room:join", (data) => {
-      const { email, room, to } = data;
+      const { email, room, to }: { email: string; room: string; to: string } =
+        data;
       console.log(data);
       emailToSocketIdMap.set(email, socket.id);
       socketidToEmailMap.set(socket.id, email);
-      const toId = getUser(to);
+      const toId: User | undefined | void = getUser(to);
       io.to(room).emit("user:joined", { email, id: socket.id, room: room });
 
       if (room != to) {
-        io.to(toId?.socketId).emit("user:callRequest", {
-          from: email,
-          email,
-          id: socket.id,
-        });
+        if (toId?.socketId) {
+          io.to(toId.socketId).emit("user:callRequest", {
+            from: email,
+            email,
+            id: socket.id,
+          });
+        } else {
+          console.error(`socketId is undefined for toId: ${toId}`);
+          // Handle the case where socketId is undefined, if needed
+        }
       }
       socket.join(room);
       io.to(socket.id).emit("room:join", data);
     });
     socket.on("user:call", ({ to, offer }) => {
-      console.log(to,'toto')
+      console.log(to, "toto");
       io.to(to).emit("incomming:call", { from: socket.id, offer });
     });
 
@@ -106,16 +112,16 @@ function initializeSocket(server: any) {
       io.to(to).emit("peer:nego:final", { from: socket.id, ans });
     });
 
-    socket.on("addUser", (user) => {
+    socket.on("addUser", (user:any) => {
       addUser(user.userid, socket.id);
     });
-    socket.on("message", (message) => {});
+    socket.on("message", (message ) => {});
     socket.on("logout", function () {
       removeUser(socket.id);
     });
-    socket.on("send-message", (message: {}) => {
+    socket.on("send-message", (message: any) => {
       const user = getUser(message.receiverId);
-      socket.to(user?.socketId).emit("send-message", message);
+      socket.to(user?.socketId as string).emit("send-message", message);
     });
 
     socket.on("disconnect", function () {
