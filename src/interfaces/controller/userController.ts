@@ -2,13 +2,13 @@ import UserAdapters from "../../frameworks/repository/userAdapters";
 import { Route, Req, Res, Next } from "../../entity/Types/ServerTypes";
 import { UserSocket } from "../../usecases/userSocket";  
 import { UserEntity_Model } from "../../entity/models/UserModel";
-import { UpdatePromoCode } from "../../entity/usecases/commonUseCases/updatePromoCode";
+import { UpdatePromoCodeUseCase } from "../../entity/usecases/commonUseCases/updatePromoCode";
 
 export class UserController {
   private userSocket: UserSocket;
-  private updatePromoCode : UpdatePromoCode 
+  private updatePromoCode : UpdatePromoCodeUseCase 
 
-  constructor( userSocket: UserSocket,updatePromoCode : UpdatePromoCode) {
+  constructor( userSocket: UserSocket,updatePromoCode : UpdatePromoCodeUseCase) {
       this.userSocket = userSocket;
       this.updatePromoCode = updatePromoCode
   }
