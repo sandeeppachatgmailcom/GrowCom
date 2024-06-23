@@ -1,5 +1,5 @@
 import { UserEntity_Model } from "../../entity/models/UserModel";
-import { AdminRepository } from "../../entity/Repository/AdminRepository";
+import { AdminRepository } from "../../entity/repository/AdminRepository";  
 import userModel from "../models/userModel";
 
 export class MongoDb_AdminAdapter implements AdminRepository{
