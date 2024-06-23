@@ -7,6 +7,7 @@ import { UserRepository } from "../entity/repository/userRepository";
 import { StudentUseCase } from "../entity/usecases/StudentUsecase";
 import { SerialNumbersRepository } from "../entity/repository/serialNumberRepository";
 import { StudentBatchRepository } from "../entity/repository/StudentBatchRepository";
+import { StudentBatch_Model } from "../entity/models/studentBatchModel";
 
 export class StudentSocket implements StudentUseCase{
     constructor(
@@ -23,10 +24,10 @@ export class StudentSocket implements StudentUseCase{
               // Find the student based on the email
             const student = await this.userRepo.findUser({ email: data.email });
              
-            const batch = await this.studentBatchRepo.readActiveBatches()
+            const batch :any = await this.studentBatchRepo.readActiveBatches()
             
-            let batchName=''
-            for (let key in batch){
+            let batchName :string =''
+            for (let key in batch ){
                 
                 if(batch[key]?.batchId ==student?.batchId) batchName = batch[key].batchName
             }
