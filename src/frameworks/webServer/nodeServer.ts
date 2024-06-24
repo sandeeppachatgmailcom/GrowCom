@@ -44,20 +44,20 @@ class NpmModule {
       optionsSuccessStatus: 204,
     };
     
-    // // this.app.use(cors(corsOptions))
+     this.app.use(cors(corsOptions))
     this.app.use(cors(corsOptions));
     this.app.options("*", cors());
-    // this.app.use(cookieParser());
-    // this.app.use(express.json());
-    // this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
 
-    // this.app.use(
-    //   session({
-    //     secret: "your-secret-key",
-    //     resave: false,
-    //     saveUninitialized: false,
-    //   })
-    // );
+    this.app.use(
+      session({
+        secret: "your-secret-key",
+        resave: false,
+        saveUninitialized: false,
+      })
+    );
   }
 
   private setupSwagger(): void {
