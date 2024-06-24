@@ -13,7 +13,7 @@ class MongoDB {
                 console.error("Error connecting to MongoDB:", error);
             });
     }
-}
+}``
 
 export default MongoDB;
 
