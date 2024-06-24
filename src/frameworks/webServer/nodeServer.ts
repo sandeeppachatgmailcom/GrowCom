@@ -43,7 +43,8 @@ class NpmModule {
       optionsSuccessStatus: 204,
     };
     
-    this.app.use(cors(corsOptions))
+    // this.app.use(cors(corsOptions))
+    this.app.use(cors({ origin: "https://sandeeppachat.in", credentials: true }));
     this.app.use(cookieParser());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
