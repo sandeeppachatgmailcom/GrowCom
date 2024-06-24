@@ -47,7 +47,7 @@ class NpmModule {
    
 
     app.use((req: Req, res: Res, next: Next) => {
-      res.setHeader("Access-Control-Allow-Origin", "http://sandeeppachat.in");
+      res.setHeader("Access-Control-Allow-Origin", 'https://sandeeppachat.in');
       res.setHeader(
         "Access-Control-Allow-Methods",
         "GET, POST, OPTIONS, PUT, PATCH, DELETE"
