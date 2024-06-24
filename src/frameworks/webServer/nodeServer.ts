@@ -27,7 +27,23 @@ class NpmModule {
   }
 
   private configureMiddleware(): void {
-    this.app.use(cors());
+      const allowedOrigins = ["https://sandeeppachat.in", "http://localhost:5173"];
+ 
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'PATCH', 'PUT', 'POST','DELETE'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'x-refresh-token', 'x-user-role','x-verify-token'],
+  optionsSuccessStatus: 204,
+};
+
+
     this.app.use(cookieParser());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
