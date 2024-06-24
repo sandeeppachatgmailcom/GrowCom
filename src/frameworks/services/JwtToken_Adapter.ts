@@ -21,9 +21,9 @@ export class JwtToken_Adapter implements TokenServises {
   async verifyToken(req: Req, res: Res, next: Next): Promise<Next | void> {
     try {
       const param = req.params;
-     
+      
       const token = req.cookies[param.role];
-    
+    console.log(token,'tokentokentokentokentoken')
       if (token) {
         
         const verified =  jwt.verify(
