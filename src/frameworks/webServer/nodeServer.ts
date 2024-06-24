@@ -19,7 +19,7 @@ class NpmModule {
     this.app = express();
     this.server = http.createServer(this.app);
     initializeSocket(this.server);
-
+    this.app.use(cors({ origin: "https://sandeeppachat.in", credentials: true }));
     this.configureMiddleware();
     this.setupSwagger();
     this.setupRoutes();
