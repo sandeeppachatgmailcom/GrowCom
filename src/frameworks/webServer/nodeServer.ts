@@ -28,8 +28,8 @@ class NpmModule {
 
     app.use(
       cors({
-        origin: ["http://localhost:5173", "http://10.4.5.21:5173",'https://sandeeppachat.in'],
-        credentials: true, //
+        origin: ["http://localhost:5173", "http://10.4.5.21:5173", 'https://sandeeppachat.in'],
+        credentials: true,
       })
     );
 
@@ -60,6 +60,7 @@ class NpmModule {
       console.log("test");
       next();
     });
+    
 
     const swaggerOptions = {
       definition: {
