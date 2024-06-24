@@ -41,7 +41,21 @@ class NpmModule {
       })
     );
 
-  
+ const allowedOrigins =  ["http://localhost:5173", "http://10.4.5.21:5173", 'https://sandeeppachat.in'];
+
+    const corsOptions = {
+      origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      credentials: true,
+      methods: ['GET', 'PATCH', 'PUT', 'POST','DELETE'],
+      allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'x-refresh-token', 'x-user-role','x-verify-token'],
+      optionsSuccessStatus: 204,
+    };
 
      
    
