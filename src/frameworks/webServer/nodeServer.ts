@@ -26,12 +26,7 @@ class NpmModule {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.use(
-      cors({
-        origin: ["http://localhost:5173", "http://10.4.5.21:5173", 'https://sandeeppachat.in'],
-        credentials: true,
-      })
-    );
+    app.use(cors());
 
     app.use(
       session({
@@ -41,39 +36,24 @@ class NpmModule {
       })
     );
 
- const allowedOrigins =  ["http://localhost:5173", "http://10.4.5.21:5173", 'https://sandeeppachat.in'];
-
-    const corsOptions = {
-      origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-      credentials: true,
-      methods: ['GET', 'PATCH', 'PUT', 'POST','DELETE'],
-      allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'x-refresh-token', 'x-user-role','x-verify-token'],
-      optionsSuccessStatus: 204,
-    };
-
+ 
      
    
 
-    app.use((req: Req, res: Res, next: Next) => {
-      res.setHeader("Access-Control-Allow-Origin", 'https://sandeeppachat.in');
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      console.log("test");
-      next();
-    });
+    // app.use((req: Req, res: Res, next: Next) => {
+    //   res.setHeader("Access-Control-Allow-Origin", 'https://sandeeppachat.in');
+    //   res.setHeader(
+    //     "Access-Control-Allow-Methods",
+    //     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    //   );
+    //   res.setHeader(
+    //     "Access-Control-Allow-Headers",
+    //     "Origin, X-Requested-With, Content-Type, Accept"
+    //   );
+    //   res.setHeader("Access-Control-Allow-Credentials", "true");
+    //   console.log("test");
+    //   next();
+    // });
     
 
     const swaggerOptions = {
