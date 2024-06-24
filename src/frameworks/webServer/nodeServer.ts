@@ -28,7 +28,7 @@ class NpmModule {
 
     app.use(
       cors({
-        origin: ["http://localhost:5173", "http://10.4.5.21:5173"],
+        origin: ["http://localhost:5173", "http://10.4.5.21:5173",'https://sandeeppachat.in'],
         credentials: true, //
       })
     );
