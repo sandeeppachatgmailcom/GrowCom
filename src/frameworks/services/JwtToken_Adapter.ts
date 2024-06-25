@@ -10,14 +10,20 @@ export class JwtToken_Adapter implements TokenServises {
 
   async logout(req: Req, res: Res) {
     try {
-      
-      console.log(req.body.cookieName,'hihih')
-      res.clearCookie(req.body.cookieName );
+      const cookieName = req.body.cookieName; // Assuming cookie name comes from request body
+  
+      // Check if the cookie exists before clearing
+      if (req.cookies && req.cookies[cookieName]) {
+        res.clearCookie(cookieName);
+      } else {
+        console.log(`Cookie "${cookieName}" not found.`);
+      }
+  
       res.status(200).json("Logged Out Successfully");
     } catch (error) {
-      console.log(error)
-    }
-  }
+      console.log(error);
+    }
+  }
 
 
 
