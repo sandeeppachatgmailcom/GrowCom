@@ -12,7 +12,7 @@ export class JwtToken_Adapter implements TokenServises {
     try {
       
       console.log(req.body.cookieName,'hihih')
-      res.cookie(req.body.cookieName,"",{
+      res.cookie("manGrowadmin","",{
         httpOnly: true,
         expires: new Date(0),
         path: '/'
