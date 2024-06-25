@@ -23,7 +23,7 @@ export class JwtToken_Adapter implements TokenServises {
       const param = req.params;
       
       const token = req.cookies[param.role];
-    console.log(token,'tokentokentokentokentoken')
+    console.log(req.cookies,'tokentokentokentokentoken')
       if (token) {
         
         const verified =  jwt.verify(
