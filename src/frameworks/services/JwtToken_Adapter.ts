@@ -11,8 +11,8 @@ export class JwtToken_Adapter implements TokenServises {
   async logout(req: Req, res: Res) {
     try {
       
-      console.log(req,req.body,'hihih')
-      res.cookie(req.body,"",{
+      console.log(req.body.cookieName,'hihih')
+      res.cookie(req.body.cookieName,"",{
         httpOnly: true,
         expires: new Date(0),
       });
