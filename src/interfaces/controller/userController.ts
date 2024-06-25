@@ -91,10 +91,12 @@ export class UserController {
           else if(data.role == 'trainer') cookieName ='trainer' 
           else if(data.role == 'admin') cookieName ='admin' 
           const expirationTime:any = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-          req?.body?.token? res.cookie('manGrow'+cookieName, req.body.token.token,{
+          req?.body?.token? res.cookie('manGrow' + cookieName, req.body.token.token, {
             expires: expirationTime,
-            httpOnly: true, // Recommended for security (prevents JS access)
-          } ):''
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true, // Ensure your site is using HTTPS
+          }):''
            
           if(data.verified) data.success = true
           res.status(200).json(data);
