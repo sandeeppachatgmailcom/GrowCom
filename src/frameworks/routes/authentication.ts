@@ -489,5 +489,7 @@ router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
 }
 ); 
 
+router.post("/logout",tokenService.logout);
+
   return router;
 }

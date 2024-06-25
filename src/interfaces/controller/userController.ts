@@ -24,6 +24,7 @@ export class UserController {
       
     }
   }
+
   async createUser(req: Req, res: Res, next: Next) {
     try {
       const {firstName, email, password,googleAuth } = req.body;
@@ -58,7 +59,6 @@ export class UserController {
           result.otpVerified  =  true;
           result.otp = '';
           const updateResult = await this.userSocket.updateUserBasics(result)
-           
           const reply = JSON.parse(JSON.stringify(updateResult))
           reply.resetPaaword =  resetPaaword
            

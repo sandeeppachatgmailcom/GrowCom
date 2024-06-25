@@ -8,6 +8,25 @@ export class JwtToken_Adapter implements TokenServises {
     dotenv.config();
   }
 
+  async logout(req: Req, res: Res) {
+    try {
+
+      console.log(req,'hihih')
+      res.cookie("userId","",{
+        httpOnly: true,
+        expires: new Date(0),
+      });
+      res.status(200).json("Logged Out Successfully");
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
+
+
+
   async createJwtToken(req: Req & {sessionID?:string} , res: Res, next: Next): Promise<Next | void> {
     const token = await jwt.sign(
       { email: req.body.email, sessionID: req?.sessionID  , googleAuth: true },
@@ -21,11 +40,8 @@ export class JwtToken_Adapter implements TokenServises {
   async verifyToken(req: Req, res: Res, next: Next): Promise<Next | void> {
     try {
       const param = req.params;
-      
       const token = req.cookies[param.role];
-    console.log(req.cookies,'tokentokentokentokentoken')
       if (token) {
-        
         const verified =  jwt.verify(
           token,
           process.env.JWT_VERIFICATION_KEY as string
