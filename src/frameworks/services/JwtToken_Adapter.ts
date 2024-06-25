@@ -15,6 +15,7 @@ export class JwtToken_Adapter implements TokenServises {
       res.cookie(req.body.cookieName,"",{
         httpOnly: true,
         expires: new Date(0),
+        path: '/'
       });
       res.status(200).json("Logged Out Successfully");
     } catch (error) {

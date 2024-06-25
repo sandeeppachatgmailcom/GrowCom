@@ -97,6 +97,7 @@ export class UserController {
             httpOnly: true,
             sameSite: 'none',
             secure: true, // Ensure your site is using HTTPS
+            path: '/'
           }):''
            
           if(data.verified) data.success = true
