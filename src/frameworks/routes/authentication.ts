@@ -478,10 +478,11 @@ router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
   *     tags:
  *       - User
  */
- router.post("/applyPromoCode",(req: Req, res: Res, next: Next) => {
+ router.post("/applyPromoCode",tokenService.createJwtToken ,(req: Req, res: Res, next: Next) => {
   try {
     console.log('controller on')
       userController.applyPromocode(req, res, next);
+      userController.login(req, res, next);
   } catch (error) {}
 }
 ); 

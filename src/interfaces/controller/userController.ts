@@ -18,7 +18,7 @@ export class UserController {
       console.log('controller again on ')
         const result =await this.updatePromoCode.updatePromoCode(req.body)
         console.log(result,'result @ controller')
-        res.json(result)
+       // res.json(result)
         return result
     } catch (error) {
       

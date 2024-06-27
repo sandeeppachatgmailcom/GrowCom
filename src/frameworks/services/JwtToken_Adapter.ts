@@ -29,9 +29,7 @@ export class JwtToken_Adapter implements TokenServises {
     res: Res,
     next: Next
   ): Promise<Next | void> {
-    const token = await jwt.sign(
-      { email: req.body.email, sessionID: req?.sessionID, googleAuth: true },
-      process.env.JWT_VERIFICATION_KEY as string,
+    const token = await jwt.sign( { email: req.body.email, sessionID: req?.sessionID, googleAuth: true }, process.env.JWT_VERIFICATION_KEY as string,
       { expiresIn: "600m" }
     );
     req.body.token = { token: token };
