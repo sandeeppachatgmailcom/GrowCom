@@ -2,7 +2,7 @@ import { TokenServises } from "../../entity/services/tokenServises";
 import jwt from "jsonwebtoken";
 import { Route, Req, Res, Next } from "../ServerTypes";
 import dotenv from "dotenv";
-import { UserRepository } from "../../entity/repository/userRepository"; 
+import { UserRepository } from "../../entity/repository/userRepository";
 export class JwtToken_Adapter implements TokenServises {
   constructor(private userRepo: UserRepository) {
     dotenv.config();
@@ -11,28 +11,26 @@ export class JwtToken_Adapter implements TokenServises {
   async logout(req: Req, res: Res) {
     try {
       const cookieName = req.body.cookieName; // Assuming cookie name comes from request body
-  
-      // Check if the cookie exists before clearing
-      if (req.cookies && req.cookies[cookieName]) {
-        res.clearCookie(cookieName);
-      } else {
-        console.log(`Cookie "${cookieName}" not found.`);
-      }
-  
-      res.status(200).json("Logged Out Successfully");
+      console.log(cookieName,'req.body.cookieName')
+      const mytoken:any = req.cookies[cookieName]||'';
+      
+        const verified = jwt.verify(mytoken, process.env.JWT_VERIFICATION_KEY as string );
+        console.log(verified, "token verified result ");
+         const token = await jwt.sign( { logout: "logout" }, process.env.JWT_VERIFICATION_KEY as string, { expiresIn: "1s" } );
+         res.cookie(req.body.cookieName,token, { httpOnly: true, sameSite: 'none', secure: true, path: '/' }) 
+         res.status(200).json("Logged Out Successfully");
     } catch (error) {
       console.log(error);
     }
   }
 
-
-
-
-
-
-  async createJwtToken(req: Req & {sessionID?:string} , res: Res, next: Next): Promise<Next | void> {
+  async createJwtToken(
+    req: Req & { sessionID?: string },
+    res: Res,
+    next: Next
+  ): Promise<Next | void> {
     const token = await jwt.sign(
-      { email: req.body.email, sessionID: req?.sessionID  , googleAuth: true },
+      { email: req.body.email, sessionID: req?.sessionID, googleAuth: true },
       process.env.JWT_VERIFICATION_KEY as string,
       { expiresIn: "600m" }
     );
@@ -44,15 +42,14 @@ export class JwtToken_Adapter implements TokenServises {
     try {
       const param = req.params;
       const token = req.cookies[param.role];
-      console.log( 'f' ,req.cookies,  'How Many Token are there ')
+      console.log("f", req.cookies, "How Many Token are there ");
       if (token) {
-        const verified =  jwt.verify(
+        const verified = jwt.verify(
           token,
           process.env.JWT_VERIFICATION_KEY as string
         );
-        
+
         if (verified) {
-           
           const temp = {
             ...req.body,
             ...JSON.parse(JSON.stringify(verified)),
@@ -60,14 +57,11 @@ export class JwtToken_Adapter implements TokenServises {
           req.body = temp;
           next();
         } else {
-           
           res.json({
             success: false,
             message: "session Expired , please try again",
           });
         }
-
-        
       } else {
         res.json({
           success: false,
@@ -82,4 +76,6 @@ export class JwtToken_Adapter implements TokenServises {
       });
     }
   }
+
+  
 }
