@@ -83,8 +83,9 @@ export class UserController {
           next
         );
         
-        console.log(result,'resultresult')
+         
         const data  = JSON.parse(JSON.stringify(result))
+        console.log(data,'heee')
         if (data?.active ){ 
            
           let cookieName = ''
