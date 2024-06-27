@@ -376,8 +376,23 @@ class MongoDb_UserActivity implements UserRepository {
    }
   }
   async applyPromocode(data: { email: string; promoCode: string;role:string,validity:Date }): Promise<void | { status: boolean; message: string; role: string; }> {
-     
-    const result = await userModel.updateOne({email:data.email,active:true},{$set:{role:data.role,promoCode:data.promoCode,designation:data.role == 'trainer'?'A000000008':'' ,user:data.role == 'user'?true:false,trainer:data.role == 'trainer'?true:false  ,student:data.role == 'student'?true:false ,Promo_validity_date:data.validity,isPromoCodeValid:true}})
+    const newData = {role:data.role,
+      week: data.role == 'student'?'week1':'' ,
+      promoCode:data.promoCode,
+      designation:data.role == 'trainer'?'A000000008':'' ,
+      user:data.role == 'user'?true:false,
+      trainer:data.role == 'trainer'?true:false  ,
+      student:data.role == 'student'?true:false ,
+      Promo_validity_date:data.validity,
+      isPromoCodeValid:true
+    }
+    
+    
+
+
+    const result = await userModel.updateOne({email:data.email,active:true},{$set:newData})
+    
+    
     if(result.modifiedCount) { 
       return{status:true,message:`update success , your are now a ${data.role} user`,role:data.role}
     }

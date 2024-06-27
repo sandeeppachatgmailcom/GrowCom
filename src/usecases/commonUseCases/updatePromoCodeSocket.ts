@@ -10,9 +10,9 @@ class UpdatePromoCodeSocket implements UpdatePromoCodeUseCase {
     try {
       console.log(data, 'reached Socket');
       let role = '';
-      if (data.promoCode == 'STD00001') {
+      if (data.promoCode.toLowerCase() == 'std00001') {
         role = 'student';
-      } else if (data.promoCode == 'TRN00001') {
+      } else if (data.promoCode.toLowerCase() == 'trn00001') {
         role = 'trainer';
       }
       if (role.length) {

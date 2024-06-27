@@ -2,51 +2,47 @@ import { tokenService, userController } from "../injection/injection";
 import { Route, Req, Res, Next } from "../ServerTypes";
 import express, { Router } from "express";
 
-
- 
-
 export function authRouter(router: Router) {
-   
   // @ts-ignore
-/**
- * @swagger
- * /auth/validateOtp:
- *   post:
- *     summary: Validate the OTP with the email submitted by the user.
- *     description: Validates the one-time password (OTP) submitted by the user. This API is also used to reset the password; the third field confirms that the user needs to reset the password.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 description: The email address to which the OTP was sent.
- *               otp:
- *                 type: string
- *                 description: The one-time password submitted by the user.
- *               resetPassword:
- *                 type: boolean
- *                 description: Indicates whether the user needs to reset the password after OTP validation.
- *     responses:
- *       '200':
- *         description: Successful validation
- *       '400':
- *         description: Invalid request body or OTP
- *       '500':
- *         description: Internal server error
- *     tags:
- *       - User
- */
+  /**
+   * @swagger
+   * /auth/validateOtp:
+   *   post:
+   *     summary: Validate the OTP with the email submitted by the user.
+   *     description: Validates the one-time password (OTP) submitted by the user. This API is also used to reset the password; the third field confirms that the user needs to reset the password.
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               email:
+   *                 type: string
+   *                 description: The email address to which the OTP was sent.
+   *               otp:
+   *                 type: string
+   *                 description: The one-time password submitted by the user.
+   *               resetPassword:
+   *                 type: boolean
+   *                 description: Indicates whether the user needs to reset the password after OTP validation.
+   *     responses:
+   *       '200':
+   *         description: Successful validation
+   *       '400':
+   *         description: Invalid request body or OTP
+   *       '500':
+   *         description: Internal server error
+   *     tags:
+   *       - User
+   */
 
   router.post("/validateOtp", (req: Req, res: Res, next: Next) => {
     try {
-        userController.validateOtp(req, res, next);
+      userController.validateOtp(req, res, next);
     } catch (error) {}
-  });  
- 
+  });
+
   // @ts-ignore
   /**
    * @swagger
@@ -74,15 +70,15 @@ export function authRouter(router: Router) {
    *         description: email not existing on the server
    *       '500':
    *         description: Internal server error
- *     tags:
- *       - User
- */
+   *     tags:
+   *       - User
+   */
 
   router.post("/resetPassword", (req: Req, res: Res, next: Next) => {
     try {
-        userController.resetPassword(req, res, next);
+      userController.resetPassword(req, res, next);
     } catch (error) {}
-  });   
+  });
   // @ts-ignore
   /**
    * @swagger
@@ -113,14 +109,14 @@ export function authRouter(router: Router) {
    *         description: email not existing on the server
    *       '500':
    *         description: Internal server error
- *     tags:
- *       - User
- */
+   *     tags:
+   *       - User
+   */
   router.post("/create", (req: Req, res: Res, next: Next) => {
     try {
-        userController.createUser(req, res, next);
+      userController.createUser(req, res, next);
     } catch (error) {}
-  });  
+  });
   /**
    * @swagger
    * /delete-user:
@@ -157,14 +153,18 @@ export function authRouter(router: Router) {
    *         description: Bad request - Invalid input or missing required fields.
    *       '404':
    *         description: User not found.
- *     tags:
- *       - User
- */
-  router.get("/delete", tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
-    try {
-       userController.createUser(req, res, next);
-    } catch (error) {}
-  }); 
+   *     tags:
+   *       - User
+   */
+  router.get(
+    "/delete",
+    tokenService.verifyToken,
+    (req: Req, res: Res, next: Next) => {
+      try {
+        userController.createUser(req, res, next);
+      } catch (error) {}
+    }
+  );
   /**
    * @swagger
    * /login:
@@ -208,70 +208,75 @@ export function authRouter(router: Router) {
    *         description: Unauthorized - Invalid email or password.
    *       '500':
    *         description: Internal server error.
- *     tags:
- *       - User
- */
-  router.post("/login",tokenService.createJwtToken ,(req: Req & {sessionID?:string} , res: Res, next: Next) => {
-    try {
-        userController.login(req, res, next);
-    } catch (error) {}
-  });
-  /**
- * @swagger
- * /getmylogin/{role}:
- *   get:
- *     summary: Get user login information
- *     description: Retrieve the login information for a user based on their role.
- *     parameters:
- *       - in: path
- *         name: role
- *         required: true
- *         schema:
- *           type: string
- *         description: The role of the user (e.g., admin, user).
- *       - in: header
- *         name: Authorization
- *         required: true
- *         schema:
- *           type: string
- *         description: The Bearer token for authentication.
- *     responses:
- *       '200':
- *         description: Successfully retrieved login information.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 email:
- *                   type: string
- *                   description: The email address of the user.
- *                 token:
- *                   type: string
- *                   description: The authentication token generated for the user.
- *                 active:
- *                   type: boolean
- *                   description: Indicates whether the user is active or not.
- *       '401':
- *         description: Unauthorized - Invalid token or missing authorization header.
- *       '500':
- *         description: Internal server error.
- *     tags:
- *       - User
- */
-  router.get("/getmylogin/:role",tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
+   *     tags:
+   *       - User
+   */
+  router.post(
+    "/login",
+    tokenService.createJwtToken,
+    (req: Req & { sessionID?: string }, res: Res, next: Next) => {
       try {
-         
-         userController.login(req, res, next);
+        userController.login(req, res, next);
       } catch (error) {}
     }
   );
-  router.get("/user",(req: Req, res: Res, next: Next) => {
+  /**
+   * @swagger
+   * /getmylogin/{role}:
+   *   get:
+   *     summary: Get user login information
+   *     description: Retrieve the login information for a user based on their role.
+   *     parameters:
+   *       - in: path
+   *         name: role
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: The role of the user (e.g., admin, user).
+   *       - in: header
+   *         name: Authorization
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: The Bearer token for authentication.
+   *     responses:
+   *       '200':
+   *         description: Successfully retrieved login information.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 email:
+   *                   type: string
+   *                   description: The email address of the user.
+   *                 token:
+   *                   type: string
+   *                   description: The authentication token generated for the user.
+   *                 active:
+   *                   type: boolean
+   *                   description: Indicates whether the user is active or not.
+   *       '401':
+   *         description: Unauthorized - Invalid token or missing authorization header.
+   *       '500':
+   *         description: Internal server error.
+   *     tags:
+   *       - User
+   */
+  router.get(
+    "/getmylogin/:role",
+    tokenService.verifyToken,
+    (req: Req, res: Res, next: Next) => {
+      try {
+        userController.login(req, res, next);
+      } catch (error) {}
+    }
+  );
+  router.get("/user", (req: Req, res: Res, next: Next) => {
     try {
-     userController.getUsers(req, res, next);
+      userController.getUsers(req, res, next);
     } catch (error) {}
-  }
-);    
+  });
   /**
    * @swagger
    * /saveBasicInfo:
@@ -300,14 +305,13 @@ export function authRouter(router: Router) {
    *       '500':
    *         description: Internal server error.
    *     tags:
- *       - User
- */
-  router.post("/saveBasicInfo",(req: Req, res: Res, next: Next) => {
-        try {
-            userController.savebasicProfile(req, res, next);
-        } catch (error) {}
-      }
-    );    
+   *       - User
+   */
+  router.post("/saveBasicInfo", (req: Req, res: Res, next: Next) => {
+    try {
+      userController.savebasicProfile(req, res, next);
+    } catch (error) {}
+  });
   /**
    * @swagger
    * /forgotPassword:
@@ -331,128 +335,130 @@ export function authRouter(router: Router) {
    *         description: User not found or email address not registered.
    *       '500':
    *         description: Internal server error.
-  *     tags:
- *       - User
- */
-  router.post("/forgotPassword",(req: Req, res: Res, next: Next) => {
+   *     tags:
+   *       - User
+   */
+  router.post("/forgotPassword", (req: Req, res: Res, next: Next) => {
     try {
-        userController.forgotPassword(req, res, next);
+      userController.forgotPassword(req, res, next);
     } catch (error) {}
-  }
-);     
-    /**
- * @swagger
- * /auth/getSubmissionDetails:
- *   get:
- *     summary: Get List of Pending Staff
- *     description: Retrieve a list of pending staff members from the admin dashboard.
- *     responses:
- *       '200':
- *         description: A list of pending staff members retrieved successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                     description: The ID of the pending staff member.
- *                   name:
- *                     type: string
- *                     description: The name of the pending staff member.
- *                   email:
- *                     type: string
- *                     format: email
- *                     description: The email address of the pending staff member.
- *                   role:
- *                     type: string
- *                     description: The role of the pending staff member.
- *       '404':
- *         description: No pending staff members found.
- *       '500':
- *         description: Internal server error.
- *     tags:
- *       - Admin
- */
-  router.get("/getSubmissionDetails",tokenService.verifyToken,(req: Req, res: Res, next: Next) => {
-    try {
-       
+  });
+  /**
+   * @swagger
+   * /auth/getSubmissionDetails:
+   *   get:
+   *     summary: Get List of Pending Staff
+   *     description: Retrieve a list of pending staff members from the admin dashboard.
+   *     responses:
+   *       '200':
+   *         description: A list of pending staff members retrieved successfully.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   id:
+   *                     type: string
+   *                     description: The ID of the pending staff member.
+   *                   name:
+   *                     type: string
+   *                     description: The name of the pending staff member.
+   *                   email:
+   *                     type: string
+   *                     format: email
+   *                     description: The email address of the pending staff member.
+   *                   role:
+   *                     type: string
+   *                     description: The role of the pending staff member.
+   *       '404':
+   *         description: No pending staff members found.
+   *       '500':
+   *         description: Internal server error.
+   *     tags:
+   *       - Admin
+   */
+  router.get(
+    "/getSubmissionDetails",
+    tokenService.verifyToken,
+    (req: Req, res: Res, next: Next) => {
+      try {
         userController.getSubmissionDetails(req, res, next);
+      } catch (error) {}
+    }
+  );
+
+  /**
+   * @swagger
+   * /auth/getBatchWiseStudentsList:  # Corrected endpoint name (descriptive)
+   *   get:
+   *     summary: Get Student Task Progress Ratio
+   *       # Description should reflect actual functionality
+   *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+   *
+   *     responses:
+   *       '200':
+   *         description: Student details and associated scheduled tasks progress ratio.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object  # Assuming response is a single object
+   *               properties:
+   *                 # ... Define properties for user details and progress ratio
+   *       '400':
+   *         description: Bad request (e.g., invalid email format).
+   *       '404':
+   *         description: Student not found for the provided email.
+   *       '500':
+   *         description: Internal server error.
+   *     tags:
+   *       - User
+   */
+
+  router.get("/getBatchWiseStudentsList", (req: Req, res: Res, next: Next) => {
+    try {
+      userController.getBatchWiseStudentsList(req, res, next);
     } catch (error) {}
-  }
-);
+  });
 
- /**
- * @swagger
- * /auth/getBatchWiseStudentsList:  # Corrected endpoint name (descriptive)
- *   get:
- *     summary: Get Student Task Progress Ratio
- *       # Description should reflect actual functionality
- *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
- *      
- *     responses:
- *       '200':
- *         description: Student details and associated scheduled tasks progress ratio.
- *         content:
- *           application/json:
- *             schema:
- *               type: object  # Assuming response is a single object
- *               properties:
- *                 # ... Define properties for user details and progress ratio
- *       '400':
- *         description: Bad request (e.g., invalid email format).
- *       '404':
- *         description: Student not found for the provided email.
- *       '500':
- *         description: Internal server error.
- *     tags:
- *       - User   
- */
+  /**
+   * @swagger
+   * /auth/getDesignationWiseStaffList:  # Corrected endpoint name (descriptive)
+   *   get:
+   *     summary: Get Student Task Progress Ratio
+   *       # Description should reflect actual functionality
+   *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
+   *
+   *     responses:
+   *       '200':
+   *         description: Student details and associated scheduled tasks progress ratio.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object  # Assuming response is a single object
+   *               properties:
+   *                 # ... Define properties for user details and progress ratio
+   *       '400':
+   *         description: Bad request (e.g., invalid email format).
+   *       '404':
+   *         description: Student not found for the provided email.
+   *       '500':
+   *         description: Internal server error.
+   *     tags:
+   *       - User
+   */
 
- router.get('/getBatchWiseStudentsList',(req: Req, res: Res, next: Next) => {
-  try {
-     
-    userController.getBatchWiseStudentsList(req, res, next); 
-  } catch (error) {}
-}); 
+  router.get(
+    "/getDesignationWiseStaffList",
+    (req: Req, res: Res, next: Next) => {
+      try {
+        userController.getDesignationWiseStaffList(req, res, next);
+      } catch (error) {}
+    }
+  );
 
-/**
- * @swagger
- * /auth/getDesignationWiseStaffList:  # Corrected endpoint name (descriptive)
- *   get:
- *     summary: Get Student Task Progress Ratio
- *       # Description should reflect actual functionality
- *     description: This API retrieves a student's progress ratio on scheduled tasks based on their email address.
- *      
- *     responses:
- *       '200':
- *         description: Student details and associated scheduled tasks progress ratio.
- *         content:
- *           application/json:
- *             schema:
- *               type: object  # Assuming response is a single object
- *               properties:
- *                 # ... Define properties for user details and progress ratio
- *       '400':
- *         description: Bad request (e.g., invalid email format).
- *       '404':
- *         description: Student not found for the provided email.
- *       '500':
- *         description: Internal server error.
- *     tags:
- *       - User   
- */
-
-router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
-  try {
-     
-    userController.getDesignationWiseStaffList(req, res, next); 
-  } catch (error) {}
-}); 
-
- /**
+  /**
    * @swagger
    * /auth/applyPromoCode:
    *   post:
@@ -475,19 +481,27 @@ router.get('/getDesignationWiseStaffList',(req: Req, res: Res, next: Next) => {
    *         description: User not found or email address not registered.
    *       '500':
    *         description: Internal server error.
-  *     tags:
- *       - User
- */
- router.post("/applyPromoCode",tokenService.createJwtToken ,(req: Req, res: Res, next: Next) => {
-  try {
-    console.log('controller on')
-      userController.applyPromocode(req, res, next);
-      userController.login(req, res, next);
-  } catch (error) {}
-}
-); 
+   *     tags:
+   *       - User
+   */
+  router.post( "/applyPromoCode", tokenService.createJwtToken,async (req: Req, res: Res, next: Next) => {
+      try {
+        console.log("controller on");
+        const result: any = await userController.applyPromocode(req, res, next);
+        if (result.status) {
+          userController.login(req, res, next);
+        } else {
+          res.json({
+            status: false,
+            message: "update Failed,invalid promo code",
+            role: "user",
+          });
+        }
+      } catch (error) {}
+    }
+  );
 
-router.post("/logout",tokenService.logout);
+  router.post("/logout", tokenService.logout);
 
   return router;
 }
