@@ -86,7 +86,7 @@ export class UserController {
         console.log(result,'resultresult')
         const data  = JSON.parse(JSON.stringify(result))
         if (data?.active ){ 
-          const data = JSON.parse(JSON.stringify(result))
+           
           let cookieName = ''
           if(data.role == 'student') cookieName ='student' 
           else if(data.role == 'trainer') cookieName ='trainer' 
