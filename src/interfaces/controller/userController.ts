@@ -95,7 +95,7 @@ export class UserController {
           else   cookieName ='user' 
           const expirationTime:any = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
           console.log('black hole')
-          console.log('manGrow' + cookieName, req.body.token.token,'manGrow,  + cookieName, req.body.token.token')
+          console.log('manGrow' + cookieName, req.body,'manGrow,  + cookieName, req.body.token.token')
           req?.body?.token? res.cookie('manGrow' + cookieName, req.body.token.token, {
             expires: expirationTime,
             httpOnly: true,
