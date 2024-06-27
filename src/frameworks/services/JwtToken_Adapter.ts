@@ -44,7 +44,7 @@ export class JwtToken_Adapter implements TokenServises {
     try {
       const param = req.params;
       const token = req.cookies[param.role];
-      console.log( 'f' ,Object.keys(token) ,  'How Many Token are there ')
+      console.log( 'f' ,req.cookies,  'How Many Token are there ')
       if (token) {
         const verified =  jwt.verify(
           token,
