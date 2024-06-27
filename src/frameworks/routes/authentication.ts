@@ -263,10 +263,7 @@ export function authRouter(router: Router) {
    *     tags:
    *       - User
    */
-  router.get(
-    "/getmylogin/:role",
-    tokenService.verifyToken,
-    (req: Req, res: Res, next: Next) => {
+  router.get( "/getmylogin/:role", tokenService.verifyToken, (req: Req, res: Res, next: Next) => {
       try {
         userController.login(req, res, next);
       } catch (error) {}
