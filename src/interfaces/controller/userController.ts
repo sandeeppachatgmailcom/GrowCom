@@ -73,7 +73,7 @@ export class UserController {
 
   async login(req: Req, res: Res, next: Next) {
     try {
-      console.log('token generated')
+      console.log(req.body,'token generated')
       const { email, password, googleAuth } = req.body;
       if (this.isValidEmail(email)) {
         const result = await this.userSocket.login(
@@ -83,7 +83,7 @@ export class UserController {
           next
         );
         
-        
+        console.log(result,'resultresult')
         const data  = JSON.parse(JSON.stringify(result))
         if (data?.active ){ 
           const data = JSON.parse(JSON.stringify(result))
