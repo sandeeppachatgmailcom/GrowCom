@@ -217,48 +217,45 @@ export function authRouter(router: Router) {
     } catch (error) {}
   });
   /**
-   * @swagger
-   * /getLogin:
-   *   post:
-   *     summary: Session-based login
-   *     description: Authenticate a user and establish a session-based login.
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               email:
-   *                 type: string
-   *                 description: The email address of the user.
-   *               password:
-   *                 type: string
-   *                 description: The password of the user.
-   *               googleAuth:
-   *                 type: boolean
-   *                 description: Indicates whether the user is authenticated with Google.
-   *     responses:
-   *       '200':
-   *         description: Login successful. Returns user data with tokenService.
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 email:
-   *                   type: string
-   *                   description: The email address of the user.
-   *                 token:
-   *                   type: string
-   *                   description: The authentication token generated for the user.
-   *                 active:
-   *                   type: boolean
-   *                   description: Indicates whether the user is active or not.
-   *       '401':
-   *         description: Unauthorized - Invalid email or password.
-   *       '500':
-   *         description: Internal server error.
+ * @swagger
+ * /getmylogin/{role}:
+ *   get:
+ *     summary: Get user login information
+ *     description: Retrieve the login information for a user based on their role.
+ *     parameters:
+ *       - in: path
+ *         name: role
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The role of the user (e.g., admin, user).
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The Bearer token for authentication.
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved login information.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   description: The email address of the user.
+ *                 token:
+ *                   type: string
+ *                   description: The authentication token generated for the user.
+ *                 active:
+ *                   type: boolean
+ *                   description: Indicates whether the user is active or not.
+ *       '401':
+ *         description: Unauthorized - Invalid token or missing authorization header.
+ *       '500':
+ *         description: Internal server error.
  *     tags:
  *       - User
  */

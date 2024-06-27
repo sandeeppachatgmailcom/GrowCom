@@ -28,7 +28,7 @@ class NpmModule {
 
   private configureMiddleware(): void {
     console.log('cors working')
-    const allowedOrigins = ["https://sandeeppachat.in", "http://localhost:5173"];
+    const allowedOrigins = ["https://sandeeppachat.in", "http://localhost:5173","http://localhost:4000"];
  
     const corsOptions = {
       origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
@@ -74,6 +74,9 @@ class NpmModule {
         servers: [
           {
             url: `http://localhost:${this.port}/`,
+          },
+          {
+            url: 'https://sandeeppachat.xyz',
           },
         ],
         basePath: "/admin",
