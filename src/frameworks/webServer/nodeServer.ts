@@ -1,6 +1,7 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import session from "express-session";
+import morgan from 'morgan' 
 import cookieParser from "cookie-parser";
 import http from "http";
 import swaggerJsdoc from "swagger-jsdoc";
@@ -16,6 +17,7 @@ class NpmModule {
   private port: number = 4000;
 
   constructor() {
+    this.app.use( morgan('dev'))
     this.app = express();
     this.server = http.createServer(this.app);
     initializeSocket(this.server);
