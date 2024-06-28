@@ -73,7 +73,7 @@ export class UserController {
 
   async login(req: Req, res: Res, next: Next) {
     try {
-      console.log(req.body,'token generated')
+       
       const { email, password, googleAuth } = req.body;
       if (this.isValidEmail(email)) {
         const result = await this.userSocket.login(
@@ -85,17 +85,17 @@ export class UserController {
         
          
         const data:any  = JSON.parse(JSON.stringify(result))
-        console.log(data.active,'heee')
+         
         if (data?.active ){ 
-          console.log(data.active,'hsasasasaee')
+           
           let cookieName = ''
           if(data.role == 'student') cookieName ='student' 
           else if(data.role == 'trainer') cookieName ='trainer' 
           else if(data.role == 'admin') cookieName ='admin' 
           else   cookieName ='user' 
           const expirationTime:any = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-          console.log('black hole')
-          console.log('manGrow' + cookieName, req.body,'manGrow,  + cookieName, req.body.token.token')
+          
+         
           req?.body?.token? res.cookie('manGrow' + cookieName, req.body.token.token, {
             expires: expirationTime,
             httpOnly: true,

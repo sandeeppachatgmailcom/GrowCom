@@ -75,6 +75,9 @@ class NpmModule {
           {
             url: `http://localhost:${this.port}/`,
           }, 
+          {
+            url: `https://sandeeppachat.xyz/`,
+          }
         ],
         basePath: "/admin",
       },
