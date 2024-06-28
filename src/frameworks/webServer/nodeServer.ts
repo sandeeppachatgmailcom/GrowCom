@@ -17,8 +17,9 @@ class NpmModule {
   private port: number = 4000;
 
   constructor() {
-    this.app.use( morgan('dev'))
+    
     this.app = express();
+    this.app.use( morgan('dev'))
     this.server = http.createServer(this.app);
     initializeSocket(this.server);
     this.app.use(cors({ origin: ["https://sandeeppachat.in", "http://localhost:5173"], credentials: true }));
