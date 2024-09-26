@@ -16,11 +16,11 @@ export class JwtToken_Adapter implements TokenServises {
       
         const verified = jwt.verify(mytoken, process.env.JWT_VERIFICATION_KEY as string );
         console.log(verified, "token verified result ");
-         const token = await jwt.sign( { logout: "logout" }, process.env.JWT_VERIFICATION_KEY as string, { expiresIn: "1s" } );
+         const token = await jwt.sign( { logout: "logout" }, 'process.env.JWT_VERIFICATION_KEY as string', { expiresIn: "1s" } );
          res.cookie(req.body.cookieName,token, { httpOnly: true, sameSite: 'none', secure: true, path: '/' }) 
          res.status(200).json("Logged Out Successfully");
     } catch (error) {
-      console.log(error);
+      console.log(error);`  `
     }
   }
 
