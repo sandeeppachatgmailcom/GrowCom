@@ -1,0 +1,545 @@
+[33mcommit ffd7158d0556b2a852e356abced88b53bbe92f85[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Sep 26 11:42:36 2024 +0530
+
+    cors policy mofified
+
+[33mcommit 3efcce2971bce00437a49d8dd2569c5788b12826[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Sep 26 11:25:33 2024 +0530
+
+    new front end link added to cors
+
+[33mcommit c80ac87e4b8accdb9f3516c98a18f18a5ee7301a[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 14:04:05 2024 +0530
+
+    morgan added-1
+
+[33mcommit a37cdc0e526460388db2ad21d1d96118af6dc0bc[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 14:00:34 2024 +0530
+
+    morgan added
+
+[33mcommit 5fbc28aeeb54c876351e0083758549d6c7ddc782[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 08:29:57 2024 +0530
+
+    unwanted consoles removed from jwt
+
+[33mcommit 89bddefacd975849178d9b6692a179ad66193066[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 00:14:58 2024 +0530
+
+    swagger changes modified 4s
+
+[33mcommit 46e3c594131373bc5c043f041e9fbf57cee37040[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 00:13:00 2024 +0530
+
+    swagger changes modified 3s
+
+[33mcommit fcddb232eda94c243d677fbc41729b0ec302e2c6[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 00:10:19 2024 +0530
+
+    swagger changes modified 2s
+
+[33mcommit cf13ff4f42cb0d094472f709e48dcacd68452fe9[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 00:04:27 2024 +0530
+
+    swagger changes modified 1s
+
+[33mcommit 4b82f1b4b87d92ee9e693896dc4cb58e45788620[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Fri Jun 28 00:02:14 2024 +0530
+
+    swagger changes modified 1
+
+[33mcommit 7a64d82231e796b24a57805222ee08113c015df1[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 23:52:03 2024 +0530
+
+    swagger changes modified
+
+[33mcommit 3b4295a56308c7ba58283af1b8c8f9c069d5da1d[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 23:24:37 2024 +0530
+
+    role access modification
+
+[33mcommit 6d63bb132aa59d1018c112cb2bf591e45507b663[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 22:55:55 2024 +0530
+
+    promocode notification modified
+
+[33mcommit 1a71e0b4a47b6e14cf02a0cb7a2c6ac9cccfad3c[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 21:45:25 2024 +0530
+
+    userdesignation while promocode activated
+
+[33mcommit 3207d48520cd36e18ffc135d89cccdedab3805b9[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 21:34:22 2024 +0530
+
+    token modified-2
+
+[33mcommit d31e0ed57fd4923d60621ebd67b21fb1a5b42754[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 21:29:57 2024 +0530
+
+    token modified-1
+
+[33mcommit 8850caf63496dfb61d08d7bf73e75e08725fef61[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 21:24:43 2024 +0530
+
+    token modified
+
+[33mcommit d21eb85a84ffcd170543a455a145c546af28369e[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 21:19:12 2024 +0530
+
+    promocode valiation modified , token generation added with the same
+
+[33mcommit 50c5ef84cb28578e6b264a6e8a1eac7c36484068[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:46:58 2024 +0530
+
+    cors policy reverted
+
+[33mcommit a0944711c934858b7d36a0f9c49d0ec6f653fb83[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:38:57 2024 +0530
+
+    logout functionality modified
+
+[33mcommit bbdc0240df8d05e30696f3c3791e8a11042535c1[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:12:58 2024 +0530
+
+    token count added to console-3
+
+[33mcommit bbff92a78d542182e4caae90d76ec5d7174635cc[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:09:58 2024 +0530
+
+    token count added to console-2
+
+[33mcommit ce44320a704ec8cdaa4024b3fa967a12e702529a[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:05:52 2024 +0530
+
+    token count added to console-1
+
+[33mcommit a9c6eaee945fde8b9fdf8e3a7cadba4324f7fd23[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 19:03:13 2024 +0530
+
+    token count added to console
+
+[33mcommit 5f2ca7a452f5e2897ff270df7b5f06a58213050c[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 18:54:25 2024 +0530
+
+    swagger host added to cors policy
+
+[33mcommit 471a155a4dadfa7b75878a7c89ef3c56ca763f11[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 14:06:39 2024 +0530
+
+    Fix: fixed .env issue
+
+[33mcommit b2925e9d7b3a1df6fc8d5e35a2c78b390698993c[m
+Merge: 6d01f5a fa2446a
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 14:00:30 2024 +0530
+
+    Merge branch 'main' of https://github.com/sandeeppachatgmailcom/GrowCom
+
+[33mcommit fa2446a52073a51e95709d49750bd8b70c7e113f[m
+Author: Sandeeppachat <133961434+sandeeppachatgmailcom@users.noreply.github.com>
+Date:   Thu Jun 27 13:46:47 2024 +0530
+
+    Delete .env
+
+[33mcommit 6d01f5aca412add346f6ca63963cdd0833e0f00d[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 13:43:42 2024 +0530
+
+    Revert "circle cicd implementation started"
+    
+    This reverts commit 9c124ff656d8be92559f39d05b3424b875dc3992.
+
+[33mcommit 255e957aaad8819ee37e4ba11f464c1b9ac8a132[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 13:33:59 2024 +0530
+
+    s3 implementation removed from backend
+
+[33mcommit b295807aded1f0f7a40f3642eef4f25595c670dc[m
+Merge: 9c124ff f975014
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 13:26:33 2024 +0530
+
+    Merge remote-tracking branch 'origin/main'
+    addiing CiCD pipe line of CircleCii
+
+[33mcommit 9c124ff656d8be92559f39d05b3424b875dc3992[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Thu Jun 27 13:22:46 2024 +0530
+
+    circle cicd implementation started
+
+[33mcommit f9750146d15fe784639ef9e3a3f9abdf898f8408[m
+Author: Sandeeppachat <133961434+sandeeppachatgmailcom@users.noreply.github.com>
+Date:   Thu Jun 27 12:59:13 2024 +0530
+
+    CircleCI Commit
+
+[33mcommit 207cc5b5f82fb65fc91cfce8c4b68dd49ac18d64[m[33m ([m[1;31morigin/circleci-project-setup[m[33m)[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 20:31:03 2024 +0530
+
+    fix: cookie -4
+
+[33mcommit 2f3ad46923e9d5dab9f7d099aab7ad77adf82ce3[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 20:21:04 2024 +0530
+
+    fix: cookie name hardcoded
+
+[33mcommit 28fdfd959fdd05511b0c6e095c1a2c89beaf9d65[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 19:57:05 2024 +0530
+
+    fix: cookie name hardcoded
+
+[33mcommit 04f68d325e527214368def167c591af335e7db96[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 19:44:46 2024 +0530
+
+    Feat(jwttoken): introduced path for setting cookie
+
+[33mcommit a35137f5ace613342d34dc12e0736729426b05c6[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 18:53:41 2024 +0530
+
+    logout v_2
+
+[33mcommit 493b1e3c1c6d5e76661e29cd4517a40be9767de1[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 18:46:48 2024 +0530
+
+    logout v_1
+
+[33mcommit a17892ce215b879020b1cc6afb383d8ad94597d5[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 18:25:07 2024 +0530
+
+    logout handling with jwt started
+
+[33mcommit 12d26b6942d945d73aa04a598ef6a7c9b7b655bb[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 16:02:47 2024 +0530
+
+    promo code offer updated
+
+[33mcommit 3c6d435cd150c8b47882f94971cb9d0ca4a1f342[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 10:33:49 2024 +0530
+
+    Fix: fixing cookie issue
+
+[33mcommit 32b68cfd25c107bd456cbf0726571128e4118670[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 09:45:26 2024 +0530
+
+    userController modified timlit assigned for token-1
+
+[33mcommit 9115ec7174a9190d0e6206cd99c6b5a2a7af1510[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Tue Jun 25 08:26:29 2024 +0530
+
+    userController modified timlit assigned for token
+
+[33mcommit 16b42c7f5d637051cfbe7037d441af1842e787ac[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 20:20:16 2024 +0530
+
+    console added to jwt token
+
+[33mcommit 37e88422c9d3b227fc8d4e94d1d50d655ae6f923[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 16:51:20 2024 +0530
+
+    local host added to cors
+
+[33mcommit 9aa99440057c20287c61d3277fce0882f7f3ad64[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 14:07:42 2024 +0530
+
+    fix:cors Error
+
+[33mcommit 5398ff91f86f70faa56a8371bb7b3ee23eed7a75[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 14:00:33 2024 +0530
+
+    cors changed
+
+[33mcommit 849a1daec43e59dd9f1a2576ae0e404cb2a3d0b2[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:56:22 2024 +0530
+
+    feat(nodeserver): middleware added to constructor
+
+[33mcommit f9ebc338bd89236dc527c752d0c2a5961b75b5bf[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:52:43 2024 +0530
+
+    Fix(nodeServer): cors plicy changed to wildcard
+
+[33mcommit 5b70f9e830ca58cf462328d581c4fd655a72d2a4[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:38:01 2024 +0530
+
+    Fix(nodeServer): fixed cors error
+
+[33mcommit 6fc9fe626dfd2957631d60917b152e753b5e5568[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:25:37 2024 +0530
+
+    cors error 1
+
+[33mcommit afc0da0efe35fa20d1faeaf6a445a8bd6720eaa1[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:21:58 2024 +0530
+
+    cors error
+
+[33mcommit 600050a91cef1e7af22b718521bf8f51485be0e8[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:18:36 2024 +0530
+
+    node server reconfigured
+
+[33mcommit 2051b010fd352224b0056abd3ae76491520ccb5c[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:11:47 2024 +0530
+
+    cors policy modified-2
+
+[33mcommit 091e740ef251c8b3815c2bd791f797d47c30d452[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:08:28 2024 +0530
+
+    cors policy modified-1
+
+[33mcommit 456abdefaeb70dde68914baaf3b14928b9b55148[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 13:01:55 2024 +0530
+
+    cors policy modified
+
+[33mcommit 16f7a608815cc99a8563cdf310b379711d4a3a3b[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 12:57:38 2024 +0530
+
+     node server cors policy modified with cors library
+
+[33mcommit fc6526647a72bdd49db131462ad63db0a5b76591[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Mon Jun 24 12:55:22 2024 +0530
+
+     node server cors policy modified
+
+[33mcommit 91cc9de9b92df2e22dc7f4131638eeb7c2af3c3e[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 20:15:10 2024 +0530
+
+    router changed
+
+[33mcommit 700e8e731602683ae6a42e5c74b4e707a9f8ac5b[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 20:06:58 2024 +0530
+
+    authenticaion yml syntax  modified
+
+[33mcommit 853d33e100eaeaac04ea7534f9b36daba227cc52[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 20:02:10 2024 +0530
+
+    tokenServises modified
+
+[33mcommit 080708c8dfca2e1e9c54552b4d1d28aa7112672e[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:49:56 2024 +0530
+
+    JwtToken_Adapter modified
+
+[33mcommit 4cd2c08ca9d16c84aab92602ca79c3119a761d46[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:43:50 2024 +0530
+
+    Crone_ScheduleTaskManager modified
+
+[33mcommit 85f004d4b6d71a54c4935da15864061117abaef0[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:39:00 2024 +0530
+
+    ChatSocket modified
+
+[33mcommit c6ee448d50815c12fc0b78139e30a5e49122bdf6[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:37:09 2024 +0530
+
+    studentSocket modified
+
+[33mcommit ca27cd6ad0efd7f9ac3d897c81f20c8d2275b95b[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:31:26 2024 +0530
+
+    userRepository modified
+
+[33mcommit 9d9aa36fb219d88d3994d27c94b2f5f6cf15f60c[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 19:04:24 2024 +0530
+
+    mongoScheduledTaskAdapter modified
+
+[33mcommit 1e73c3edc27421ca0cb22df6ac45abc2e43d61ae[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 18:42:34 2024 +0530
+
+    monGoSerialnumberAdapter modified
+
+[33mcommit f267561c1286ea0f3ec2d6e8ee345b086284b8e4[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 18:31:35 2024 +0530
+
+    studentBatch repo modified missing types defined
+
+[33mcommit 46966c8bbbec407a4e8c8d4f5057b709e6b464c7[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 18:22:02 2024 +0530
+
+    socket id types defined
+
+[33mcommit 5fe640c8a348e4ce9e92e8cd54aa804840e84947[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 18:08:28 2024 +0530
+
+    admin usecase module paths modified
+
+[33mcommit 522f274475849ebf9ec6a11d9a9e8055a4c53486[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 18:02:50 2024 +0530
+
+    AdminAdapter  modified interface path update
+
+[33mcommit d1df77d29b86fb3944db58d85b12440246490182[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 17:59:51 2024 +0530
+
+    custom otp adapter modified interface path updated .
+
+[33mcommit 93f894496b24233e7e29324eb70a94cd95f81c19[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 17:57:55 2024 +0530
+
+    nodemailer  module updated .
+
+[33mcommit b0b0d9a48165285820f4ab6de38618c412241d86[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 17:54:16 2024 +0530
+
+    designationModel module updated , Type Document imported
+
+[33mcommit e097434487c448bf734e4c5d43586b600563e305[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 17:49:49 2024 +0530
+
+    userAdapters type modifies , repository includes lookup , so type changed to any
+
+[33mcommit 45f79b084295a5f94f5c60fa4426c99decb942af[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 17:35:48 2024 +0530
+
+    userAdapters type modifies , made fields optional
+
+[33mcommit 0d3cabd91681b2579f544a3e73c58fb7e59b342d[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:24:35 2024 +0530
+
+    Return Type Folder name Issue -1
+
+[33mcommit aa2888159b56504d7a5f4b82e7a8ab842a3b849d[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:24:07 2024 +0530
+
+    Return Type Folder name Issue
+
+[33mcommit f45bd85ab8bdd7af473ddd4d6252355134707abc[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:19:15 2024 +0530
+
+    promocode module updated on userController -6
+
+[33mcommit 3210e5dd3ec8adb15c7af9f27fa90f871ce0b860[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:18:57 2024 +0530
+
+    promocode module updated on userController -5
+
+[33mcommit 45e76e51fdef8ed27197c62f6648260958a01a31[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:15:47 2024 +0530
+
+    promocode module updated on userController -4
+
+[33mcommit 609a0f416fd61bee79361aaffc91969514ab5396[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:08:58 2024 +0530
+
+    promocode module updated on userController -3
+
+[33mcommit 4183210d75c18ff588e335f7e72aaf75c5ad067f[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:04:45 2024 +0530
+
+    promocode module updated on userController -2
+
+[33mcommit ec9667ccaa35776e5e2394f29c4862f85aac3f10[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:04:16 2024 +0530
+
+    promocode module updated on userController -1
+
+[33mcommit 4bf4284634061bddf08b0c4cda0cae6e51cc5791[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 16:01:54 2024 +0530
+
+    promocode module updated on userController
+
+[33mcommit 43d4959775a14ee61b48d5d32913036d1653bc13[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 15:55:40 2024 +0530
+
+    promocode module updated
+
+[33mcommit a15a2ee5d06daf216111af1a61f688d7248341e4[m
+Merge: ce1153f 3ef2d8d
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 15:24:59 2024 +0530
+
+    Merge branch 'main' of https://github.com/sandeeppachatgmailcom/GrowCom
+
+[33mcommit ce1153f545dc9cf345ca9b71e7e1b2ad06bf9e00[m
+Author: sandeep <sandeepcheriyan@gmail.com>
+Date:   Sun Jun 23 15:19:11 2024 +0530
+
+    pm2 config added,nodmon.js added ,pacjake.json updated
