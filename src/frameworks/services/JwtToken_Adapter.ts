@@ -14,7 +14,7 @@ export class JwtToken_Adapter implements TokenServises {
       console.log(cookieName,'req.body.cookieName')
       const mytoken:any = req.cookies[cookieName]||'';
       
-        const verified = jwt.verify(mytoken, process.env.JWT_VERIFICATION_KEY as string );
+        const verified = jwt.verify(mytoken,' process.env.JWT_VERIFICATION_KEY' as string );
         console.log(verified, "token verified result ");
          const token = await jwt.sign( { logout: "logout" }, 'process.env.JWT_VERIFICATION_KEY as string', { expiresIn: "1s" } );
          res.cookie(req.body.cookieName,token, { httpOnly: true, sameSite: 'none', secure: true, path: '/' }) 
@@ -29,7 +29,7 @@ export class JwtToken_Adapter implements TokenServises {
     res: Res,
     next: Next
   ): Promise<Next | void> {
-    const token = await jwt.sign( { email: req.body.email, sessionID: req?.sessionID, googleAuth: true }, process.env.JWT_VERIFICATION_KEY as string,
+    const token = await jwt.sign( { email: req.body.email, sessionID: req?.sessionID, googleAuth: true }, 'process.env.JWT_VERIFICATION_KEY' as string,
       { expiresIn: "600m" }
     );
     req.body.token = { token: token };
@@ -44,7 +44,7 @@ export class JwtToken_Adapter implements TokenServises {
       if (token) {
         const verified = jwt.verify(
           token,
-          process.env.JWT_VERIFICATION_KEY as string
+          'process.env.JWT_VERIFICATION_KEY' as string
         );
 
         if (verified) {
