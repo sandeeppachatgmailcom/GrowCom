@@ -31,7 +31,7 @@ class NpmModule {
 
   private configureMiddleware(): void {
     console.log('cors working')
-    const allowedOrigins = ["https://sandeeppachat.in","https://growcom.onrender.com", "http://localhost:5173"];
+    const allowedOrigins = ["https://sandeeppachat.in","https://growcom.onrender.com", "http://localhost:5173","*"];
  
     const corsOptions = {
       origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
