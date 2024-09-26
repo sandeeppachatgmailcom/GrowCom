@@ -22,7 +22,7 @@ class NpmModule {
     this.app.use( morgan('dev'))
     this.server = http.createServer(this.app);
     initializeSocket(this.server);
-    this.app.use(cors({ origin: ["https://sandeeppachat.in","https://growcom.onrender.com" , "http://localhost:5173","*"], credentials: true }));
+    this.app.use(cors({ origin: true, credentials: true }));
     this.configureMiddleware();
     this.setupSwagger();
     this.setupRoutes();
@@ -34,18 +34,12 @@ class NpmModule {
     const allowedOrigins = ["https://sandeeppachat.in","https://growcom.onrender.com", "http://localhost:5173","*"];
  
     const corsOptions = {
-      origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
+      origin:true,
       credentials: true,
       methods: ['GET', 'PATCH', 'PUT', 'POST','DELETE'],
       allowedHeaders: ['Origin','Access-Control-Allow-Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'x-refresh-token', 'x-user-role','x-verify-token'],
       optionsSuccessStatus: 204,
-    };
+    }; 
     
      this.app.use(cors(corsOptions))
     this.app.use(cors(corsOptions));
